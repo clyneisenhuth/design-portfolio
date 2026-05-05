@@ -185,7 +185,7 @@ function WorkCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function SelectedWork() {
+export default function Projects() {
   const { ref, inView } = useInView(0.2);
 
   return (
@@ -197,7 +197,7 @@ export default function SelectedWork() {
           className={`text-center mb-16 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-2">
-            Selected work
+            Projects
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
             Things I&apos;ve made 🎨

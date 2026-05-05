@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews Experience — Competitive Analysis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F4F3EF;
+    color: #1A1A1A;
+    padding: 40px 24px 80px;
+  }
+
+  .page-header {
+    max-width: 1400px;
+    margin: 0 auto 32px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: #C9A84C;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .page-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #1B2A4A;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .page-sub {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .gold-rule {
+    width: 64px;
+    height: 3px;
+    background: #C9A84C;
+    border-radius: 2px;
+    margin-top: 16px;
+  }
+
+  .logo-instructions {
+    max-width: 1400px;
+    margin: 0 auto 24px;
+    background: #FDF6E3;
+    border: 1px solid #E8D9A0;
+    border-left: 4px solid #C9A84C;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #6B5200;
+    line-height: 1.6;
+  }
+
+  .logo-instructions strong { font-weight: 600; }
+  .logo-instructions code {
+    font-family: 'DM Mono', monospace;
+    background: rgba(0,0,0,0.06);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 11px;
+  }
+
+  .table-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1100px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: fixed;
+  }
+
+  col.col-feature { width: 186px; }
+  col.col-brand   { width: 84px; }
+
+  /* Brand header row */
+  .brand-header th {
+    background: #1B2A4A;
+    padding: 16px 6px 14px;
+    border-bottom: 3px solid #C9A84C;
+    border-right: 0.5px solid rgba(255,255,255,0.08);
+    vertical-align: bottom;
+  }
+
+  .brand-header th:first-child {
+    text-align: left;
+    padding-left: 16px;
+    padding-bottom: 12px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .brand-header th:first-child .header-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #C9A84C;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .brand-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+  }
+
+  /* Logo image container */
+  .logo-img-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .logo-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+  }
+
+  /* Fallback initials shown when image is missing */
+  .logo-fallback {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .brand-name {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  /* Group header rows */
+  .group-header td {
+    background: #EEF1F7;
+    color: #1B2A4A;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-top: 1.5px solid #C9A84C;
+    border-bottom: 0.5px solid #D0D5E0;
+  }
+
+  /* Feature rows */
+  tbody tr:not(.group-header) td {
+    border-right: 0.5px solid #EAEAEA;
+    border-bottom: 0.5px solid #EAEAEA;
+    vertical-align: middle;
+    padding: 7px 4px;
+    text-align: center;
+  }
+
+  tbody tr:not(.group-header):nth-child(even) td {
+    background: #FAFAFA;
+  }
+
+  tbody tr:not(.group-header):nth-child(odd) td {
+    background: #fff;
+  }
+
+  /* Override for group header even/odd */
+  .group-header td { background: #EEF1F7 !important; }
+
+  td.feature-label {
+    text-align: left !important;
+    padding: 8px 10px 8px 16px !important;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1A1A1A;
+    border-right: 1px solid #D0D5E0 !important;
+    background: #F8F8F6 !important;
+    line-height: 1.35;
+  }
+
+  /* Check mark */
+  .check {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: #E8F5E9;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .check svg { width: 11px; height: 11px; display: block; }
+
+  .dash {
+    color: #CACACA;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* Note below check */
+  .cell-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .note {
+    font-size: 9.5px;
+    color: #777;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .unique-badge {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #854F0B;
+    background: #FDF6E3;
+    border: 0.5px solid #E8D9A0;
+    border-radius: 3px;
+    padding: 1px 4px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  /* Hover rows */
+  tbody tr:not(.group-header):hover td { background: #F0F4FF !important; }
+
+  /* Footer */
+  .page-footer {
+    max-width: 1400px;
+    margin: 20px auto 0;
+    font-size: 11px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .logo-instructions { display: none; }
+    .table-wrap { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <p class="eyebrow">Competitive Analysis</p>
+  <h1 class="page-title">Reviews Experience</h1>
+  <p class="page-sub">Mobile App &nbsp;·&nbsp; iOS &nbsp;·&nbsp; PDP and Reviews Page Patterns &nbsp;·&nbsp; 11 Competitors</p>
+  <p class="page-sub" style="color:#999;font-size:12px">Prepared by Courtney Eisenhuth &nbsp;·&nbsp; Senior Product Designer &nbsp;·&nbsp; cle-ux.com</p>
+  <div class="gold-rule"></div>
+</div>
+
+<div class="logo-instructions">
+  <strong>How to add logos:</strong> Save each brand's logo as a PNG or SVG file named exactly as shown below, then place them in the same folder as this HTML file. The table will display them automatically. Recommended size: <strong>88×88px or larger</strong> (displayed at 44×44px). Use square transparent-background PNGs for best results.<br><br>
+  Expected filenames: &nbsp;
+  <code>logo-af.png</code> &nbsp;
+  <code>logo-gap.png</code> &nbsp;
+  <code>logo-lululemon.png</code> &nbsp;
+  <code>logo-nike.png</code> &nbsp;
+  <code>logo-nordstrom.png</code> &nbsp;
+  <code>logo-uo.png</code> &nbsp;
+  <code>logo-vs.png</code> &nbsp;
+  <code>logo-macys.png</code> &nbsp;
+  <code>logo-sephora.png</code> &nbsp;
+  <code>logo-target.png</code> &nbsp;
+  <code>logo-walmart.png</code>
+</div>
+
+<div class="table-wrap">
+<table>
+  <colgroup>
+    <col class="col-feature">
+    <col class="col-brand"><col class="col-brand"><col class="col-brand"><col class="col-brand">
+    <col class="col-brand"><col class="col-brand"><col class="col-brand"><col class="col-brand">
+    <col class="col-brand"><col class="col-brand"><col class="col-brand">
+  </colgroup>
+
+  <thead>
+    <tr class="brand-header">
+      <th><span class="header-label">Feature</span></th>
+
+      <!-- A&F -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-af.png" alt="Abercrombie & Fitch" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#1B2A4A;font-size:9px">A&F</div>
+          </div>
+          <span class="brand-name">Abercrombie<br>& Fitch</span>
+        </div>
+      </th>
+
+      <!-- Gap -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-gap.png" alt="Gap" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#1C1C1C">GAP</div>
+          </div>
+          <span class="brand-name">Gap</span>
+        </div>
+      </th>
+
+      <!-- Lululemon -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-lululemon.png" alt="Lululemon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#CC0000;font-size:9px">lulu</div>
+          </div>
+          <span class="brand-name">Lululemon</span>
+        </div>
+      </th>
+
+      <!-- Nike -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-nike.png" alt="Nike" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#111111">N</div>
+          </div>
+          <span class="brand-name">Nike</span>
+        </div>
+      </th>
+
+      <!-- Nordstrom -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-nordstrom.png" alt="Nordstrom" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#001F5B;font-size:8px">NORD</div>
+          </div>
+          <span class="brand-name">Nordstrom</span>
+        </div>
+      </th>
+
+      <!-- Urban Outfitters -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-uo.png" alt="Urban Outfitters" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#333333">UO</div>
+          </div>
+          <span class="brand-name">Urban<br>Outfitters</span>
+        </div>
+      </th>
+
+      <!-- Victoria's Secret -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-vs.png" alt="Victoria's Secret" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#CC3366">VS</div>
+          </div>
+          <span class="brand-name">Victoria's<br>Secret</span>
+        </div>
+      </th>
+
+      <!-- Macy's -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-macys.png" alt="Macy's" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#E21A1A;font-size:9px">MCY</div>
+          </div>
+          <span class="brand-name">Macy's</span>
+        </div>
+      </th>
+
+      <!-- Sephora -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-sephora.png" alt="Sephora" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#000000;font-size:8px">SEP</div>
+          </div>
+          <span class="brand-name">Sephora</span>
+        </div>
+      </th>
+
+      <!-- Target -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-target.png" alt="Target" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#CC0000;font-size:9px">TGT</div>
+          </div>
+          <span class="brand-name">Target</span>
+        </div>
+      </th>
+
+      <!-- Walmart -->
+      <th>
+        <div class="brand-cell">
+          <div class="logo-img-wrap">
+            <img src="logo-walmart.png" alt="Walmart" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="logo-fallback" style="display:none;background:#0071CE;font-size:8px">WMT</div>
+          </div>
+          <span class="brand-name">Walmart</span>
+        </div>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <!-- ── GROUP 1 ── -->
+    <tr class="group-header"><td colspan="12">PDP — Reviews Surface</td></tr>
+
+    <tr>
+      <td class="feature-label">Star rating on PDP</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Fit indicator on PDP</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">slider</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">slider</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">slider</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">text label</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">text label</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Customer photos on PDP</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Review preview cards on PDP</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Write a Review CTA on PDP</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">full-width</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">AI-generated summary on PDP</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Q&amp;A section on PDP</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="unique-badge">unique</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">AI shopping assistant on PDP</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="unique-badge">unique</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <!-- ── GROUP 2 ── -->
+    <tr class="group-header"><td colspan="12">Reviews Page — Summary &amp; Filters</td></tr>
+
+    <tr>
+      <td class="feature-label">Star breakdown bars</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">raw counts</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">%</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">filterable</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">filterable</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">%</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">%</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">%</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">%</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">% + count</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">AI summary — reviews page</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">Likes/Mixed/<br>Dislikes chips</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">bulleted prose</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">+/− icon chips</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">prose + red<br>accent border</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">tappable<br>topic bullets</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Pros / Cons topic chips</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">+ pull quotes</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">color-coded<br>icon chips</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Attribute filters</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">age, ht,<br>style, band</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">star tier<br>chips</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">rating,<br>verified</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">star, verified,<br>+ topic chips</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Search reviews</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">topics +<br>reviews</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Multi-dimensional fit sliders</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">fit + quality</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">fit + comfort</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">slim / fit /<br>length — 3</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Multi-attribute score summary</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">fit, quality,<br>comfort</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">5 circle badges</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <!-- ── GROUP 3 ── -->
+    <tr class="group-header"><td colspan="12">Reviews Page — Individual Review Cards</td></tr>
+
+    <tr>
+      <td class="feature-label">Reviewer body metadata</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">wt, ht,<br>size purch.</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">height only</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">size purch.</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">ht, wt,<br>color, fit</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">ht, age,<br>size, location</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">fit, breast<br>shape, age, ht</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">height only</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">hair type,<br>hair color</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">color, length,<br>clothing size</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Verified purchase badge</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Helpful voting</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">count visible</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Photos embedded in review cards</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Brand response to reviews</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="unique-badge">unique</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Recommendation percentage</td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">72%</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">81%</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Promo / incentivized disclosure</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">incl. in<br>AI summary</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Syndicated source disclosure</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">Originally<br>posted on…</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">Originally<br>posted on…</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Top Reviewer / community badge</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">Sweat<br>Collective</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="note">Top Reviewer<br>blue star</span></div></td>
+    </tr>
+
+    <tr>
+      <td class="feature-label">Ratings vs. reviews count separated</td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="dash">—</span></div></td>
+      <td><div class="cell-inner"><span class="check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#2E7D32" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="unique-badge">unique</span></div></td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+<div class="page-footer">
+  <span>Courtney Eisenhuth &nbsp;·&nbsp; Senior Product Designer &nbsp;·&nbsp; cle-ux.com</span>
+  <span>Reviews Experience Competitive Analysis &nbsp;·&nbsp; 11 Competitors</span>
+</div>
+
+</body>
+</html>

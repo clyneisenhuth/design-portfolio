@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
+import CompAnalysisTable from "../../components/CompAnalysisTable";
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -345,7 +346,9 @@ export default function ProductReviewsCaseStudy() {
               ))}
             </div>
 
-            <div className="bg-purple-pale border-2 border-purple/20 rounded-2xl p-6">
+            <CompAnalysisTable />
+
+            <div className="bg-purple-pale border-2 border-purple/20 rounded-2xl p-6 mt-6">
               <p className="font-heading font-bold text-purple text-sm mb-2">Clear opportunity identified</p>
               <p className="font-sans text-sm text-muted leading-relaxed">
                 Only <span className="font-bold text-ink">2 of 11 competitors</span> offered review search. And no competitor had built a truly photo-forward carousel experience, making it a clear differentiation opportunity for AE + Aerie.
@@ -477,17 +480,6 @@ export default function ProductReviewsCaseStudy() {
                   <p className="font-sans text-base text-muted leading-relaxed italic">&ldquo;{r.quote}&rdquo;</p>
                 </div>
               ))}
-            </div>
-
-            {/* Video constraint */}
-            <div className="mt-5 bg-surface border-2 border-border rounded-3xl p-6 flex gap-4 items-start">
-              <span className="text-2xl flex-shrink-0">🚧</span>
-              <div>
-                <h3 className="font-heading text-base font-bold text-ink mb-1">On the video UGC constraint</h3>
-                <p className="font-sans text-sm text-muted leading-relaxed">
-                  Industry research is clear that photo and video together outperform photo alone. But working within the vendor limitation and focusing effort on making photo UGC as discoverable, browsable, and easy to submit as possible was the right call. Video remains on the product roadmap as a future enhancement.
-                </p>
-              </div>
             </div>
           </Section>
 

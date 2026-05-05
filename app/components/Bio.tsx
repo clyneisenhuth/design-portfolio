@@ -142,7 +142,7 @@ function StatCard({
   );
 }
 
-export default function About() {
+export default function Bio() {
   const { ref, inView } = useInView();
   const [hovered,  setHovered]  = useState<number | null>(null);
   const [jiggling, setJiggling] = useState<number | null>(null);
@@ -157,7 +157,7 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="py-28 px-6" ref={ref}>
+    <section id="bio" className="py-28 px-6" ref={ref}>
       <div className="max-w-5xl mx-auto">
 
         {/* Section label */}
@@ -167,7 +167,7 @@ export default function About() {
           }`}
         >
           <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-2">
-            About me
+            Bio
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
             A little about me ✨

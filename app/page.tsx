@@ -1,8 +1,8 @@
 import CustomCursor from "./components/CustomCursor";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import SelectedWork from "./components/SelectedWork";
+import Bio from "./components/Bio";
+import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import Footer from "./components/Footer";
 
@@ -13,8 +13,8 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <About />
-        <SelectedWork />
+        <Bio />
+        <Projects />
         <Experience />
       </main>
       <Footer />
