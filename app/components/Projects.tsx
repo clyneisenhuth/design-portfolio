@@ -7,7 +7,7 @@ const projects = [
     title:      "Incentivized Reviews Strategy",
     year:       "2025",
     description: "A strategic initiative that drove a 300% increase in review submissions in 90 days — turning a quiet section into a high-trust content engine.",
-    tags:       ["Research", "Strategy", "Mobile"],
+    tags:       ["Research", "Strategy", "Omni-channel"],
     emoji:      "⭐",
     gradient:   "linear-gradient(135deg, #8059C4, #A07DD4)",
     cardBg:     "bg-purple-pale",
@@ -173,7 +173,7 @@ function WorkCard({ project, index }: { project: Project; index: number }) {
             <span className="font-sans text-sm font-bold text-purple flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200">
               View case study <span className="transition-transform group-hover:translate-x-1">→</span>
             </span>
-            {project.title !== "App Product Reviews Redesign" && (
+            {project.title !== "App Product Reviews Redesign" && project.title !== "Incentivized Reviews Strategy" && (
               <span className="font-sans text-xs text-muted italic bg-bg px-2.5 py-1 rounded-full">
                 Coming soon ✦
               </span>
@@ -203,7 +203,7 @@ export default function Projects() {
             Things I&apos;ve made 🎨
           </h2>
           <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">
-            Full case studies coming soon — here&apos;s a sneak peek at what I&apos;ve been working on.
+            Take a look at some of my most recent work.
           </p>
         </div>
 

@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
 
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink mb-4">
-            Let&apos;s work together!
+            Have an idea? Let&apos;s chat!
           </h2>
           <p className="font-sans text-muted max-w-md mx-auto mb-10 leading-relaxed">
             I&apos;m open to senior product design and strategy roles. If you&apos;ve got something interesting, I&apos;d love to hear about it.

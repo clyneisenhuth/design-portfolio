@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
 import CompAnalysisTable from "../../components/CompAnalysisTable";
+import CountUpStat from "../../components/CountUpStat";
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -206,14 +207,9 @@ export default function ProductReviewsCaseStudy() {
           <Section>
             <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Context</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-6">The opportunity</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <p className="font-sans text-base text-muted leading-relaxed">
-                American Eagle Outfitters is a Fortune 500 retailer with $5.3B in annual revenue and 1,170+ stores worldwide. The mobile app drives <span className="font-extrabold text-blue">40% of digital revenue</span>, making every experience on it high stakes.
-              </p>
-              <p className="font-sans text-base text-muted leading-relaxed">
-                A vendor API migration created a rare blank-slate opportunity: rebuild the entire reviews experience from scratch rather than patch an aging system. I led design end-to-end, collaborating with product management on scoping, research execution, and handoff.
-              </p>
-            </div>
+            <p className="font-sans text-base text-muted leading-relaxed max-w-2xl">
+              A vendor API migration created a rare blank-slate opportunity: rebuild the entire AE + Aerie mobile app reviews experience from scratch rather than patch an aging system. I led design end-to-end, collaborating with product management on scoping, research execution, and handoff.
+            </p>
           </Section>
 
           {/* Problem */}
@@ -263,10 +259,12 @@ export default function ProductReviewsCaseStudy() {
                 { value: "59%", label: "specifically seek customer photos before buying" },
                 { value: "270%", label: "higher conversion for products with reviews" },
               ].map((s) => (
-                <div key={s.value} className="bg-surface border-2 border-border rounded-2xl p-5 text-center hover:border-blue/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <p className="font-heading text-3xl font-bold gradient-text-static mb-2">{s.value}</p>
-                  <p className="font-sans text-xs text-muted leading-snug">{s.label}</p>
-                </div>
+                <CountUpStat
+                  key={s.value}
+                  value={s.value}
+                  label={s.label}
+                  className="bg-surface border-2 border-border rounded-2xl p-5 text-center hover:border-blue/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                />
               ))}
             </div>
 

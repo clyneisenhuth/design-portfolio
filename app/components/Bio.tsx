@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 const CONFETTI_PALETTE = [
   "#8059C4","#4B7BE5","#D4A8F0","#8BB8F8",
@@ -77,6 +78,7 @@ const skills = [
   { label: "Navigation Design",           hue: "blue"   },
   { label: "Systems Thinking",            hue: "purple" },
   { label: "Behavioral Data Analysis",    hue: "blue"   },
+  { label: "Rapid Prototyping",           hue: "purple" },
 ];
 
 const stats = [
@@ -172,6 +174,7 @@ export default function Bio() {
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
             A little about me ✨
           </h2>
+          <p className="font-sans text-base text-muted mt-3">Good solutions are obvious in hindsight. Getting there is the fun part.</p>
         </div>
 
         {/* Bio row */}
@@ -180,13 +183,16 @@ export default function Bio() {
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Headshot placeholder */}
+          {/* Headshot */}
           <div className="relative flex items-center justify-center">
-            <div className="w-64 h-64 md:w-72 md:h-72 rounded-3xl bg-gradient-to-br from-purple-pale to-blue-pale border-2 border-dashed border-purple/30 flex flex-col items-center justify-center gap-3 select-none">
-              <span className="text-6xl">📸</span>
-              <p className="font-sans text-sm text-muted text-center px-6 leading-snug">
-                Headshot<br />coming soon!
-              </p>
+            <div className="w-64 h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden border-2 border-purple/20 shadow-xl">
+              <Image
+                src="/headshot.jpg"
+                alt="Courtney Eisenhuth"
+                width={288}
+                height={288}
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             {/* Decorative bubbles */}
             <div className="absolute -top-5 -right-5 w-14 h-14 bg-purple rounded-2xl rotate-12 animate-float opacity-70 shadow-lg" />

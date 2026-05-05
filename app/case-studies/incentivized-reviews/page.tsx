@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
+import CountUpStat from "../../components/CountUpStat";
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,8 +54,6 @@ const competitiveInsights = [
 const researchStats = [
   { value: "73%", label: "of consumers say they'd be motivated to write a review if offered an incentive", source: "PowerReviews" },
   { value: "75%", label: "of consumers want to be rewarded for engagement beyond purchase", source: "Industry Research" },
-  { value: "87.5%", label: "of loyalty program owners planning to expand into non-transactional earn", source: "Antavo" },
-  { value: "300%", label: "increase in daily review volume post-launch", source: "AEO Internal" },
 ];
 
 const executionBehaviors = [
@@ -136,7 +135,7 @@ export default function IncentivizedReviewsCaseStudy() {
 
             <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
               <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-4">
-                Case Study · Strategy
+                Case Study · Strategy · 2025
               </p>
               <h1 className="font-heading text-5xl md:text-6xl font-bold text-ink leading-tight mb-6">
                 Incentivized{" "}
@@ -151,7 +150,7 @@ export default function IncentivizedReviewsCaseStudy() {
                   { label: "Role", value: "Product Strategist" },
                   { label: "Company", value: "American Eagle Outfitters" },
                   { label: "Scope", value: "15M+ Loyalty Members" },
-                  { label: "Type", value: "Strategy · Loyalty · UX" },
+                  { label: "Tools", value: "Miro · Figma · Google Gemini" },
                 ].map((m) => (
                   <div key={m.label} className="bg-surface border-2 border-border rounded-2xl px-4 py-2.5">
                     <p className="font-sans text-xs text-muted">{m.label}</p>
@@ -219,13 +218,16 @@ export default function IncentivizedReviewsCaseStudy() {
               Industry data backed the strategic direction. The question wasn&apos;t whether incentives would drive participation — research suggested they would. The question was how to structure the incentive so it motivated behavior without distorting it.
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
               {researchStats.map((s) => (
-                <div key={s.value} className="bg-surface border-2 border-border rounded-2xl p-5 text-center hover:border-purple/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <p className="font-heading text-3xl font-bold gradient-text-static mb-2">{s.value}</p>
-                  <p className="font-sans text-xs text-muted leading-snug mb-1">{s.label}</p>
-                  <p className="font-sans text-[10px] text-border font-semibold uppercase tracking-wide">{s.source}</p>
-                </div>
+                <CountUpStat
+                  key={s.value}
+                  value={s.value}
+                  label={s.label}
+                  source={s.source}
+                  className="bg-surface border-2 border-purple/20 rounded-3xl p-8 text-center hover:border-purple/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  numberClassName="text-5xl md:text-6xl"
+                />
               ))}
             </div>
 

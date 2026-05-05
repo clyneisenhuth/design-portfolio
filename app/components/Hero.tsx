@@ -84,7 +84,7 @@ export default function Hero() {
             <div className="absolute -bottom-4 -left-4 w-40 h-40 rounded-full border-2 border-dashed border-blue/20 animate-spin-rev pointer-events-none" />
 
             {[
-              { label: "Years of experience", value: "10+",                                    emoji: "🎨", color: "bg-purple-pale text-purple" },
+              { label: "Product skills",       value: "Strategy, Research, UX/UI", emoji: "🎨", color: "bg-purple-pale text-purple" },
               { label: "Focus area",          value: "Mobile & E-comm",                        emoji: "🛍️", color: "bg-surface text-ink" },
               { label: "Current role",        value: "Mobile Design Systems Team @ PNC Bank",  emoji: "🏦", color: "bg-blue-pale text-blue-deep" },
               { label: "Working on",          value: "AI & Vibe-coding",                       emoji: "🚀", color: "bg-purple-pale text-purple-deep" },
