@@ -83,7 +83,7 @@ const skills = [
 
 const stats = [
   { target: 10, prefix: "",  suffix: " yrs", desc: "of product design experience" },
-  { target: 10, prefix: "",  suffix: "M+",   desc: "customers served through AEO"  },
+  { target: 15, prefix: "",  suffix: "M+",   desc: "customers served through AEO"  },
   { target: 20, prefix: "$", suffix: "M+",   desc: "estimated revenue lift in 2025" },
 ];
 

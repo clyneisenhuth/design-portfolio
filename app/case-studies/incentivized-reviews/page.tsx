@@ -296,15 +296,22 @@ export default function IncentivizedReviewsCaseStudy() {
               My co-strategist and I facilitated a cross-functional workshop using MoSCoW prioritization — getting product, engineering, marketing, legal, and UX into the same room before any design decisions were locked. The goal was to surface constraints early, align on scope, and bake legal requirements around incentivized review disclosure into the design from the start.
             </p>
 
-            <div className="bg-surface border-2 border-border rounded-3xl p-6 md:p-8 mb-6">
-              <p className="font-heading font-bold text-ink text-base mb-1">Cross-functional workshop</p>
-              <p className="font-sans text-xs text-muted mb-5">MoSCoW prioritization · Product, Engineering, Marketing, Legal, UX</p>
-              <div className="flex flex-wrap gap-2">
-                {["Product", "Engineering", "Marketing", "Legal", "UX", "MoSCoW Framework", "Phase 1 Scoping"].map((tag) => (
-                  <span key={tag} className="font-sans text-xs font-semibold px-3 py-1.5 rounded-full bg-purple-pale text-purple border border-purple/20">
-                    {tag}
-                  </span>
-                ))}
+            <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden mb-6">
+              <img
+                src="/moscow-image1.avif"
+                alt="MoSCoW prioritization workshop with cross-functional team"
+                className="w-full object-cover"
+              />
+              <div className="p-6 md:p-8">
+                <p className="font-heading font-bold text-ink text-base mb-1">Cross-functional workshop</p>
+                <p className="font-sans text-xs text-muted mb-5">MoSCoW prioritization · Product, Engineering, Marketing, Legal, UX</p>
+                <div className="flex flex-wrap gap-2">
+                  {["Product", "Engineering", "Marketing", "Legal", "UX", "MoSCoW Framework", "Phase 1 Scoping"].map((tag) => (
+                    <span key={tag} className="font-sans text-xs font-semibold px-3 py-1.5 rounded-full bg-purple-pale text-purple border border-purple/20">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -348,6 +355,39 @@ export default function IncentivizedReviewsCaseStudy() {
               <p className="font-sans text-sm text-muted leading-relaxed">
                 The existing <span className="font-bold text-ink">BazaarVoice</span> platform already supported incentivized review logic — no new platform or significant re-architecture required. <span className="font-bold text-ink">CrowdTwist</span> handled loyalty verification on the backend. Phase 1 was scoped to maximize impact within what already existed.
               </p>
+            </div>
+          </Section>
+
+          {/* Final Screens */}
+          <Section>
+            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Final Screens</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+              Two surfaces where the incentive program became visible to customers — the submission form and the published review list.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <img
+                  src="/points-image2.jpeg"
+                  alt="Write a Review screen showing Real Rewards loyalty prompt — earn 50 points per review"
+                  className="w-full object-cover"
+                />
+                <div className="p-5">
+                  <p className="font-heading font-bold text-ink text-sm mb-1">Loyalty prompt at submission</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">The Real Rewards points offer surfaced inline during review submission — at the highest-intent moment, with no extra steps.</p>
+                </div>
+              </div>
+              <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <img
+                  src="/points-image1.jpeg"
+                  alt="All Reviews list screen showing Reward Points Awarded label on incentivized reviews"
+                  className="w-full object-cover"
+                />
+                <div className="p-5">
+                  <p className="font-heading font-bold text-ink text-sm mb-1">Visible incentive labeling</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">Published reviews that earned points carry a visible &ldquo;Reward Points Awarded&rdquo; label — transparent by design, not buried in footnotes.</p>
+                </div>
+              </div>
             </div>
           </Section>
 
