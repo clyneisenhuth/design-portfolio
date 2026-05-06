@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Logo from "./Logo";
 
-const links = ["Bio", "Work", "Experience"];
+const links = ["Bio", "Projects", "Experience"];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,9 +32,9 @@ export default function Nav() {
         {/* Logo */}
         <button
           onClick={() => scrollTo("hero")}
-          className="font-heading text-xl font-semibold gradient-text-static hover:scale-110 transition-transform duration-200 active:scale-95"
+          className="hover:scale-110 transition-transform duration-200 active:scale-95"
         >
-          CE ✦
+          <Logo className="h-10 w-auto" />
         </button>
 
         {/* Links */}

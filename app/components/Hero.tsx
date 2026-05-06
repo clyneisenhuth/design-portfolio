@@ -69,7 +69,7 @@ export default function Hero() {
           </p>
 
           <button
-            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             className="font-sans font-extrabold px-8 py-4 bg-purple text-white rounded-2xl hover:bg-purple-deep transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
             style={{ boxShadow: "0 8px 30px #8059C440" }}
           >

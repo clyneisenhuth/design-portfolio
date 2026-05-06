@@ -189,7 +189,7 @@ export default function Projects() {
   const { ref, inView } = useInView(0.2);
 
   return (
-    <section id="work" className="py-28 px-6 bg-white/60">
+    <section id="projects" className="py-28 px-6 bg-white/60">
       <div className="max-w-5xl mx-auto">
 
         <div
@@ -200,7 +200,7 @@ export default function Projects() {
             Projects
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
-            Things I&apos;ve made 🎨
+            From Brief to Build 💻
           </h2>
           <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">
             Take a look at some of my most recent work.

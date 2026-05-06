@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
+import Logo from "../../components/Logo";
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -466,9 +467,7 @@ export default function ItemFulfillmentCaseStudy() {
               <span className="transition-transform group-hover:-translate-x-1">←</span>
               Back to portfolio
             </a>
-            <p className="font-heading text-sm font-semibold gradient-text-static">
-              Courtney Eisenhuth ✦
-            </p>
+            <Logo className="h-8 w-auto" />
           </div>
 
         </div>

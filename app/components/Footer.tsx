@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Logo from "./Logo";
 
 export default function Footer() {
   const [copied, setCopied] = useState(false);
@@ -58,9 +59,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-5 text-sm text-muted">
-          <p className="font-heading text-xl font-semibold gradient-text-static">
-            Courtney Eisenhuth ✦
-          </p>
+          <Logo className="h-8 w-auto" />
 
           <p className="font-sans text-xs text-center">
             Created with Claude Code &nbsp;·&nbsp; Made with ♥ &nbsp;·&nbsp; 2026
