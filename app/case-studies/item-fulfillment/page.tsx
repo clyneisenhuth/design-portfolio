@@ -327,51 +327,6 @@ export default function ItemFulfillmentCaseStudy() {
             </div>
           </Section>
 
-          {/* Wireframes */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Wireframes</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Mid-fidelity explorations</h2>
-            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              Mid-fidelity wireframes developed during the design process explore fulfillment options in Bag and necessary flow updates.
-            </p>
-            <div className="flex flex-col gap-6">
-              {/* Side-by-side pair with text */}
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { src: "/ilf_wireframe3.png", label: "ILF Wireframe 3" },
-                    { src: "/ilf_wireframe4.png", label: "ILF Wireframe 4" },
-                  ].map((w) => (
-                    <div key={w.label} className="bg-surface border-2 border-border rounded-2xl overflow-hidden">
-                      <img src={w.src} alt={w.label} className="w-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col gap-4">
-                  <h3 className="font-heading text-xl font-bold text-ink">Exploring fulfillment options</h3>
-                  <p className="font-sans text-sm text-muted leading-relaxed">
-                    Early wireframe explorations focused on how to surface fulfillment choices (ship, pickup, or a mix of both) at the item level within the Bag. The core design challenge was presenting options clearly without adding cognitive load to an already decision-heavy moment in the shopping journey.
-                  </p>
-                  <p className="font-sans text-sm text-muted leading-relaxed">
-                    These explorations tested different approaches to item-level toggles, store selection prompts, and inline availability signals, helping the team align on a direction before investing in high-fidelity screens.
-                  </p>
-                </div>
-              </div>
-              {/* Stacked */}
-              {[
-                { src: "/ilf_wireframes2.png", label: "ILF Wireframe 2", caption: "Wireframe example of updated \"Find Location\" flow for Bag." },
-                { src: "/ilf_wireframe5.png", label: "ILF Wireframe 5", caption: "Wireframes displaying new Checkout flow with ILF feature." },
-              ].map((w) => (
-                <div key={w.label} className="bg-surface border-2 border-border rounded-3xl overflow-hidden">
-                  <img src={w.src} alt={w.label} className="w-full object-cover" />
-                  {w.caption && (
-                    <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{w.caption}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Section>
-
           {/* Testing Results */}
           <Section>
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Usability Research</p>

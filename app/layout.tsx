@@ -65,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fredoka.variable} ${nunito.variable}`}>
       <body className="bg-bg text-ink font-sans antialiased min-h-screen">
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         {children}
       </body>
     </html>

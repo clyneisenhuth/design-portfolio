@@ -361,28 +361,6 @@ export default function ProductReviewsCaseStudy() {
             </div>
           </Section>
 
-          {/* Wireframes */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Wireframes</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Early explorations</h2>
-            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              Mid-fidelity wireframes used to align on structure and hierarchy before moving into high-fidelity design.
-            </p>
-            <div className="flex flex-col gap-6">
-              {[
-                { src: "/appreviews_wireframe1.png", label: "Wireframe 1", caption: "Wireframes with annotations for Reviews section on PDP." },
-                { src: "/appreviews_wireframe2.png", label: "Wireframe 2", caption: "Wireframes with annotations for the \"Write a Review\" flow." },
-              ].map((w) => (
-                <div key={w.label} className="bg-surface border-2 border-border rounded-3xl overflow-hidden">
-                  <img src={w.src} alt={w.label} className="w-full object-cover" />
-                  {w.caption && (
-                    <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{w.caption}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Section>
-
           {/* Solutions */}
           <Section>
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Solutions</p>

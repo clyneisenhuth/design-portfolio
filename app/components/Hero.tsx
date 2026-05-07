@@ -15,10 +15,14 @@ export default function Hero() {
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [visible, setVisible] = useState(false);
+  const reducedMotion = typeof window !== "undefined"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
 
   useEffect(() => { setVisible(true); }, []);
 
   useEffect(() => {
+    if (reducedMotion) { setDisplayed(roles[0]); return; }
     const current = roles[roleIdx];
     const speed = isDeleting ? 35 : 75;
     const t = setTimeout(() => {
@@ -38,10 +42,10 @@ export default function Hero() {
       }
     }, speed);
     return () => clearTimeout(t);
-  }, [displayed, isDeleting, roleIdx]);
+  }, [displayed, isDeleting, roleIdx, reducedMotion]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-bg">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-bg">
       {/* Background blob */}
       <div
         className="absolute -top-40 -right-40 w-[600px] h-[600px] opacity-20 pointer-events-none"

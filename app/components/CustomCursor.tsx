@@ -61,7 +61,10 @@ export default function CustomCursor() {
     };
   }, []);
 
-  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+  if (typeof window !== "undefined" && (
+    window.matchMedia("(pointer: coarse)").matches ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  )) {
     return null;
   }
 

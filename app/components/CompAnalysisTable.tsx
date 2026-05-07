@@ -96,7 +96,7 @@ export default function CompAnalysisTable() {
                     <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center overflow-hidden flex-shrink-0">
                       <Image
                         src={`/logos/logo-${b.key}.png`}
-                        alt={b.fallback}
+                        alt={b.name.replace(/\n/g, " ")}
                         width={36}
                         height={36}
                         className="object-contain p-0.5"

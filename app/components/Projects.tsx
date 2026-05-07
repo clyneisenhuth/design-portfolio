@@ -108,6 +108,10 @@ function WorkCard({ project, index }: { project: Project; index: number }) {
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
         onClick={onCardClick}
+        role="link"
+        tabIndex={0}
+        aria-label={`View case study: ${project.title}`}
+        onKeyDown={(e) => { if (e.key === "Enter") onCardClick(); }}
         className={`relative bg-surface rounded-3xl overflow-hidden border-2 border-border transition-shadow duration-300 group ${
           hover ? "shadow-2xl border-purple/25" : "shadow-sm"
         } ${popped ? "scale-95" : ""}`}

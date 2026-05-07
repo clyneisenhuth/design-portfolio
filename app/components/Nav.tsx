@@ -69,8 +69,9 @@ export default function Nav() {
         {/* Hamburger button (mobile only) */}
         <button
           onClick={() => setMenuOpen((o) => !o)}
-          className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 rounded-xl hover:bg-purple-pale transition-colors duration-200"
+          className="md:hidden flex flex-col justify-center items-center w-11 h-11 gap-1.5 rounded-xl hover:bg-purple-pale transition-colors duration-200"
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           <span className={`block w-5 h-0.5 bg-ink rounded-full transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
           <span className={`block w-5 h-0.5 bg-ink rounded-full transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
