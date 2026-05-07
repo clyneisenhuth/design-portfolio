@@ -174,7 +174,7 @@ export default function Bio() {
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
             A little about me ✨
           </h2>
-          <p className="font-sans text-base text-muted mt-3">Good solutions are obvious in hindsight. Getting there is the fun part.</p>
+          <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">The who behind the work.</p>
         </div>
 
         {/* Bio row */}
@@ -185,12 +185,12 @@ export default function Bio() {
         >
           {/* Headshot */}
           <div className="relative flex items-center justify-center">
-            <div className="w-64 h-64 md:w-72 md:h-72 rounded-3xl overflow-hidden border-2 border-purple/20 shadow-xl">
+            <div className="w-72 md:w-80 aspect-[3/4] rounded-3xl overflow-hidden border-2 border-purple/20 shadow-xl">
               <Image
-                src="/headshot.jpg"
+                src="/profile_pic1.jpg"
                 alt="Courtney Eisenhuth"
-                width={288}
-                height={288}
+                width={320}
+                height={427}
                 className="w-full h-full object-cover object-top"
               />
             </div>

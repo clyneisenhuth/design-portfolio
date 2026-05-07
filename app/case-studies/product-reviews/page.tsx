@@ -422,6 +422,31 @@ export default function ProductReviewsCaseStudy() {
             </div>
           </Section>
 
+          {/* Final Screens */}
+          <Section>
+            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Final Screens</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+              Four connected surfaces, each addressing a distinct gap identified in research.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                { src: "/app-reviews-image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards — all within the product detail page." },
+                { src: "/app-reviews-image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review — star rating, fit context, body, and photos — giving shoppers all the detail they need without leaving the product page." },
+                { src: "/app-reviews-image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
+                { src: "/app-reviews-image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle — replacing the multi-step web form that was causing abandonment." },
+              ].map((screen) => (
+                <div key={screen.title} className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <img src={screen.src} alt={screen.title} className="w-full object-cover" />
+                  <div className="p-5">
+                    <p className="font-heading font-bold text-ink text-sm mb-1">{screen.title}</p>
+                    <p className="font-sans text-xs text-muted leading-relaxed">{screen.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Section>
+
           {/* Accessibility */}
           <Section>
             <div className="bg-gradient-to-br from-purple-pale to-blue-pale border-2 border-purple/20 rounded-3xl p-8 md:p-10">

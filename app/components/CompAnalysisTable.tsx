@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 
 type Cell = { check: boolean; note?: string; unique?: boolean };
@@ -110,9 +111,9 @@ export default function CompAnalysisTable() {
 
           <tbody>
             {groups.map((group) => (
-              <>
+              <React.Fragment key={group.heading}>
                 {/* Group header */}
-                <tr key={group.heading}>
+                <tr>
                   <td
                     colSpan={12}
                     className="bg-purple-pale text-purple font-sans text-xs font-semibold uppercase tracking-wider px-4 py-2 border-t-2 border-purple/30 border-b border-border"
@@ -151,7 +152,7 @@ export default function CompAnalysisTable() {
                     ))}
                   </tr>
                 ))}
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </table>
