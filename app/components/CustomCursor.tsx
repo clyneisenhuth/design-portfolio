@@ -61,6 +61,10 @@ export default function CustomCursor() {
     };
   }, []);
 
+  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+    return null;
+  }
+
   const dotSize  = clicked ? 6  : 9;
   const ringSize = hover   ? 48 : clicked ? 22 : 34;
   const color    = hover   ? "#4B7BE5" : "#8059C4";

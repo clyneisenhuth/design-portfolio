@@ -1,75 +1,71 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useInView } from "../hooks/useInView";
 
 const projects = [
   {
     title:      "Incentivized Reviews Strategy",
     year:       "2025",
-    description: "Driving review participation through loyalty without compromising authenticity — a cross-functional initiative that grew daily review volume by 300% across the AE + Aerie catalog.",
+    description: "Driving review participation through loyalty without compromising authenticity. A cross-functional initiative that grew daily review volume by 300% across the AE + Aerie catalog.",
     tags:       ["Strategy", "Loyalty", "Research"],
     emoji:      "⭐",
+    image:      "/pointsreviews_cover2.jpeg",
     gradient:   "linear-gradient(135deg, #8059C4, #A07DD4)",
     cardBg:     "bg-purple-pale",
     stat:       "300%",
     statLabel:  "increase in daily review volume",
     link:       "/case-studies/incentivized-reviews",
     tagColor:   "bg-purple text-white",
+    shipped:    true,
   },
   {
     title:      "App Product Reviews Redesign",
     year:       "2024",
-    description: "End-to-end redesign of the AE + Aerie mobile app reviews experience — rebuilding photo carousels, submission flows, and review UI to turn a fragmented section into a high-trust content engine.",
+    description: "End-to-end redesign of the AE + Aerie mobile app reviews experience, rebuilding photo carousels, submission flows, and review UI to turn a fragmented section into a high-trust content engine.",
     tags:       ["Mobile", "UI Design", "UGC"],
     emoji:      "🖼️",
+    image:      "/appreviews_cover1.jpeg",
     gradient:   "linear-gradient(135deg, #4B7BE5, #6B9DF5)",
     cardBg:     "bg-blue-pale",
     stat:       "Increased",
     statLabel:  "form submission rates",
     link:       "/case-studies/product-reviews",
     tagColor:   "bg-blue text-white",
+    shipped:    true,
   },
   {
     title:      "Item Level Fulfillment",
     year:       "2022",
-    description: "Designing flexible fulfillment for a feature that never shipped — concept design, competitive analysis, and usability research that validated the idea and moved organizational understanding forward.",
+    description: "Designing flexible fulfillment for a feature that never shipped. Concept design, competitive analysis, and usability research that validated the idea and moved organizational understanding forward.",
     tags:       ["Mobile", "BOPIS", "Research"],
     emoji:      "📦",
+    image:      "/ilf_cover2.jpeg",
     gradient:   "linear-gradient(135deg, #A07DD4, #B8A0E0)",
     cardBg:     "bg-purple-pale",
     stat:       "Concept",
     statLabel:  "validated through usability research",
     link:       "/case-studies/item-fulfillment",
     tagColor:   "bg-purple text-white",
+    shipped:    true,
   },
   {
     title:      "Single Account Initiative",
     year:       "2022",
-    description: "Rebuilt account creation and loyalty enrollment during a full platform migration — designing dedicated migration paths for 10M+ existing customers across iOS and Android.",
+    description: "Rebuilt account creation and loyalty enrollment during a full platform migration, designing dedicated migration paths for 10M+ existing customers across iOS and Android.",
     tags:       ["Mobile", "Account", "Loyalty"],
     emoji:      "💳",
+    image:      "/singleaccount_cover1.jpeg",
     gradient:   "linear-gradient(135deg, #2D5BC5, #4B7BE5)",
     cardBg:     "bg-blue-pale",
     stat:       "10M+",
     statLabel:  "customers reached through migration flows",
     link:       "/case-studies/single-account",
     tagColor:   "bg-blue text-white",
+    shipped:    true,
   },
 ];
 
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
 
 type Project = typeof projects[0];
 
@@ -127,9 +123,18 @@ function WorkCard({ project, index }: { project: Project; index: number }) {
           className="relative h-44 flex items-center justify-center overflow-hidden"
           style={{ background: project.gradient }}
         >
-          <span className="text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">
-            {project.emoji}
-          </span>
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              style={undefined}
+            />
+          ) : (
+            <span className="text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">
+              {project.emoji}
+            </span>
+          )}
           <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs font-sans font-bold px-2.5 py-1 rounded-full">
             {project.year}
           </div>
@@ -173,7 +178,7 @@ function WorkCard({ project, index }: { project: Project; index: number }) {
             <span className="font-sans text-sm font-bold text-purple flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200">
               View case study <span className="transition-transform group-hover:translate-x-1">→</span>
             </span>
-            {project.title !== "App Product Reviews Redesign" && project.title !== "Incentivized Reviews Strategy" && project.title !== "Item Level Fulfillment" && project.title !== "Single Account Initiative" && (
+            {!project.shipped && (
               <span className="font-sans text-xs text-muted italic bg-bg px-2.5 py-1 rounded-full">
                 Coming soon ✦
               </span>
@@ -200,7 +205,7 @@ export default function Projects() {
             Projects
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
-            From Brief to Build 💻
+            From brief to build 💻
           </h2>
           <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">
             Take a look at some of my most recent work.

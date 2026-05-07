@@ -5,20 +5,7 @@ import CustomCursor from "../../components/CustomCursor";
 import CompAnalysisTable from "../../components/CompAnalysisTable";
 import CountUpStat from "../../components/CountUpStat";
 import Logo from "../../components/Logo";
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
+import { useInView } from "../../hooks/useInView";
 
 const purchaseFactors = [
   { rank: "1", factor: "Price", pct: "83%", note: "Reviews validate worth relative to cost" },
@@ -374,6 +361,28 @@ export default function ProductReviewsCaseStudy() {
             </div>
           </Section>
 
+          {/* Wireframes */}
+          <Section>
+            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Wireframes</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Early explorations</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+              Mid-fidelity wireframes used to align on structure and hierarchy before moving into high-fidelity design.
+            </p>
+            <div className="flex flex-col gap-6">
+              {[
+                { src: "/appreviews_wireframe1.png", label: "Wireframe 1", caption: "Wireframes with annotations for Reviews section on PDP." },
+                { src: "/appreviews_wireframe2.png", label: "Wireframe 2", caption: "Wireframes with annotations for the \"Write a Review\" flow." },
+              ].map((w) => (
+                <div key={w.label} className="bg-surface border-2 border-border rounded-3xl overflow-hidden">
+                  <img src={w.src} alt={w.label} className="w-full object-cover" />
+                  {w.caption && (
+                    <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{w.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Section>
+
           {/* Solutions */}
           <Section>
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Solutions</p>
@@ -431,10 +440,10 @@ export default function ProductReviewsCaseStudy() {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {[
-                { src: "/app-reviews-image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards — all within the product detail page." },
-                { src: "/app-reviews-image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review — star rating, fit context, body, and photos — giving shoppers all the detail they need without leaving the product page." },
+                { src: "/app-reviews-image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
+                { src: "/app-reviews-image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
                 { src: "/app-reviews-image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
-                { src: "/app-reviews-image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle — replacing the multi-step web form that was causing abandonment." },
+                { src: "/app-reviews-image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
               ].map((screen) => (
                 <div key={screen.title} className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <img src={screen.src} alt={screen.title} className="w-full object-cover" />

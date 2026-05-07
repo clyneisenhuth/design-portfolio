@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useInView } from "../hooks/useInView";
 
 const CONFETTI_PALETTE = [
   "#8059C4","#4B7BE5","#D4A8F0","#8BB8F8",
@@ -87,19 +88,6 @@ const stats = [
   { target: 20, prefix: "$", suffix: "M+",   desc: "estimated revenue lift in 2025" },
 ];
 
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
 
 function StatCard({
   target, prefix, suffix, desc,
@@ -208,7 +196,7 @@ export default function Bio() {
             <p className="font-sans text-base text-muted leading-relaxed">
               I&apos;m a <span className="font-extrabold text-purple">Senior Product Designer</span> with
               10 years of experience crafting mobile-first experiences people actually love. I
-              specialize in e-commerce and retail — balancing user needs with real business outcomes.
+              specialize in e-commerce and retail, balancing user needs with real business outcomes.
             </p>
             <p className="font-sans text-base text-muted leading-relaxed">
               I&apos;ve spent the last 5+ years deeply embedded in the{" "}
@@ -217,7 +205,7 @@ export default function Bio() {
               through thoughtful design of navigation, checkout, loyalty, and discovery.
             </p>
             <p className="font-sans text-base text-muted leading-relaxed">
-              I&apos;m a systems thinker who loves a good design challenge — and yes, I&apos;ll
+              I&apos;m a systems thinker who loves a good design challenge, and yes, I&apos;ll
               probably make it a little fun too ✨
             </p>
 

@@ -3,26 +3,13 @@
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
 import Logo from "../../components/Logo";
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
+import { useInView } from "../../hooks/useInView";
 
 const strategicDecisions = [
   {
     icon: "✅",
     title: "Default loyalty opt-in",
-    desc: "Made loyalty enrollment the default rather than an optional checkbox in the Create Account flow — maximizing enrollment without adding a single step of friction.",
+    desc: "Made loyalty enrollment the default rather than an optional checkbox in the Create Account flow, maximizing enrollment without adding a single step of friction.",
     color: "blue",
   },
   {
@@ -34,7 +21,7 @@ const strategicDecisions = [
   {
     icon: "🏪",
     title: "In-store sign-up support",
-    desc: "Extended account creation to support sign-ups initiated by store associates through the mobile app — closing an acquisition gap that had existed since the original app launch.",
+    desc: "Extended account creation to support sign-ups initiated by store associates through the mobile app, closing an acquisition gap that had existed since the original app launch.",
     color: "blue",
   },
 ];
@@ -43,21 +30,21 @@ const designFlows = [
   {
     icon: "👤",
     title: "Create Account redesign",
-    desc: "Rebuilt the account creation flow for iOS and Android from the ground up — default loyalty opt-in baked in, streamlined field structure, and consistent brand expression across AE and Aerie without flattening their distinct identities.",
+    desc: "Rebuilt the account creation flow for iOS and Android from the ground up, with default loyalty opt-in baked in, streamlined field structure, and consistent brand expression across AE and Aerie without flattening their distinct identities.",
     tags: ["iOS", "Android", "Default Opt-In"],
     color: "blue",
   },
   {
     icon: "🔄",
     title: "ATG migration enrollment",
-    desc: "Purpose-built flows for the 10M+ existing ATG customers who needed a path into the new system. This was the most edge-case-dense work of the project — migration states, error handling, and duplicate account logic all had to be accounted for before a single customer hit the flow.",
+    desc: "Purpose-built flows for the 10M+ existing ATG customers who needed a path into the new system. This was the most edge-case-dense work of the project. Migration states, error handling, and duplicate account logic all had to be accounted for before a single customer hit the flow.",
     tags: ["Migration", "Error States", "Edge Cases"],
     color: "purple",
   },
   {
     icon: "🏪",
     title: "In-store account creation",
-    desc: "Designed the handoff experience for store associate-led account creation — starting on the associate's device, transferring to the customer's phone, and completing enrollment without losing context or requiring the customer to start over.",
+    desc: "Designed the handoff experience for store associate-led account creation, starting on the associate's device, transferring to the customer's phone, and completing enrollment without losing context or requiring the customer to start over.",
     tags: ["In-Store", "Device Handoff", "Associate-Led"],
     color: "blue",
   },
@@ -86,7 +73,7 @@ const outcomes = [
   {
     icon: "📉",
     label: "Reduced customer care inquiries",
-    desc: "Dedicated migration paths and clear error states meant fewer customers ended up in broken account states — directly reducing contact center volume related to account issues.",
+    desc: "Dedicated migration paths and clear error states meant fewer customers ended up in broken account states, directly reducing contact center volume related to account issues.",
   },
   {
     icon: "🏪",
@@ -98,11 +85,11 @@ const outcomes = [
 const learnings = [
   {
     label: "Engineering partnership from the start is non-negotiable in migration work",
-    quote: "Migration projects surface edge cases that no amount of upfront design anticipation fully covers. Having engineering in the room from the beginning — not handed specs at the end — meant that when new states emerged mid-project, we already had the relationship and shared context to resolve them quickly.",
+    quote: "Migration projects surface edge cases that no amount of upfront design anticipation fully covers. Having engineering in the room from the beginning, not handed specs at the end, meant that when new states emerged mid-project, we already had the relationship and shared context to resolve them quickly.",
   },
   {
     label: "Default states carry measurable business consequences",
-    quote: "Changing loyalty opt-in from optional to default was a single design decision. It had enrollment implications across millions of accounts. The lesson isn't that defaults are always the right call — it's that they deserve the same scrutiny as any high-stakes product decision, because they shape outcomes at a scale most UI choices never reach.",
+    quote: "Changing loyalty opt-in from optional to default was a single design decision. It had enrollment implications across millions of accounts. The lesson isn't that defaults are always the right call. It's that they deserve the same scrutiny as any high-stakes product decision, because they shape outcomes at a scale most UI choices never reach.",
   },
   {
     label: "A thorough audit upfront prevents expensive surprises mid-project",
@@ -184,7 +171,7 @@ export default function SingleAccountCaseStudy() {
                 AEO was replacing its entire loyalty engine. That is a big deal on the backend. It is an even bigger deal when you consider that millions of customers already have accounts, loyalty balances, and established habits tied to the old system.
               </p>
               <p className="font-sans text-base text-muted leading-relaxed">
-                I led iOS and Android design for <span className="font-extrabold text-blue">account creation</span>, <span className="font-extrabold text-blue">existing customer migration paths</span>, and <span className="font-extrabold text-blue">in-store sign-up support</span> across both apps — navigating a migration that had 10+ million customers in the middle of it.
+                I led iOS and Android design for <span className="font-extrabold text-blue">account creation</span>, <span className="font-extrabold text-blue">existing customer migration paths</span>, and <span className="font-extrabold text-blue">in-store sign-up support</span> across both apps, navigating a migration that had 10+ million customers in the middle of it.
               </p>
             </div>
           </Section>
@@ -202,7 +189,7 @@ export default function SingleAccountCaseStudy() {
                 {[
                   { icon: "🏚️", label: "Aging ATG platform", desc: "The entire loyalty engine was being replaced, requiring design to account for the old system's data structure and customer state." },
                   { icon: "📋", label: "Optional loyalty enrollment", desc: "Loyalty sign-up was opt-in, resulting in enrollment rates well below what the business needed from the new platform." },
-                  { icon: "⚠️", label: "Limited error handling", desc: "The existing flows had minimal error states — a significant liability when migrating millions of accounts with varying data quality." },
+                  { icon: "⚠️", label: "Limited error handling", desc: "The existing flows had minimal error states, a significant liability when migrating millions of accounts with varying data quality." },
                   { icon: "🏪", label: "No in-store sign-up path", desc: "Store associates had no way to initiate account creation through the mobile app, leaving a meaningful acquisition channel unused." },
                 ].map((p) => (
                   <div key={p.label} className="bg-bg rounded-2xl p-4 border border-border">
@@ -291,7 +278,7 @@ export default function SingleAccountCaseStudy() {
               <span className="text-3xl mb-3 block">🧩</span>
               <h3 className="font-heading text-xl font-bold text-ink mb-3">Edge cases were the real design work</h3>
               <p className="font-sans text-sm text-muted leading-relaxed mb-5">
-                Migration projects don&apos;t fail at the happy path — they fail at the edge cases. A thorough audit before wireframes began surfaced the full scope of states that needed to be designed for.
+                Migration projects don&apos;t fail at the happy path. They fail at the edge cases. A thorough audit before wireframes began surfaced the full scope of states that needed to be designed for.
               </p>
               <div className="grid md:grid-cols-2 gap-3">
                 {edgeCases.map((item) => (
@@ -301,6 +288,26 @@ export default function SingleAccountCaseStudy() {
                   </div>
                 ))}
               </div>
+            </div>
+          </Section>
+
+          {/* Final Screens */}
+          <Section>
+            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Final Screens</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+              A selection of final screens from the Single Account migration experience.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                { src: "/singleaccount_image1.jpeg", label: "Single Account Screen 1", caption: "Final screen from the Single Account migration flow, guiding existing customers through account consolidation." },
+                { src: "/singleaccount_image2.jpeg", label: "Single Account Screen 2", caption: "Final screen from the loyalty enrollment experience, surfacing AEO Real Rewards benefits at the point of account creation." },
+              ].map((s) => (
+                <div key={s.label} className="bg-surface border-2 border-border rounded-3xl overflow-hidden">
+                  <img src={s.src} alt={s.label} className="w-full object-cover" />
+                  <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{s.caption}</p>
+                </div>
+              ))}
             </div>
           </Section>
 

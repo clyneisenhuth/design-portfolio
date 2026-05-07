@@ -4,20 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
 import CountUpStat from "../../components/CountUpStat";
 import Logo from "../../components/Logo";
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
+import { useInView } from "../../hooks/useInView";
 
 const strategyPrinciples = [
   {
@@ -75,7 +62,7 @@ const executionBehaviors = [
   {
     icon: "🏷️",
     title: "Visible incentive labeling",
-    desc: "Published reviews that earned points carried a visible tag. Transparent by design, not buried in footnotes — baked in from day one rather than treated as a legal checkbox.",
+    desc: "Published reviews that earned points carried a visible tag. Transparent by design, not buried in footnotes. Baked in from day one rather than treated as a legal checkbox.",
     tags: ["Disclosure", "Trust", "Compliance"],
     color: "purple",
   },
@@ -144,7 +131,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 Strategy ⭐
               </h1>
               <p className="font-sans text-lg text-muted max-w-2xl leading-relaxed mb-10">
-                Driving review participation through loyalty without compromising authenticity — a cross-functional initiative that grew daily review volume by 300% across the AE + Aerie catalog.
+                Driving review participation through loyalty without compromising authenticity. A cross-functional initiative that grew daily review volume by 300% across the AE + Aerie catalog.
               </p>
               <div className="flex flex-wrap gap-3">
                 {[
@@ -174,7 +161,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 Product pages across the AE and Aerie catalog were under-reviewed. Sparse coverage meant customers had limited peer input when making purchase decisions, and merchandising teams were flying blind on qualitative product feedback.
               </p>
               <p className="font-sans text-base text-muted leading-relaxed">
-                Both problems pointed to the same root cause: customers had no clear reason to come back and write a review after purchase. I partnered with a fellow Product Strategist on a cross-functional initiative to introduce <span className="font-extrabold text-purple">loyalty-based review incentives</span> — growing participation at scale without sacrificing the authenticity that makes review content worth reading.
+                Both problems pointed to the same root cause: customers had no clear reason to come back and write a review after purchase. I partnered with a fellow Product Strategist on a cross-functional initiative to introduce <span className="font-extrabold text-purple">loyalty-based review incentives</span>, growing participation at scale without sacrificing the authenticity that makes review content worth reading.
               </p>
             </div>
           </Section>
@@ -185,14 +172,14 @@ export default function IncentivizedReviewsCaseStudy() {
               <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">The Problem</p>
               <h2 className="font-heading text-3xl font-bold text-ink mb-5">Not enough reviews to actually help anyone</h2>
               <p className="font-sans text-base text-muted leading-relaxed mb-8">
-                PDPs with sparse review coverage create friction at one of the most critical decision points in the purchase journey. Without peer input, customers have less confidence buying — particularly for new or lower-awareness products.
+                PDPs with sparse review coverage create friction at one of the most critical decision points in the purchase journey. Without peer input, customers have less confidence buying, particularly for new or lower-awareness products.
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 mb-8">
                 {[
                   { icon: "📉", label: "Low participation rate", desc: "The gap between customers who purchase and those who leave reviews was significant and growing." },
                   { icon: "🛒", label: "Conversion impact", desc: "Reviews influence conversion, return rates, and the quality of feedback available to merchandising." },
-                  { icon: "🔧", label: "Structural problem", desc: "Closing the gap required a structural change to the value exchange — not a messaging fix." },
+                  { icon: "🔧", label: "Structural problem", desc: "Closing the gap required a structural change to the value exchange, not a messaging fix." },
                 ].map((p) => (
                   <div key={p.label} className="bg-bg rounded-2xl p-4 border border-border">
                     <span className="text-2xl mb-2 block">{p.icon}</span>
@@ -216,7 +203,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Research</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">The motivation was already there. It just needed a door.</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              Industry data backed the strategic direction. The question wasn&apos;t whether incentives would drive participation — research suggested they would. The question was how to structure the incentive so it motivated behavior without distorting it.
+              Industry data backed the strategic direction. The question wasn&apos;t whether incentives would drive participation. Research suggested they would. The question was how to structure the incentive so it motivated behavior without distorting it.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -235,7 +222,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <div className="bg-blue-pale border-2 border-blue/20 rounded-2xl p-6">
               <p className="font-heading font-bold text-blue text-sm mb-2">Academic backing</p>
               <p className="font-sans text-sm text-muted leading-relaxed">
-                A 2021 Journal of Marketing Research study by Woolley and Sharif found that <span className="font-bold text-ink">&ldquo;incentives increase review volume primarily through a selection effect, motivating people who would not typically post to participate.&rdquo;</span> Importantly, the same study found incentives also increase the relative positivity of review content — which informed our decision to build transparent disclosure in from day one rather than treat it as a legal checkbox.
+                A 2021 Journal of Marketing Research study by Woolley and Sharif found that <span className="font-bold text-ink">&ldquo;incentives increase review volume primarily through a selection effect, motivating people who would not typically post to participate.&rdquo;</span> Importantly, the same study found incentives also increase the relative positivity of review content, which informed our decision to build transparent disclosure in from day one rather than treat it as a legal checkbox.
               </p>
             </div>
           </Section>
@@ -262,7 +249,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <div className="bg-purple-pale border-2 border-purple/20 rounded-2xl p-6">
               <p className="font-heading font-bold text-purple text-sm mb-2">Consistent finding across competitors</p>
               <p className="font-sans text-sm text-muted leading-relaxed">
-                <span className="font-bold text-ink">Incentives increase participation. Guardrails and framing determine whether the resulting content is useful.</span> The most durable insight: the primary motivation for leaving a review is wanting to help other shoppers. Incentives don&apos;t replace that motivation — they give people a nudge to act on it.
+                <span className="font-bold text-ink">Incentives increase participation. Guardrails and framing determine whether the resulting content is useful.</span> The most durable insight: the primary motivation for leaving a review is wanting to help other shoppers. Incentives give people a nudge to act on it.
               </p>
             </div>
           </Section>
@@ -294,7 +281,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Execution</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Getting everyone in the room before anyone made decisions</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              My co-strategist and I facilitated a cross-functional workshop using MoSCoW prioritization — getting product, engineering, marketing, legal, and UX into the same room before any design decisions were locked. The goal was to surface constraints early, align on scope, and bake legal requirements around incentivized review disclosure into the design from the start.
+              My co-strategist and I facilitated a cross-functional workshop using MoSCoW prioritization, bringing product, engineering, marketing, legal, and UX into the same room before any design decisions were locked. The goal was to surface constraints early, align on scope, and bake legal requirements around incentivized review disclosure into the design from the start.
             </p>
 
             <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden mb-6">
@@ -354,7 +341,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <div className="mt-6 bg-blue-pale border-2 border-blue/20 rounded-2xl p-6">
               <p className="font-heading font-bold text-blue text-sm mb-2">Existing infrastructure, maximum leverage</p>
               <p className="font-sans text-sm text-muted leading-relaxed">
-                The existing <span className="font-bold text-ink">BazaarVoice</span> platform already supported incentivized review logic — no new platform or significant re-architecture required. <span className="font-bold text-ink">CrowdTwist</span> handled loyalty verification on the backend. Phase 1 was scoped to maximize impact within what already existed.
+                The existing <span className="font-bold text-ink">BazaarVoice</span> platform already supported incentivized review logic with no new platform or significant re-architecture required. <span className="font-bold text-ink">CrowdTwist</span> handled loyalty verification on the backend. Phase 1 was scoped to maximize impact within what already existed.
               </p>
             </div>
           </Section>
@@ -364,7 +351,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Final Screens</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              Two surfaces where the incentive program became visible to customers — the submission form and the published review list.
+              Two surfaces where the incentive program became visible to customers: the submission form and the published review list.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -375,7 +362,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 />
                 <div className="p-5">
                   <p className="font-heading font-bold text-ink text-sm mb-1">Loyalty prompt at submission</p>
-                  <p className="font-sans text-xs text-muted leading-relaxed">The Real Rewards points offer surfaced inline during review submission — at the highest-intent moment, with no extra steps.</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">The Real Rewards points offer surfaced inline during review submission, at the highest-intent moment, with no extra steps.</p>
                 </div>
               </div>
               <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -386,7 +373,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 />
                 <div className="p-5">
                   <p className="font-heading font-bold text-ink text-sm mb-1">Visible incentive labeling</p>
-                  <p className="font-sans text-xs text-muted leading-relaxed">Published reviews that earned points carry a visible &ldquo;Reward Points Awarded&rdquo; label — transparent by design, not buried in footnotes.</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">Published reviews that earned points carry a visible &ldquo;Reward Points Awarded&rdquo; label, transparent by design and not buried in footnotes.</p>
                 </div>
               </div>
             </div>
@@ -432,7 +419,7 @@ export default function IncentivizedReviewsCaseStudy() {
               <span className="text-3xl mb-3 block">⚖️</span>
               <h3 className="font-heading text-2xl font-bold text-ink mb-3">Accepted tradeoffs, tracked from day one</h3>
               <p className="font-sans text-base text-muted leading-relaxed mb-4">
-                The program produced a measurable but expected quality tradeoff: both high-quality and lower-effort submissions increased. That was an accepted Phase 1 outcome, not a surprise — and it gave us the real behavioral data needed to sharpen guardrails in a future phase.
+                The program produced a measurable but expected quality tradeoff: both high-quality and lower-effort submissions increased. That was an accepted Phase 1 outcome, not a surprise. It gave us the real behavioral data needed to sharpen guardrails in a future phase.
               </p>
               <div className="grid md:grid-cols-2 gap-3">
                 {[
@@ -462,7 +449,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 },
                 {
                   label: "The strategic direction aged well",
-                  quote: "According to Antavo's Global Customer Loyalty Report, rewarding non-transactional activities like reviews is one of the most effective levers for reducing member churn — something 65% of loyalty program owners now actively track. The direction we chose in Phase 1 has only become more relevant.",
+                  quote: "According to Antavo's Global Customer Loyalty Report, rewarding non-transactional activities like reviews is one of the most effective levers for reducing member churn, something 65% of loyalty program owners now actively track. The direction we chose in Phase 1 has only become more relevant.",
                 },
                 {
                   label: "Eyes open from the start",

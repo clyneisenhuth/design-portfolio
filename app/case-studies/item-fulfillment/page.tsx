@@ -3,26 +3,13 @@
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
 import Logo from "../../components/Logo";
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
+import { useInView } from "../../hooks/useInView";
 
 const testingResonated = [
   {
     icon: "✅",
     label: "BOPIS-familiar customers clicked",
-    desc: "Customers who were already familiar with BOPIS picked up the concept quickly and found it genuinely useful — not a workaround, a real benefit.",
+    desc: "Customers who were already familiar with BOPIS picked up the concept quickly and found it genuinely useful. Not a workaround, a real benefit.",
   },
   {
     icon: "⚡",
@@ -161,7 +148,7 @@ export default function ItemFulfillmentCaseStudy() {
                 AE and Aerie app customers had one choice when it came to fulfillment: ship everything or pick everything up in store. There was no in-between. If you wanted one item delivered and another ready for pickup, you placed two separate orders. It was a clunky workaround for a genuinely common shopping scenario.
               </p>
               <p className="font-sans text-base text-muted leading-relaxed">
-                I led the design effort to change that, working through multiple rounds of concept design, competitive analysis, and unmoderated usability research across iOS and Android. The project was complicated by <span className="font-extrabold text-purple">constantly shifting engineering constraints</span> — and it is one of the clearest examples I have of doing thorough design work under uncertainty.
+                I led the design effort to change that, working through multiple rounds of concept design, competitive analysis, and unmoderated usability research across iOS and Android. The project was complicated by <span className="font-extrabold text-purple">constantly shifting engineering constraints</span>, and it is one of the clearest examples I have of doing thorough design work under uncertainty.
               </p>
             </div>
           </Section>
@@ -178,13 +165,13 @@ export default function ItemFulfillmentCaseStudy() {
               <div className="bg-blue-pale border border-blue/20 rounded-2xl p-5 mb-8">
                 <p className="font-heading font-bold text-blue text-sm mb-1.5">Industry terminology: mixed cart fulfillment</p>
                 <p className="font-sans text-sm text-muted leading-relaxed">
-                  This scenario has an industry name. Mixed cart fulfillment refers specifically to orders where a customer wants part of their cart picked up in store and the rest delivered to their home. It requires the OMS to route a single transaction to two different fulfillment nodes simultaneously — which is where the complexity lives.
+                  This scenario has an industry name. Mixed cart fulfillment refers specifically to orders where a customer wants part of their cart picked up in store and the rest delivered to their home. It requires the OMS to route a single transaction to two different fulfillment nodes simultaneously, which is where the complexity lives.
                 </p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-4 mb-8">
                 {[
-                  { icon: "🔒", label: "All-or-nothing fulfillment", desc: "Ship everything or pick everything up — no middle ground for customers who wanted both in a single transaction." },
+                  { icon: "🔒", label: "All-or-nothing fulfillment", desc: "Ship everything or pick everything up, with no middle ground for customers who wanted both in a single transaction." },
                   { icon: "🛍️", label: "High-value segment underserved", desc: "Omnichannel shoppers tend to have higher lifetime value. Competitors were beginning to offer more checkout flexibility." },
                   { icon: "💡", label: "No predefined success metrics", desc: "Leadership identified this as a missed opportunity, not an active complaint. Figuring out what good looked like was part of the work." },
                 ].map((p) => (
@@ -218,7 +205,7 @@ export default function ItemFulfillmentCaseStudy() {
                 {
                   icon: "⚡",
                   title: "Signal over specification",
-                  desc: "Design enough to test the concept meaningfully — not enough to over-invest in an unvalidated direction.",
+                  desc: "Design enough to test the concept meaningfully, not enough to over-invest in an unvalidated direction.",
                 },
                 {
                   icon: "🛒",
@@ -228,7 +215,7 @@ export default function ItemFulfillmentCaseStudy() {
                 {
                   icon: "📋",
                   title: "Split order clarity at checkout",
-                  desc: "Checkout presents two fulfillment groups with separate timing and totals — no ambiguity about what's going where or what it costs.",
+                  desc: "Checkout presents two fulfillment groups with separate timing and totals, with no ambiguity about what's going where or what it costs.",
                 },
               ].map((p, i) => (
                 <div
@@ -246,7 +233,7 @@ export default function ItemFulfillmentCaseStudy() {
             <div className="bg-purple-pale border-2 border-purple/20 rounded-2xl p-6">
               <p className="font-heading font-bold text-purple text-sm mb-2">A known cost tradeoff, understood going in</p>
               <p className="font-sans text-sm text-muted leading-relaxed">
-                Mixed cart fulfillment is a known cost pressure for retailers: splitting an order into multiple fulfillment streams can <span className="font-bold text-ink">double the cost of fulfillment per transaction</span>. That tradeoff was understood from the start. The intention was to validate customer value before the business committed to absorbing it at scale. Keeping fidelity at concept level was a deliberate choice — it let us communicate the mechanic clearly enough to get real reactions without committing to a full UI build before we knew if the idea held up.
+                Mixed cart fulfillment is a known cost pressure for retailers: splitting an order into multiple fulfillment streams can <span className="font-bold text-ink">double the cost of fulfillment per transaction</span>. That tradeoff was understood from the start. The intention was to validate customer value before the business committed to absorbing it at scale. Keeping fidelity at concept level was a deliberate choice, letting us communicate the mechanic clearly enough to get real reactions without committing to a full UI build before we knew if the idea held up.
               </p>
             </div>
           </Section>
@@ -265,7 +252,7 @@ export default function ItemFulfillmentCaseStudy() {
                 A significant portion of the design work was not about refining pixels. It was about adapting quickly, re-evaluating decisions that had already been made, and finding ways to preserve the core customer experience as the boundaries of the possible kept narrowing. Some solutions we had designed around became unavailable mid-process. Others required full rethinks of how the cart interaction worked.
               </p>
               <p className="font-sans text-sm text-muted leading-relaxed">
-                Holding design reviews consistently with product managers and engineers was what kept the work from going sideways — it meant that when a constraint changed, we caught it early and adjusted rather than discovering it at the end.
+                Holding design reviews consistently with product managers and engineers was what kept the work from going sideways. When a constraint changed, we caught it early and adjusted rather than discovering it at the end.
               </p>
             </div>
 
@@ -288,7 +275,7 @@ export default function ItemFulfillmentCaseStudy() {
                 {
                   icon: "🔄",
                   title: "Iterative design reviews with product and engineering",
-                  desc: "Regular cycles with product managers and engineers as backend constraints shifted. Designs adapted continuously — not locked in before constraints were fully understood.",
+                  desc: "Regular cycles with product managers and engineers as backend constraints shifted. Designs adapted continuously, never locked in before constraints were fully understood.",
                   tags: ["Collaboration", "Engineering", "Iteration"],
                   color: "purple",
                 },
@@ -340,16 +327,61 @@ export default function ItemFulfillmentCaseStudy() {
             </div>
           </Section>
 
+          {/* Wireframes */}
+          <Section>
+            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Wireframes</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Mid-fidelity explorations</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+              Mid-fidelity wireframes developed during the design process explore fulfillment options in Bag and necessary flow updates.
+            </p>
+            <div className="flex flex-col gap-6">
+              {/* Side-by-side pair with text */}
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { src: "/ilf_wireframe3.png", label: "ILF Wireframe 3" },
+                    { src: "/ilf_wireframe4.png", label: "ILF Wireframe 4" },
+                  ].map((w) => (
+                    <div key={w.label} className="bg-surface border-2 border-border rounded-2xl overflow-hidden">
+                      <img src={w.src} alt={w.label} className="w-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col gap-4">
+                  <h3 className="font-heading text-xl font-bold text-ink">Exploring fulfillment options</h3>
+                  <p className="font-sans text-sm text-muted leading-relaxed">
+                    Early wireframe explorations focused on how to surface fulfillment choices (ship, pickup, or a mix of both) at the item level within the Bag. The core design challenge was presenting options clearly without adding cognitive load to an already decision-heavy moment in the shopping journey.
+                  </p>
+                  <p className="font-sans text-sm text-muted leading-relaxed">
+                    These explorations tested different approaches to item-level toggles, store selection prompts, and inline availability signals, helping the team align on a direction before investing in high-fidelity screens.
+                  </p>
+                </div>
+              </div>
+              {/* Stacked */}
+              {[
+                { src: "/ilf_wireframes2.png", label: "ILF Wireframe 2", caption: "Wireframe example of updated \"Find Location\" flow for Bag." },
+                { src: "/ilf_wireframe5.png", label: "ILF Wireframe 5", caption: "Wireframes displaying new Checkout flow with ILF feature." },
+              ].map((w) => (
+                <div key={w.label} className="bg-surface border-2 border-border rounded-3xl overflow-hidden">
+                  <img src={w.src} alt={w.label} className="w-full object-cover" />
+                  {w.caption && (
+                    <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{w.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Section>
+
           {/* Testing Results */}
           <Section>
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Usability Research</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What the research surfaced</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-4 max-w-2xl">
-              Testing surfaced a clear split in how people responded to the concept — and that split turned out to be one of the more useful findings of the whole project.
+              Testing surfaced a clear split in how people responded to the concept. That split turned out to be one of the more useful findings of the whole project.
             </p>
             <div className="bg-blue-pale border border-blue/20 rounded-2xl p-5 mb-8 max-w-2xl">
               <p className="font-sans text-xs text-muted leading-relaxed">
-                <span className="font-bold text-ink">An industry-documented friction point:</span> Split fulfillment is widely considered one of the hardest checkout experiences to communicate clearly. First exposure to a split-order UI is a known friction point across retail — which made it important to distinguish concept comprehension issues from fundamental concept rejection.
+                <span className="font-bold text-ink">An industry-documented friction point:</span> Split fulfillment is widely considered one of the hardest checkout experiences to communicate clearly. First exposure to a split-order UI is a known friction point across retail, making it important to distinguish concept comprehension issues from fundamental concept rejection.
               </p>
             </div>
 
@@ -394,7 +426,7 @@ export default function ItemFulfillmentCaseStudy() {
             <div className="mt-6 bg-purple-pale border-2 border-purple/20 rounded-2xl p-6">
               <p className="font-heading font-bold text-purple text-sm mb-2">Reading the results correctly</p>
               <p className="font-sans text-sm text-muted leading-relaxed">
-                The split in user reactions was not a sign that the idea was broken. <span className="font-bold text-ink">It pointed to a viable feature that needed better communication design — not a fundamentally different approach.</span> BOPIS-familiar customers got it immediately. First-timers needed more framing at the entry point. That gap was a map of what to fix next.
+                The split in user reactions was not a sign that the idea was broken. <span className="font-bold text-ink">It pointed to a viable feature that needed better communication design, not a fundamentally different approach.</span> BOPIS-familiar customers got it immediately. First-timers needed more framing at the entry point. That gap was a map of what to fix next.
               </p>
             </div>
           </Section>
@@ -404,19 +436,19 @@ export default function ItemFulfillmentCaseStudy() {
             <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Outcomes</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Cancelled. And still worth talking about.</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              It did not ship. But the work mattered anyway — and it is worth being direct about why.
+              It did not ship. But the work mattered anyway. It is worth being direct about why.
             </p>
 
             <div className="bg-surface border-2 border-border rounded-3xl p-8 md:p-10 mb-6">
               <span className="text-3xl mb-3 block">⚖️</span>
               <h3 className="font-heading text-2xl font-bold text-ink mb-3">Why the project was cancelled</h3>
               <p className="font-sans text-base text-muted leading-relaxed mb-6">
-                The project was cancelled due to backend complexity that substantially exceeded initial scoping estimates. Supporting item-level fulfillment required changes to the order management system that were significantly larger than anticipated when the project kicked off. Mixed cart fulfillment requires the OMS to route a single transaction to two separate fulfillment nodes — and doing that at scale compounds quickly.
+                The project was cancelled due to backend complexity that substantially exceeded initial scoping estimates. Supporting item-level fulfillment required changes to the order management system that were significantly larger than anticipated when the project kicked off. Mixed cart fulfillment requires the OMS to route a single transaction to two separate fulfillment nodes, and doing that at scale compounds quickly.
               </p>
               <div className="grid md:grid-cols-2 gap-3">
                 {[
                   "Per-item routing required changes to the OMS far larger than initial estimates",
-                  "Each split order adds picking, packing, handling, and shipping costs — doubling per-order fulfillment cost",
+                  "Each split order adds picking, packing, handling, and shipping costs, doubling per-order fulfillment cost",
                   "Backend lift combined with the cost model made the business case harder to justify",
                   "Organizational priorities shifted, and the feature was removed from the roadmap",
                 ].map((item) => (
