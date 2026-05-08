@@ -9,11 +9,11 @@ import { useInView } from "../../hooks/useInView";
 
 const purchaseFactors = [
   { rank: "1", factor: "Price", pct: "83%", note: "Reviews validate worth relative to cost" },
-  { rank: "2", factor: "Ratings & Reviews", pct: "77%", note: "Central to apparel purchase decisions" },
-  { rank: "3", factor: "Fit & Sizing Info", pct: "67%", note: "Top return reason; reviews address sizing accuracy" },
-  { rank: "4", factor: "Customer Photos", pct: "59%", note: "Shows product on real people vs. studio photography" },
-  { rank: "5", factor: "Personal Style", pct: "58%", note: "Shoppers verify expectations through reviews" },
-  { rank: "6", factor: "Return Policy", pct: "80%", note: "Reviews mentioning returns influence purchase" },
+  { rank: "2", factor: "Return Policy", pct: "80%", note: "Reviews mentioning returns influence purchase" },
+  { rank: "3", factor: "Ratings & Reviews", pct: "77%", note: "Central to apparel purchase decisions" },
+  { rank: "4", factor: "Fit & Sizing Info", pct: "67%", note: "Top return reason; reviews address sizing accuracy" },
+  { rank: "5", factor: "Customer Photos", pct: "59%", note: "Shows product on real people vs. studio photography" },
+  { rank: "6", factor: "Personal Style", pct: "58%", note: "Shoppers verify expectations through reviews" },
 ];
 
 const userTestingFindings = [
@@ -318,7 +318,7 @@ export default function ProductReviewsCaseStudy() {
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Competitive Analysis</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Benchmarking 11 retail apps</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-6 max-w-2xl">
-              I analyzed reviews experiences across leading retail apps including Abercrombie & Fitch, Nordstrom, Urban Outfitters, Gap, Lululemon, Victoria&apos;s Secret, Macy&apos;s, Sephora, Target, and Walmart, benchmarking PDP display, filtering, photo UGC treatment, and submission flows.
+              I analyzed reviews experiences across leading retail apps including Abercrombie & Fitch, Nordstrom, Urban Outfitters, Gap, Lululemon, Nike, Victoria&apos;s Secret, Macy&apos;s, Sephora, Target, and Walmart, benchmarking PDP display, filtering, photo UGC treatment, and submission flows.
             </p>
 
             <div className="flex flex-col gap-4 mb-6">
