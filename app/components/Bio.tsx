@@ -211,11 +211,11 @@ export default function Bio() {
 
             {/* Email chip */}
             <a
-              href="mailto:clyneisenhuth@gmail.com"
+              href="mailto:courtneyeisenhuth@gmail.com"
               className="inline-flex items-center gap-2 self-start font-sans text-sm font-bold text-purple border-2 border-purple/30 bg-purple-pale px-4 py-2 rounded-full hover:bg-purple hover:text-white hover:border-purple transition-all duration-200 hover:scale-105 active:scale-95"
             >
               <span>📬</span>
-              clyneisenhuth@gmail.com
+              courtneyeisenhuth@gmail.com
             </a>
           </div>
         </div>

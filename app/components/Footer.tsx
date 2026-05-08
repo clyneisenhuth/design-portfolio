@@ -8,7 +8,7 @@ export default function Footer() {
   const [wiggle, setWiggle] = useState(false);
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("clyneisenhuth@gmail.com");
+    await navigator.clipboard.writeText("courtneyeisenhuth@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2200);
   };
@@ -43,7 +43,7 @@ export default function Footer() {
             className="group inline-flex items-center gap-3 font-sans font-bold text-base md:text-lg px-7 py-4 bg-surface border-2 border-purple text-purple rounded-2xl hover:bg-purple hover:text-white transition-all duration-250 hover:scale-105 active:scale-95 shadow-sm"
           >
             <span className="text-xl">{copied ? "✅" : "📬"}</span>
-            <span>clyneisenhuth@gmail.com</span>
+            <span>courtneyeisenhuth@gmail.com</span>
             <span
               className={`font-sans text-xs font-normal transition-all duration-300 ${
                 copied ? "opacity-100 text-green-400 group-hover:text-green-300" : "opacity-0 group-hover:opacity-60"
@@ -67,7 +67,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-5">
             <a
-              href="mailto:clyneisenhuth@gmail.com"
+              href="mailto:courtneyeisenhuth@gmail.com"
               className="font-sans font-semibold hover:text-purple transition-colors duration-200 hover:scale-105 inline-block"
             >
               Email
