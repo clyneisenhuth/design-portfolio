@@ -140,7 +140,7 @@ export default function Layout3() {
           {/* Top row: big name + intro */}
           <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <div className="flex flex-wrap items-end gap-6 mb-0">
-              <h1 className="font-heading font-bold leading-none" style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: INK }}>
+              <h1 className="font-heading font-bold leading-none" style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: INK, letterSpacing: "0.02em" }}>
                 Courtney
               </h1>
               <div className="mb-4 flex flex-col gap-3">
@@ -272,7 +272,7 @@ export default function Layout3() {
       <footer className="py-20 px-6 text-center" style={{ background: CORAL }}>
         <div className="max-w-2xl mx-auto">
           <p className="font-sans text-sm font-bold uppercase tracking-widest mb-4 text-white opacity-70">Ready to work together?</p>
-          <h2 className="font-heading font-bold text-5xl md:text-7xl text-white mb-8 leading-tight">Let's make something great.</h2>
+          <h2 className="font-heading font-bold text-5xl md:text-7xl text-white mb-8 leading-tight" style={{ letterSpacing: "0.03em" }}>Let's make something great.</h2>
           <a href="mailto:courtneyeisenhuth@gmail.com"
             className="inline-flex items-center gap-3 font-sans font-bold text-base px-8 py-4 rounded-full transition-all duration-200 hover:scale-105"
             style={{ background: "white", color: CORAL }}>📬 courtneyeisenhuth@gmail.com</a>
