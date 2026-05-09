@@ -17,8 +17,8 @@ export default function Layout3Layout({ children }: { children: React.ReactNode 
     <div
       className={`${heading.variable} ${body.variable}`}
       style={{
-        "--font-heading": "var(--font-l3-heading), Impact, ui-sans-serif",
-        "--font-sans":    "var(--font-l3-body), ui-sans-serif, system-ui",
+        "--font-fredoka": "var(--font-l3-heading)",
+        "--font-nunito":  "var(--font-l3-body)",
       } as React.CSSProperties}
     >
       {children}

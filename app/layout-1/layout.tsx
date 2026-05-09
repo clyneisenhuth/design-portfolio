@@ -17,8 +17,8 @@ export default function Layout1Layout({ children }: { children: React.ReactNode 
     <div
       className={`${heading.variable} ${body.variable}`}
       style={{
-        "--font-heading": "var(--font-l1-heading), ui-sans-serif, system-ui",
-        "--font-sans":    "var(--font-l1-body), ui-sans-serif, system-ui",
+        "--font-fredoka": "var(--font-l1-heading)",
+        "--font-nunito":  "var(--font-l1-body)",
       } as React.CSSProperties}
     >
       {children}

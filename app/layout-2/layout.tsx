@@ -17,8 +17,8 @@ export default function Layout2Layout({ children }: { children: React.ReactNode 
     <div
       className={`${heading.variable} ${body.variable}`}
       style={{
-        "--font-heading": "var(--font-l2-heading), Georgia, serif",
-        "--font-sans":    "var(--font-l2-body), Georgia, serif",
+        "--font-fredoka": "var(--font-l2-heading)",
+        "--font-nunito":  "var(--font-l2-body)",
       } as React.CSSProperties}
     >
       {children}
