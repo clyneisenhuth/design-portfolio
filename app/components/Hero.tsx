@@ -52,9 +52,9 @@ export default function Hero() {
         {/* Left: text */}
         <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
           <p className="font-heading text-lg text-muted mb-2">hi, I&apos;m</p>
-          <h1 className="font-heading font-bold leading-none mb-4">
-            <span className="gradient-text text-7xl md:text-8xl block">Courtney</span>
-            <span className="text-ink text-5xl md:text-6xl block">Eisenhuth</span>
+          <h1 className="font-heading font-bold leading-tight mb-4">
+            <span className="gradient-text text-7xl md:text-8xl block pb-3">Courtney</span>
+            <span className="text-ink text-4xl md:text-5xl block">Eisenhuth</span>
           </h1>
 
           <div className="h-8 flex items-center mb-6">
