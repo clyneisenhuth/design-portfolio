@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <CustomCursor />
       <Nav />
-      <main>
+      <main id="main-content">
         <Hero />
         <Bio />
         <Projects />

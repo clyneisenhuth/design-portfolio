@@ -123,6 +123,39 @@
 /* ── Global cursor override ── */
 * { cursor: none !important; }
 
+/* ── Skip link ── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  background: #8059C4;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 0 0 0.5rem 0;
+  text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 3px solid #8059C4;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  * { cursor: auto !important; }
+}
+
 /* ── Playground keyframes ── */
 @keyframes confetti-shoot {
   0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }

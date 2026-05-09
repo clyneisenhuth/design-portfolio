@@ -3,28 +3,17 @@
 import { useRef, useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
 import CompAnalysisTable from "../../components/CompAnalysisTable";
-
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
+import CountUpStat from "../../components/CountUpStat";
+import Logo from "../../components/Logo";
+import { useInView } from "../../hooks/useInView";
 
 const purchaseFactors = [
   { rank: "1", factor: "Price", pct: "83%", note: "Reviews validate worth relative to cost" },
-  { rank: "2", factor: "Ratings & Reviews", pct: "77%", note: "Central to apparel purchase decisions" },
-  { rank: "3", factor: "Fit & Sizing Info", pct: "67%", note: "Top return reason; reviews address sizing accuracy" },
-  { rank: "4", factor: "Customer Photos", pct: "59%", note: "Shows product on real people vs. studio photography" },
-  { rank: "5", factor: "Personal Style", pct: "58%", note: "Shoppers verify expectations through reviews" },
-  { rank: "6", factor: "Return Policy", pct: "80%", note: "Reviews mentioning returns influence purchase" },
+  { rank: "2", factor: "Return Policy", pct: "80%", note: "Reviews mentioning returns influence purchase" },
+  { rank: "3", factor: "Ratings & Reviews", pct: "77%", note: "Central to apparel purchase decisions" },
+  { rank: "4", factor: "Fit & Sizing Info", pct: "67%", note: "Top return reason; reviews address sizing accuracy" },
+  { rank: "5", factor: "Customer Photos", pct: "59%", note: "Shows product on real people vs. studio photography" },
+  { rank: "6", factor: "Personal Style", pct: "58%", note: "Shoppers verify expectations through reviews" },
 ];
 
 const userTestingFindings = [
@@ -206,14 +195,9 @@ export default function ProductReviewsCaseStudy() {
           <Section>
             <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Context</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-6">The opportunity</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <p className="font-sans text-base text-muted leading-relaxed">
-                American Eagle Outfitters is a Fortune 500 retailer with $5.3B in annual revenue and 1,170+ stores worldwide. The mobile app drives <span className="font-extrabold text-blue">40% of digital revenue</span>, making every experience on it high stakes.
-              </p>
-              <p className="font-sans text-base text-muted leading-relaxed">
-                A vendor API migration created a rare blank-slate opportunity: rebuild the entire reviews experience from scratch rather than patch an aging system. I led design end-to-end, collaborating with product management on scoping, research execution, and handoff.
-              </p>
-            </div>
+            <p className="font-sans text-base text-muted leading-relaxed max-w-2xl">
+              A vendor API migration created a rare blank-slate opportunity: rebuild the entire AE + Aerie mobile app reviews experience from scratch rather than patch an aging system. I led design end-to-end, collaborating with product management on scoping, research execution, and handoff.
+            </p>
           </Section>
 
           {/* Problem */}
@@ -263,10 +247,12 @@ export default function ProductReviewsCaseStudy() {
                 { value: "59%", label: "specifically seek customer photos before buying" },
                 { value: "270%", label: "higher conversion for products with reviews" },
               ].map((s) => (
-                <div key={s.value} className="bg-surface border-2 border-border rounded-2xl p-5 text-center hover:border-blue/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <p className="font-heading text-3xl font-bold gradient-text-static mb-2">{s.value}</p>
-                  <p className="font-sans text-xs text-muted leading-snug">{s.label}</p>
-                </div>
+                <CountUpStat
+                  key={s.value}
+                  value={s.value}
+                  label={s.label}
+                  className="bg-surface border-2 border-border rounded-2xl p-5 text-center hover:border-blue/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                />
               ))}
             </div>
 
@@ -332,7 +318,7 @@ export default function ProductReviewsCaseStudy() {
             <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Competitive Analysis</p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Benchmarking 11 retail apps</h2>
             <p className="font-sans text-base text-muted leading-relaxed mb-6 max-w-2xl">
-              I analyzed reviews experiences across leading retail apps including Abercrombie & Fitch, Nordstrom, Urban Outfitters, Gap, Lululemon, Victoria&apos;s Secret, Macy&apos;s, Sephora, Target, and Walmart, benchmarking PDP display, filtering, photo UGC treatment, and submission flows.
+              I analyzed reviews experiences across leading retail apps including Abercrombie & Fitch, Nordstrom, Urban Outfitters, Gap, Lululemon, Nike, Victoria&apos;s Secret, Macy&apos;s, Sephora, Target, and Walmart, benchmarking PDP display, filtering, photo UGC treatment, and submission flows.
             </p>
 
             <div className="flex flex-col gap-4 mb-6">
@@ -423,6 +409,31 @@ export default function ProductReviewsCaseStudy() {
             </div>
           </Section>
 
+          {/* Final Screens */}
+          <Section>
+            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Final Screens</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+              Four connected surfaces, each addressing a distinct gap identified in research.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                { src: "/app-reviews-image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
+                { src: "/app-reviews-image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
+                { src: "/app-reviews-image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
+                { src: "/app-reviews-image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
+              ].map((screen) => (
+                <div key={screen.title} className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <img src={screen.src} alt={screen.title} className="w-full object-cover" />
+                  <div className="p-5">
+                    <p className="font-heading font-bold text-ink text-sm mb-1">{screen.title}</p>
+                    <p className="font-sans text-xs text-muted leading-relaxed">{screen.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Section>
+
           {/* Accessibility */}
           <Section>
             <div className="bg-gradient-to-br from-purple-pale to-blue-pale border-2 border-purple/20 rounded-3xl p-8 md:p-10">
@@ -492,9 +503,7 @@ export default function ProductReviewsCaseStudy() {
               <span className="transition-transform group-hover:-translate-x-1">←</span>
               Back to portfolio
             </a>
-            <p className="font-heading text-sm font-semibold gradient-text-static">
-              Courtney Eisenhuth ✦
-            </p>
+            <Logo className="h-8 w-auto" />
           </div>
 
         </div>

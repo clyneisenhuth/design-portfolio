@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Logo from "./Logo";
 
 export default function Footer() {
   const [copied, setCopied] = useState(false);
   const [wiggle, setWiggle] = useState(false);
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("clyneisenhuth@gmail.com");
+    await navigator.clipboard.writeText("courtneyeisenhuth@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2200);
   };
@@ -30,7 +31,7 @@ export default function Footer() {
           </div>
 
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink mb-4">
-            Let&apos;s work together!
+            Have an idea? Let&apos;s chat!
           </h2>
           <p className="font-sans text-muted max-w-md mx-auto mb-10 leading-relaxed">
             I&apos;m open to senior product design and strategy roles. If you&apos;ve got something interesting, I&apos;d love to hear about it.
@@ -42,7 +43,7 @@ export default function Footer() {
             className="group inline-flex items-center gap-3 font-sans font-bold text-base md:text-lg px-7 py-4 bg-surface border-2 border-purple text-purple rounded-2xl hover:bg-purple hover:text-white transition-all duration-250 hover:scale-105 active:scale-95 shadow-sm"
           >
             <span className="text-xl">{copied ? "✅" : "📬"}</span>
-            <span>clyneisenhuth@gmail.com</span>
+            <span>courtneyeisenhuth@gmail.com</span>
             <span
               className={`font-sans text-xs font-normal transition-all duration-300 ${
                 copied ? "opacity-100 text-green-400 group-hover:text-green-300" : "opacity-0 group-hover:opacity-60"
@@ -58,9 +59,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-5 text-sm text-muted">
-          <p className="font-heading text-xl font-semibold gradient-text-static">
-            Courtney Eisenhuth ✦
-          </p>
+          <Logo className="h-8 w-auto" />
 
           <p className="font-sans text-xs text-center">
             Created with Claude Code &nbsp;·&nbsp; Made with ♥ &nbsp;·&nbsp; 2026
@@ -68,7 +67,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-5">
             <a
-              href="mailto:clyneisenhuth@gmail.com"
+              href="mailto:courtneyeisenhuth@gmail.com"
               className="font-sans font-semibold hover:text-purple transition-colors duration-200 hover:scale-105 inline-block"
             >
               Email

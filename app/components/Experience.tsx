@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
+import { useInView } from "../hooks/useInView";
 
 const jobs = [
   {
@@ -49,19 +50,6 @@ const jobs = [
   },
 ];
 
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
 
 type Job = typeof jobs[0];
 
@@ -84,6 +72,10 @@ function JobCard({ job, index }: { job: Job; index: number }) {
     >
       <div
         onClick={toggle}
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } }}
         className={`relative rounded-2xl border-2 p-6 transition-all duration-300 ${
           job.featured
             ? open

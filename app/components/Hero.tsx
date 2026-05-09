@@ -15,10 +15,14 @@ export default function Hero() {
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [visible, setVisible] = useState(false);
+  const reducedMotion = typeof window !== "undefined"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
 
   useEffect(() => { setVisible(true); }, []);
 
   useEffect(() => {
+    if (reducedMotion) { setDisplayed(roles[0]); return; }
     const current = roles[roleIdx];
     const speed = isDeleting ? 35 : 75;
     const t = setTimeout(() => {
@@ -38,10 +42,10 @@ export default function Hero() {
       }
     }, speed);
     return () => clearTimeout(t);
-  }, [displayed, isDeleting, roleIdx]);
+  }, [displayed, isDeleting, roleIdx, reducedMotion]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-bg">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-bg">
       {/* Background blob */}
       <div
         className="absolute -top-40 -right-40 w-[600px] h-[600px] opacity-20 pointer-events-none"
@@ -52,7 +56,7 @@ export default function Hero() {
         {/* Left: text */}
         <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
           <p className="font-heading text-lg text-muted mb-2">hi, I&apos;m</p>
-          <h1 className="font-heading font-bold leading-tight mb-4">
+          <h1 className="font-heading font-bold leading-none mb-4">
             <span className="gradient-text text-7xl md:text-8xl block pb-3">Courtney</span>
             <span className="text-ink text-4xl md:text-5xl block">Eisenhuth</span>
           </h1>
@@ -69,7 +73,7 @@ export default function Hero() {
           </p>
 
           <button
-            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             className="font-sans font-extrabold px-8 py-4 bg-purple text-white rounded-2xl hover:bg-purple-deep transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
             style={{ boxShadow: "0 8px 30px #8059C440" }}
           >
@@ -84,7 +88,7 @@ export default function Hero() {
             <div className="absolute -bottom-4 -left-4 w-40 h-40 rounded-full border-2 border-dashed border-blue/20 animate-spin-rev pointer-events-none" />
 
             {[
-              { label: "Years of experience", value: "10+",                                    emoji: "🎨", color: "bg-purple-pale text-purple" },
+              { label: "Product skills",       value: "Strategy, Research, UX/UI", emoji: "🎨", color: "bg-purple-pale text-purple" },
               { label: "Focus area",          value: "Mobile & E-comm",                        emoji: "🛍️", color: "bg-surface text-ink" },
               { label: "Current role",        value: "Mobile Design Systems Team @ PNC Bank",  emoji: "🏦", color: "bg-blue-pale text-blue-deep" },
               { label: "Working on",          value: "AI & Vibe-coding",                       emoji: "🚀", color: "bg-purple-pale text-purple-deep" },

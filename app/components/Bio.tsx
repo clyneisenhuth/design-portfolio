@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useInView } from "../hooks/useInView";
 
 const CONFETTI_PALETTE = [
   "#8059C4","#4B7BE5","#D4A8F0","#8BB8F8",
@@ -77,27 +79,15 @@ const skills = [
   { label: "Navigation Design",           hue: "blue"   },
   { label: "Systems Thinking",            hue: "purple" },
   { label: "Behavioral Data Analysis",    hue: "blue"   },
+  { label: "Rapid Prototyping",           hue: "purple" },
 ];
 
 const stats = [
   { target: 10, prefix: "",  suffix: " yrs", desc: "of product design experience" },
-  { target: 10, prefix: "",  suffix: "M+",   desc: "customers served through AEO"  },
+  { target: 15, prefix: "",  suffix: "M+",   desc: "customers served through AEO"  },
   { target: 20, prefix: "$", suffix: "M+",   desc: "estimated revenue lift in 2025" },
 ];
 
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
 
 function StatCard({
   target, prefix, suffix, desc,
@@ -172,6 +162,7 @@ export default function Bio() {
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
             A little about me ✨
           </h2>
+          <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">The who behind the work.</p>
         </div>
 
         {/* Bio row */}
@@ -180,13 +171,16 @@ export default function Bio() {
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Headshot placeholder */}
+          {/* Headshot */}
           <div className="relative flex items-center justify-center">
-            <div className="w-64 h-64 md:w-72 md:h-72 rounded-3xl bg-gradient-to-br from-purple-pale to-blue-pale border-2 border-dashed border-purple/30 flex flex-col items-center justify-center gap-3 select-none">
-              <span className="text-6xl">📸</span>
-              <p className="font-sans text-sm text-muted text-center px-6 leading-snug">
-                Headshot<br />coming soon!
-              </p>
+            <div className="w-72 md:w-80 aspect-[3/4] rounded-3xl overflow-hidden border-2 border-purple/20 shadow-xl">
+              <Image
+                src="/profile_pic1.jpg"
+                alt="Courtney Eisenhuth"
+                width={320}
+                height={427}
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             {/* Decorative bubbles */}
             <div className="absolute -top-5 -right-5 w-14 h-14 bg-purple rounded-2xl rotate-12 animate-float opacity-70 shadow-lg" />
@@ -202,7 +196,7 @@ export default function Bio() {
             <p className="font-sans text-base text-muted leading-relaxed">
               I&apos;m a <span className="font-extrabold text-purple">Senior Product Designer</span> with
               10 years of experience crafting mobile-first experiences people actually love. I
-              specialize in e-commerce and retail — balancing user needs with real business outcomes.
+              specialize in e-commerce and retail, balancing user needs with real business outcomes.
             </p>
             <p className="font-sans text-base text-muted leading-relaxed">
               I&apos;ve spent the last 5+ years deeply embedded in the{" "}
@@ -211,17 +205,17 @@ export default function Bio() {
               through thoughtful design of navigation, checkout, loyalty, and discovery.
             </p>
             <p className="font-sans text-base text-muted leading-relaxed">
-              I&apos;m a systems thinker who loves a good design challenge — and yes, I&apos;ll
+              I&apos;m a systems thinker who loves a good design challenge, and yes, I&apos;ll
               probably make it a little fun too ✨
             </p>
 
             {/* Email chip */}
             <a
-              href="mailto:clyneisenhuth@gmail.com"
+              href="mailto:courtneyeisenhuth@gmail.com"
               className="inline-flex items-center gap-2 self-start font-sans text-sm font-bold text-purple border-2 border-purple/30 bg-purple-pale px-4 py-2 rounded-full hover:bg-purple hover:text-white hover:border-purple transition-all duration-200 hover:scale-105 active:scale-95"
             >
               <span>📬</span>
-              clyneisenhuth@gmail.com
+              courtneyeisenhuth@gmail.com
             </a>
           </div>
         </div>
