@@ -22,6 +22,13 @@ const layouts = [
     desc: "White base, vivid bento grid, color-flood hover cards, coral footer, high-energy interactions.",
     palette: ["#F8F8F8", "#FF4757", "#2563EB", "#FBBF24"],
   },
+  {
+    href: "/layout-4",
+    label: "Layout 4",
+    name: "Quirky & Fun",
+    desc: "Handwriting font, emoji cursor trail, magnetic button, polaroid project cards, sticker tags, blob SVGs.",
+    palette: ["#FFFDF7", "#8B5CF6", "#FBBF24", "#10B981"],
+  },
 ];
 
 export default function LayoutsIndex() {
@@ -29,8 +36,8 @@ export default function LayoutsIndex() {
     <div className="min-h-screen bg-bg flex flex-col items-center justify-center px-6 py-20">
       <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-2">Layout Exploration</p>
       <h1 className="font-heading text-4xl md:text-5xl font-bold text-ink text-center mb-2">Pick a layout to preview</h1>
-      <p className="font-sans text-sm text-muted mb-12 text-center">3 distinct directions — click to open full-page preview</p>
-      <div className="grid md:grid-cols-3 gap-5 w-full max-w-4xl">
+      <p className="font-sans text-sm text-muted mb-12 text-center">4 distinct directions — click to open full-page preview</p>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-5xl">
         {layouts.map(l => (
           <a key={l.href} href={l.href}
             className="group block rounded-3xl border-2 border-border bg-surface hover:border-purple/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 overflow-hidden">
