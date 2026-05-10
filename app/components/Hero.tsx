@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const roles = [
   "Senior Product Designer",
@@ -58,7 +59,7 @@ export default function Hero() {
           <p className="font-heading text-lg text-muted mb-2">hi, I&apos;m</p>
           <h1 className="font-heading font-bold leading-none mb-4">
             <span className="gradient-text text-7xl md:text-8xl block pb-3">Courtney</span>
-            <span className="text-ink text-5xl md:text-6xl block">Eisenhuth</span>
+            <span className="text-ink text-4xl md:text-5xl block">Eisenhuth</span>
           </h1>
 
           <div className="h-8 flex items-center mb-6">
@@ -92,17 +93,20 @@ export default function Hero() {
               { label: "Focus area",          value: "Mobile & E-comm",                        emoji: "🛍️", color: "bg-surface text-ink" },
               { label: "Current role",        value: "Mobile Design Systems Team @ PNC Bank",  emoji: "🏦", color: "bg-blue-pale text-blue-deep" },
               { label: "Working on",          value: "AI & Vibe-coding",                       emoji: "🚀", color: "bg-purple-pale text-purple-deep" },
-            ].map((card) => (
-              <div
+            ].map((card, i) => (
+              <motion.div
                 key={card.label}
                 className={`flex items-center gap-4 px-6 py-4 rounded-2xl shadow-sm border border-border ${card.color} bg-opacity-60`}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", bounce: 0.5, duration: 0.8, delay: 0.4 + i * 0.15 }}
               >
                 <span className="text-3xl">{card.emoji}</span>
                 <div>
                   <p className="font-sans text-xs uppercase tracking-widest opacity-60 mb-0.5">{card.label}</p>
                   <p className="font-heading font-bold text-xl">{card.value}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
