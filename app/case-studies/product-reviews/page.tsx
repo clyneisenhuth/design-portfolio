@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
 import CompAnalysisTable from "../../components/CompAnalysisTable";
 import CountUpStat from "../../components/CountUpStat";
+import FadeInSection from "../../components/FadeInSection";
 import Logo from "../../components/Logo";
-import { useInView } from "../../hooks/useInView";
 
 const purchaseFactors = [
   { rank: "1", factor: "Price", pct: "83%", note: "Reviews validate worth relative to cost" },
@@ -126,17 +126,7 @@ const reflections = [
   },
 ];
 
-function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const { ref, inView } = useInView();
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${className}`}
-    >
-      {children}
-    </div>
-  );
-}
+const Section = FadeInSection;
 
 export default function ProductReviewsCaseStudy() {
   const [visible, setVisible] = useState(false);
