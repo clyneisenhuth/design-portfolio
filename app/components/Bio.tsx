@@ -90,7 +90,7 @@ export default function Bio() {
           <div className="relative flex items-center justify-center">
             <div className="w-72 md:w-80 aspect-[3/4] rounded-3xl overflow-hidden border-2 border-purple/20 shadow-xl">
               <Image
-                src="/profile_pic1.jpg"
+                src="/images/profile_pic1.jpg"
                 alt="Courtney Eisenhuth"
                 width={320}
                 height={427}

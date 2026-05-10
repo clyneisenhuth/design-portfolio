@@ -408,10 +408,10 @@ export default function ProductReviewsCaseStudy() {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {[
-                { src: "/app-reviews-image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
-                { src: "/app-reviews-image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
-                { src: "/app-reviews-image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
-                { src: "/app-reviews-image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
+                { src: "/case-studies/product-reviews/image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
+                { src: "/case-studies/product-reviews/image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
+                { src: "/case-studies/product-reviews/image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
+                { src: "/case-studies/product-reviews/image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
               ].map((screen) => (
                 <div key={screen.title} className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <img src={screen.src} alt={screen.title} className="w-full object-cover" />

@@ -276,7 +276,7 @@ export default function IncentivizedReviewsCaseStudy() {
 
             <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden mb-6">
               <img
-                src="/moscow-image1.avif"
+                src="/case-studies/incentivized-reviews/moscow-image1.avif"
                 alt="MoSCoW prioritization workshop with cross-functional team"
                 className="w-full object-cover"
               />
@@ -346,7 +346,7 @@ export default function IncentivizedReviewsCaseStudy() {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <img
-                  src="/points-image2.jpeg"
+                  src="/case-studies/incentivized-reviews/points-image2.jpeg"
                   alt="Write a Review screen showing Real Rewards loyalty prompt — earn 50 points per review"
                   className="w-full object-cover"
                 />
@@ -357,7 +357,7 @@ export default function IncentivizedReviewsCaseStudy() {
               </div>
               <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <img
-                  src="/points-image1.jpeg"
+                  src="/case-studies/incentivized-reviews/points-image1.jpeg"
                   alt="All Reviews list screen showing Reward Points Awarded label on incentivized reviews"
                   className="w-full object-cover"
                 />
