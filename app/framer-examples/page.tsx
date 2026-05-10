@@ -5,6 +5,17 @@ import { motion, useInView, useMotionValue, useTransform, AnimatePresence } from
 import Link from "next/link";
 import CustomCursor from "../components/CustomCursor";
 
+function useReplayKey(): [number, () => void] {
+  const [key, setKey] = useState(0);
+  return [key, () => setKey(k => k + 1)];
+}
+
+function ReplayButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button onClick={onClick} className="font-sans text-xs text-muted underline">replay</button>
+  );
+}
+
 function Card({ title, caption, children }: { title: string; caption: string; children: React.ReactNode }) {
   return (
     <div className="bg-white rounded-3xl border border-border p-8 flex flex-col gap-6 shadow-sm">
@@ -21,7 +32,7 @@ function Card({ title, caption, children }: { title: string; caption: string; ch
 
 // ── 1. Fade up with bounce ─────────────────────────────────────────────────────
 function FadeUpBounce() {
-  const [key, setKey] = useState(0);
+  const [key, replay] = useReplayKey();
   return (
     <div className="flex flex-col items-center gap-4 w-full">
       <div className="flex gap-3">
@@ -37,14 +48,14 @@ function FadeUpBounce() {
           </motion.div>
         ))}
       </div>
-      <button onClick={() => setKey(k => k + 1)} className="font-sans text-xs text-muted underline">replay</button>
+      <ReplayButton onClick={replay} />
     </div>
   );
 }
 
 // ── 2. Scale pop ──────────────────────────────────────────────────────────────
 function ScalePop() {
-  const [key, setKey] = useState(0);
+  const [key, replay] = useReplayKey();
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex gap-4">
@@ -60,14 +71,14 @@ function ScalePop() {
           </motion.div>
         ))}
       </div>
-      <button onClick={() => setKey(k => k + 1)} className="font-sans text-xs text-muted underline">replay</button>
+      <ReplayButton onClick={replay} />
     </div>
   );
 }
 
 // ── 3. Slide in from right, staggered ─────────────────────────────────────────
 function SlideFromRight() {
-  const [key, setKey] = useState(0);
+  const [key, replay] = useReplayKey();
   const items = ["Strategy", "Research", "UX/UI", "Mobile"];
   return (
     <div className="flex flex-col items-center gap-4 w-full">
@@ -85,14 +96,14 @@ function SlideFromRight() {
           </motion.div>
         ))}
       </div>
-      <button onClick={() => setKey(k => k + 1)} className="font-sans text-xs text-muted underline">replay</button>
+      <ReplayButton onClick={replay} />
     </div>
   );
 }
 
 // ── 4. Cascade flip ───────────────────────────────────────────────────────────
 function CascadeFlip() {
-  const [key, setKey] = useState(0);
+  const [key, replay] = useReplayKey();
   const cards = ["10+ years", "Mobile", "PNC Bank", "AI & Vibe-coding"];
   return (
     <div className="flex flex-col items-center gap-4">
@@ -110,7 +121,7 @@ function CascadeFlip() {
           </motion.div>
         ))}
       </div>
-      <button onClick={() => setKey(k => k + 1)} className="font-sans text-xs text-muted underline">replay</button>
+      <ReplayButton onClick={replay} />
     </div>
   );
 }

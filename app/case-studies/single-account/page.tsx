@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CustomCursor from "../../components/CustomCursor";
+import FadeInSection from "../../components/FadeInSection";
 import Logo from "../../components/Logo";
-import { useInView } from "../../hooks/useInView";
 
 const strategicDecisions = [
   {
@@ -97,17 +97,7 @@ const learnings = [
   },
 ];
 
-function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const { ref, inView } = useInView();
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${className}`}
-    >
-      {children}
-    </div>
-  );
-}
+const Section = FadeInSection;
 
 export default function SingleAccountCaseStudy() {
   const [visible, setVisible] = useState(false);
@@ -300,8 +290,8 @@ export default function SingleAccountCaseStudy() {
             </p>
             <div className="grid md:grid-cols-2 gap-6">
               {[
-                { src: "/singleaccount_image1.jpeg", label: "Single Account Screen 1", caption: "Final screen from the Single Account migration flow, guiding existing customers through account consolidation." },
-                { src: "/singleaccount_image2.jpeg", label: "Single Account Screen 2", caption: "Final screen from the loyalty enrollment experience, surfacing AEO Real Rewards benefits at the point of account creation." },
+                { src: "/case-studies/single-account/image1.jpeg", label: "Single Account Screen 1", caption: "Final screen from the Single Account migration flow, guiding existing customers through account consolidation." },
+                { src: "/case-studies/single-account/image2.jpeg", label: "Single Account Screen 2", caption: "Final screen from the loyalty enrollment experience, surfacing AEO Real Rewards benefits at the point of account creation." },
               ].map((s) => (
                 <div key={s.label} className="bg-surface border-2 border-border rounded-3xl overflow-hidden">
                   <img src={s.src} alt={s.label} className="w-full object-cover" />
