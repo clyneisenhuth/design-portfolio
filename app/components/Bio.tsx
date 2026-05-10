@@ -2,69 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useInView } from "../hooks/useInView";
-
-const CONFETTI_PALETTE = [
-  "#8059C4","#4B7BE5","#D4A8F0","#8BB8F8",
-  "#FF6B9D","#FFD93D","#6BCB77","#FF9E3D",
-];
-
-function burstConfetti(origin: HTMLElement, rafRef: React.MutableRefObject<number>) {
-  const canvas = document.createElement("canvas");
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-  canvas.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:9990;";
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext("2d")!;
-
-  const r  = origin.getBoundingClientRect();
-  const cx = r.left + r.width  / 2;
-  const cy = r.top  + r.height / 2;
-
-  const particles = Array.from({ length: 40 }, (_, i) => {
-    const angle = (i / 40) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
-    const speed = 4 + Math.random() * 6;
-    return {
-      x: cx, y: cy,
-      vx:   Math.cos(angle) * speed,
-      vy:   Math.sin(angle) * speed - 2,
-      w:    4 + Math.random() * 7,
-      h:    3 + Math.random() * 4,
-      color: CONFETTI_PALETTE[Math.floor(Math.random() * CONFETTI_PALETTE.length)],
-      rot:  Math.random() * Math.PI * 2,
-      rotV: (Math.random() - 0.5) * 0.28,
-      life: 1,
-    };
-  });
-
-  cancelAnimationFrame(rafRef.current);
-
-  const animate = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let alive = false;
-    for (const p of particles) {
-      if (p.life <= 0) continue;
-      alive = true;
-      p.x   += p.vx;
-      p.y   += p.vy;
-      p.vy  += 0.2;
-      p.vx  *= 0.989;
-      p.rot += p.rotV;
-      p.life -= 0.016;
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-      ctx.restore();
-    }
-    if (alive) { rafRef.current = requestAnimationFrame(animate); }
-    else        { canvas.remove(); }
-  };
-
-  rafRef.current = requestAnimationFrame(animate);
-}
 
 const skills = [
   { label: "Mobile Design (iOS/Android)", hue: "purple" },
@@ -134,17 +73,6 @@ function StatCard({
 
 export default function Bio() {
   const { ref, inView } = useInView();
-  const [hovered,  setHovered]  = useState<number | null>(null);
-  const [jiggling, setJiggling] = useState<number | null>(null);
-  const rafRef = useRef<number>(0);
-
-  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
-
-  const onSkillClick = (i: number, btn: HTMLElement) => {
-    setJiggling(i);
-    setTimeout(() => setJiggling(null), 600);
-    burstConfetti(btn, rafRef);
-  };
 
   return (
     <section id="bio" className="py-28 px-6" ref={ref}>
@@ -237,29 +165,27 @@ export default function Bio() {
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <h3 className="font-heading text-2xl font-bold text-ink text-center mb-2">
+          <h3 className="font-heading text-2xl font-bold text-ink text-center mb-6">
             My superpowers 🦸‍♀️
           </h3>
-          <p className="font-sans text-sm text-muted text-center mb-6">
-            (Click them — they like it)
-          </p>
           <div className="flex flex-wrap gap-3 justify-center">
             {skills.map((sk, i) => (
-              <button
+              <motion.button
                 key={i}
-                onMouseEnter={() => setHovered(i)}
-                onMouseLeave={() => setHovered(null)}
-                onClick={(e) => onSkillClick(i, e.currentTarget)}
-                className={`font-sans text-sm font-semibold px-4 py-2 rounded-full border-2 transition-all duration-200 select-none ${
+                className={`font-sans text-sm font-semibold px-4 py-2 rounded-full border-2 transition-colors duration-200 select-none ${
                   sk.hue === "purple"
                     ? "bg-purple-pale text-purple border-purple/20 hover:bg-purple hover:text-white hover:border-purple"
                     : "bg-blue-pale text-blue border-blue/20 hover:bg-blue hover:text-white hover:border-blue"
-                } ${hovered === i ? "scale-110 -rotate-2 shadow-md" : "scale-100"} ${
-                  jiggling === i ? "animate-wiggle" : ""
                 }`}
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ type: "spring", stiffness: 400, damping: 15, delay: i * 0.06 }}
+                whileHover={{ scale: 1.1, rotate: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {sk.label}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
