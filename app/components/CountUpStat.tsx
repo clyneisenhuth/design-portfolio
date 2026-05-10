@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useInView } from "../hooks/useInView";
 
 function parseValue(val: string) {
   const match = val.match(/^([\d.]+)(.*)$/);
@@ -18,22 +19,12 @@ interface Props {
 }
 
 export default function CountUpStat({ value, label, source, className = "", numberClassName = "text-3xl" }: Props) {
-  const ref  = useRef<HTMLDivElement>(null);
-  const [count,   setCount]   = useState(0);
-  const [started, setStarted] = useState(false);
+  const { ref, inView } = useInView(0.4);
+  const [count, setCount] = useState(0);
   const { number, suffix, decimals } = parseValue(value);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setStarted(true); obs.disconnect(); } },
-      { threshold: 0.4 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!started) return;
+    if (!inView) return;
     const duration = 1400;
     const start = performance.now();
     const tick = (now: number) => {
@@ -43,7 +34,7 @@ export default function CountUpStat({ value, label, source, className = "", numb
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
-  }, [started, number, decimals]);
+  }, [inView, number, decimals]);
 
   const display = decimals > 0 ? count.toFixed(decimals) : Math.round(count);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "../hooks/useInView";
@@ -33,21 +33,11 @@ function StatCard({
 }: {
   target: number; prefix: string; suffix: string; desc: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [val,     setVal]     = useState(0);
-  const [started, setStarted] = useState(false);
+  const { ref, inView } = useInView(0.5);
+  const [val, setVal] = useState(0);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting && !started) { setStarted(true); obs.disconnect(); } },
-      { threshold: 0.5 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [started]);
-
-  useEffect(() => {
-    if (!started) return;
+    if (!inView) return;
     let cur = 0;
     const step = target / 60;
     const t = setInterval(() => {
@@ -56,7 +46,7 @@ function StatCard({
       if (cur >= target) clearInterval(t);
     }, 16);
     return () => clearInterval(t);
-  }, [started, target]);
+  }, [inView, target]);
 
   return (
     <div
@@ -78,7 +68,6 @@ export default function Bio() {
     <section id="bio" className="py-28 px-6" ref={ref}>
       <div className="max-w-5xl mx-auto">
 
-        {/* Section label */}
         <div
           className={`text-center mb-16 transition-all duration-700 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -93,13 +82,11 @@ export default function Bio() {
           <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">The who behind the work.</p>
         </div>
 
-        {/* Bio row */}
         <div
           className={`grid md:grid-cols-2 gap-10 mb-16 transition-all duration-700 delay-100 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Headshot */}
           <div className="relative flex items-center justify-center">
             <div className="w-72 md:w-80 aspect-[3/4] rounded-3xl overflow-hidden border-2 border-purple/20 shadow-xl">
               <Image
@@ -110,13 +97,11 @@ export default function Bio() {
                 className="w-full h-full object-cover object-top"
               />
             </div>
-            {/* Decorative bubbles */}
             <div className="absolute -top-5 -right-5 w-14 h-14 bg-purple rounded-2xl rotate-12 animate-float opacity-70 shadow-lg" />
             <div className="absolute -bottom-5 -left-5 w-10 h-10 bg-blue rounded-2xl -rotate-12 animate-float-2 opacity-70 shadow-lg" />
             <div className="absolute top-4 -left-8 w-7 h-7 bg-accent rounded-full animate-float-r0 opacity-80" />
           </div>
 
-          {/* Bio text */}
           <div className="flex flex-col justify-center gap-5">
             <h3 className="font-heading text-2xl font-bold text-ink">
               Hey, I&apos;m Courtney! 👋
@@ -137,7 +122,6 @@ export default function Bio() {
               probably make it a little fun too ✨
             </p>
 
-            {/* Email chip */}
             <a
               href="mailto:courtneyeisenhuth@gmail.com"
               className="inline-flex items-center gap-2 self-start font-sans text-sm font-bold text-purple border-2 border-purple/30 bg-purple-pale px-4 py-2 rounded-full hover:bg-purple hover:text-white hover:border-purple transition-all duration-200 hover:scale-105 active:scale-95"
@@ -148,7 +132,6 @@ export default function Bio() {
           </div>
         </div>
 
-        {/* Stats */}
         <div
           className={`grid grid-cols-3 gap-4 mb-16 transition-all duration-700 delay-200 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -159,7 +142,6 @@ export default function Bio() {
           ))}
         </div>
 
-        {/* Skills */}
         <div
           className={`transition-all duration-700 delay-300 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"

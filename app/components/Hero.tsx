@@ -11,14 +11,16 @@ const roles = [
   "E-commerce Obsessive 🛍️",
 ];
 
+const reducedMotion =
+  typeof window !== "undefined"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
+
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [visible, setVisible] = useState(false);
-  const reducedMotion = typeof window !== "undefined"
-    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    : false;
 
   useEffect(() => { setVisible(true); }, []);
 
@@ -26,12 +28,13 @@ export default function Hero() {
     if (reducedMotion) { setDisplayed(roles[0]); return; }
     const current = roles[roleIdx];
     const speed = isDeleting ? 35 : 75;
+    let inner: ReturnType<typeof setTimeout> | undefined;
     const t = setTimeout(() => {
       if (!isDeleting) {
         if (displayed.length < current.length) {
           setDisplayed(current.slice(0, displayed.length + 1));
         } else {
-          setTimeout(() => setIsDeleting(true), 1800);
+          inner = setTimeout(() => setIsDeleting(true), 1800);
         }
       } else {
         if (displayed.length > 0) {
@@ -42,7 +45,7 @@ export default function Hero() {
         }
       }
     }, speed);
-    return () => clearTimeout(t);
+    return () => { clearTimeout(t); clearTimeout(inner); };
   }, [displayed, isDeleting, roleIdx, reducedMotion]);
 
   return (
