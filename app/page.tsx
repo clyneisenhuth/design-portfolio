@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Bio from "./components/Bio";
 import Projects from "./components/Projects";
 import Experience from "./components/Experience";
+import Blog from "./components/Blog";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <Bio />
         <Projects />
         <Experience />
+        <Blog />
       </main>
       <Footer />
     </>

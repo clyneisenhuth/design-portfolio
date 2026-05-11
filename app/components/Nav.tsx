@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
 
-const links = ["Bio", "Projects", "Experience"];
+const links = ["Bio", "Projects", "Experience", "Blog"];
 
 export default function Nav() {
   const [scrolled,   setScrolled]   = useState(false);
