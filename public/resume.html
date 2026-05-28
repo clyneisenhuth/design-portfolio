@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courtney Eisenhuth — Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple:       #8059C4;
+      --purple-light: #A07DD4;
+      --purple-pale:  #EDE7FF;
+      --purple-deep:  #5B3A8A;
+      --blue:         #4B7BE5;
+      --blue-light:   #6B9DF5;
+      --blue-pale:    #E3EEFF;
+      --blue-deep:    #2D5BC5;
+      --lavender:     #B8A0E0;
+      --bg:           #F8F6FF;
+      --surface:      #FFFFFF;
+      --ink:          #261A4A;
+      --muted:        #7566A0;
+      --border:       #E2D8F5;
+      --accent:       #D4A8F0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: auto 1fr;
+      box-shadow: 0 4px 40px rgba(128, 89, 196, 0.12);
+    }
+
+    /* ── Header ── */
+    header {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple) 50%, var(--blue) 100%);
+      padding: 36px 44px 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      right: 80px;
+      bottom: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .header-name {
+      font-family: 'Fredoka', ui-sans-serif, sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .header-title {
+      font-family: 'Fredoka', ui-sans-serif, sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      opacity: 0.88;
+      margin-bottom: 20px;
+      letter-spacing: 0.25px;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    /* ── Sidebar ── */
+    aside {
+      background: var(--bg);
+      padding: 28px 22px;
+      border-right: 1.5px solid var(--border);
+    }
+
+    /* ── Main ── */
+    main {
+      padding: 28px 36px 36px;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 26px; }
+
+    .section-heading {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 14px;
+      padding-bottom: 7px;
+      border-bottom: 2px solid var(--purple-pale);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── Education ── */
+    .edu-block { margin-bottom: 14px; }
+
+    .edu-degree {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .edu-focus {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-top: 1px;
+    }
+
+    .edu-school {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .skill-tag {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--purple-deep);
+      background: var(--purple-pale);
+      border-radius: 7px;
+      padding: 5px 10px;
+      line-height: 1.3;
+    }
+
+    /* ── Experience cards ── */
+    .exp-card {
+      position: relative;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px 14px 20px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--purple), var(--blue));
+      border-radius: 14px 0 0 14px;
+    }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .exp-role {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .exp-company {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--purple);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .exp-meta {
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .exp-dates {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px 9px;
+      white-space: nowrap;
+    }
+
+    .exp-location {
+      display: block;
+      font-size: 9.5px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 3px;
+      text-align: right;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      margin-top: 6px;
+    }
+
+    .exp-bullets li {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.65;
+      padding-left: 15px;
+      position: relative;
+      margin-bottom: 2px;
+    }
+
+    .exp-bullets li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      font-size: 7px;
+      color: var(--lavender);
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .exp-tag {
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 9px;
+    }
+
+    .exp-tag-featured {
+      background: var(--purple);
+      color: white;
+    }
+
+    .exp-tag-plain {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px 12px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    .stat-number {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; margin: 0; width: 100%; }
+      .exp-card { break-inside: avoid; }
+      .section { break-inside: avoid; }
+    }
+
+    @media screen {
+      body { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ── Header ── -->
+    <header>
+      <p class="header-name">Courtney Eisenhuth</p>
+      <p class="header-title">Senior Product Designer</p>
+      <div class="contact-row">
+        <span class="contact-pill">📍 Bradfordwoods, PA 15015</span>
+        <span class="contact-pill">✉️ courtneyeisenhuth@gmail.com</span>
+        <span class="contact-pill">📱 (412) 915-0278</span>
+        <span class="contact-pill">🌐 courtneyeisenhuth.com</span>
+      </div>
+    </header>
+
+    <!-- ── Sidebar ── -->
+    <aside>
+
+      <div class="section">
+        <h2 class="section-heading">✦ Education</h2>
+
+        <div class="edu-block">
+          <p class="edu-degree">M.S., Media Arts &amp; Technology</p>
+          <p class="edu-focus">Web &amp; Experience Design</p>
+          <p class="edu-school">Duquesne University<br>Pittsburgh, PA</p>
+        </div>
+
+        <div class="edu-block">
+          <p class="edu-degree">B.A., Digital Media Arts</p>
+          <p class="edu-school">Duquesne University<br>Pittsburgh, PA</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-heading">✦ Skills</h2>
+        <div class="skills-grid">
+          <span class="skill-tag">Mobile UX Design</span>
+          <span class="skill-tag">UX Strategy</span>
+          <span class="skill-tag">User Research</span>
+          <span class="skill-tag">A/B Testing</span>
+          <span class="skill-tag">Wireframing &amp; Prototyping</span>
+          <span class="skill-tag">Figma · Axure · Adobe XD</span>
+          <span class="skill-tag">Design Systems</span>
+          <span class="skill-tag">Behavioral Analytics</span>
+          <span class="skill-tag">Usability Testing</span>
+          <span class="skill-tag">WCAG 2.X Accessibility</span>
+          <span class="skill-tag">Agile / SCRUM · JIRA</span>
+          <span class="skill-tag">AI Tools (Claude, Cursor)</span>
+          <span class="skill-tag">E-commerce UX</span>
+          <span class="skill-tag">iOS &amp; Android Design</span>
+          <span class="skill-tag">Cross-functional Leadership</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── Main ── -->
+    <main>
+
+      <div class="section">
+        <h2 class="section-heading">✦ Experience</h2>
+
+        <!-- AEO Strategist -->
+        <div class="exp-card">
+          <div class="exp-top">
+            <div>
+              <p class="exp-role">UX Strategist</p>
+              <p class="exp-company">American Eagle Outfitters Inc.</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-dates">Oct 2023 – Jan 2026</span>
+              <span class="exp-location">Pittsburgh, PA</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Lead strategist for mobile teams - working with Path to Checkout, Search &amp; Browse, Product Discoverability, Loyalty, Personalization, GIS/Logistics, and Payments.</li>
+            <li>Helped define the mobile commerce UX strategy for an app driving 40% of digital revenue for a $5B+ retailer, aligning customer experience initiatives with revenue growth, retention, and long-term digital roadmap objectives.</li>
+            <li>Identified high-impact opportunities across browse, PDP, cart, and checkout through behavioral data, market analysis, and user research, prioritizing initiatives based on business value and customer impact.</li>
+            <li>Contributed to A/B test design and experimentation strategies that drove an estimated $20.35 million in annual revenue lift in 2025.</li>
+            <li>Lead workshops with product managers and stakeholders to help gather requirements and MVP direction for new feature development.</li>
+            <li>Inform product managers and developers of accessibility guidelines and usage in mobile app development.</li>
+          </ul>
+          <div class="stat-badge">
+            <span class="stat-number">$20.35M</span>
+            <span class="stat-label">estimated revenue lift (2025)</span>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag exp-tag-featured">Strategy</span>
+            <span class="exp-tag exp-tag-featured">Research</span>
+            <span class="exp-tag exp-tag-featured">A/B Testing</span>
+            <span class="exp-tag exp-tag-featured">Accessibility</span>
+          </div>
+        </div>
+
+        <!-- AEO Designer -->
+        <div class="exp-card">
+          <div class="exp-top">
+            <div>
+              <p class="exp-role">UX Designer</p>
+              <p class="exp-company">American Eagle Outfitters Inc.</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-dates">Aug 2020 – Oct 2023</span>
+              <span class="exp-location">Pittsburgh, PA</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>One of two designers for mobile teams for projects in checkout, cart, product pages, homepage, navigation, and account.</li>
+            <li>Drove end-to-end design for multiple features, collaborating cross-functionally to ensure seamless handoff from concept to launch.</li>
+            <li>Designed user flows, wireframes, and high-fidelity prototypes optimized for native patterns, gestures, and platform guidelines.</li>
+            <li>Partnered with the web team to build omni-channel mobile experiences for iOS and Android.</li>
+            <li>Navigated Agile sprint cycles alongside cross-functional teams to deliver solutions balancing business objectives, technical feasibility, and user needs.</li>
+          </ul>
+          <div class="stat-badge">
+            <span class="stat-number">40%</span>
+            <span class="stat-label">of AEO digital revenue impacted</span>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag exp-tag-featured">Mobile Design</span>
+            <span class="exp-tag exp-tag-featured">E-commerce</span>
+            <span class="exp-tag exp-tag-featured">iOS/Android</span>
+          </div>
+        </div>
+
+        <!-- SDLC -->
+        <div class="exp-card">
+          <div class="exp-top">
+            <div>
+              <p class="exp-role">UX/UI Consultant</p>
+              <p class="exp-company">SDLC Partners LLC</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-dates">Aug 2018 – Apr 2020</span>
+              <span class="exp-location">Pittsburgh, PA</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Led UX/UI design end-to-end for multiple web applications serving a healthcare client, functioning as the sole designer within cross-functional agile teams, owning the full design process from initial discovery through final delivery.</li>
+            <li>Conducted comprehensive user research, synthesized findings into actionable insights, and translated those insights into wireframes that evolved through iterative rounds of feedback into polished high-fidelity mockups and interactive prototypes.</li>
+            <li>Validated designs through moderated usability testing sessions with real users, analyzing findings to identify pain points and opportunities, then incorporating feedback to refine and strengthen final deliverables.</li>
+            <li>Collaborated closely with developers, project managers, and business systems analysts throughout the development lifecycle to ensure designs were implemented accurately, advocating for design integrity while remaining flexible to technical constraints.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag exp-tag-plain">Consulting</span>
+            <span class="exp-tag exp-tag-plain">Healthcare</span>
+            <span class="exp-tag exp-tag-plain">SaaS</span>
+            <span class="exp-tag exp-tag-plain">UX/UI</span>
+          </div>
+        </div>
+
+        <!-- LSI -->
+        <div class="exp-card">
+          <div class="exp-top">
+            <div>
+              <p class="exp-role">UX/UI Designer</p>
+              <p class="exp-company">Learning Sciences International</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-dates">May 2016 – Jan 2018</span>
+              <span class="exp-location">Blairsville, PA</span>
+            </div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Served as one of two designers on a small, focused team building an education SaaS web application, collaborating directly with developers and a product owner to deliver a cohesive and user-centered product.</li>
+            <li>Designed and refined high-fidelity wireframes and mockups through multiple iteration cycles, incorporating qualitative feedback gathered from remote user research sessions to continuously improve usability and overall experience.</li>
+            <li>Partnered closely with developers throughout the implementation process, providing design clarification, reviewing builds against original mockups, and troubleshooting discrepancies to ensure final deliverables aligned with the intended design vision.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag exp-tag-plain">EdTech</span>
+            <span class="exp-tag exp-tag-plain">SaaS</span>
+            <span class="exp-tag exp-tag-plain">Web Apps</span>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
