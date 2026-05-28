@@ -64,7 +64,7 @@ export default function Nav() {
             rel="noopener noreferrer"
             className="font-sans text-sm font-bold px-5 py-2.5 bg-purple text-white rounded-full hover:bg-purple-deep transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm"
           >
-            Resume
+            Resume 📄
           </a>
         </div>
 
@@ -105,7 +105,7 @@ export default function Nav() {
             rel="noopener noreferrer"
             className="font-sans text-sm font-bold px-5 py-3 bg-purple text-white rounded-full hover:bg-purple-deep transition-all duration-200 text-center mt-2"
           >
-            Resume
+            Resume 📄
           </a>
         </div>
       </div>
