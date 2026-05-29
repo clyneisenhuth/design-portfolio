@@ -151,7 +151,7 @@ export default function ShopGenZPost() {
             <KeyTakeaways items={[
               "Claude Code handled all the SwiftUI implementation. My job was to describe what I wanted in design terms and evaluate what came back in the simulator.",
               "The simulator is a better design verification tool than I expected. Things that look fine in Figma feel wrong fast when you're actually tapping through them on a phone screen.",
-              "The loop — describe a change to Claude Code, run the build, check the simulator — was faster and more intuitive than I anticipated.",
+              "Describe a change, run the build, check the simulator. That loop was faster and more intuitive than I anticipated.",
               "Owning the build process, even as a non-engineer, forces you to make decisions you'd normally leave in a spec. That changed how I write specs.",
             ]} />
           </FadeInSection>
@@ -165,7 +165,7 @@ export default function ShopGenZPost() {
             </p>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              The app ended up with four screens: a home feed, a shop browse view with search and filters, a cart, and a profile page. I gave it a Gen Z aesthetic — dark background, hot pink to purple gradient, electric blue accent — because I wanted it to feel like a real app, not a generic test project. The design choices were still real design choices. There just wasn&apos;t a client brief behind them.
+              The app ended up with four screens: a home feed, a shop browse view with search and filters, a cart, and a profile page. I gave it a Gen Z aesthetic (dark background, hot pink to purple gradient, electric blue accent) because I wanted it to feel like a real app, not a generic test project. The design choices were still real design choices. There just wasn&apos;t a client brief behind them.
             </p>
 
             <Callout>
@@ -178,7 +178,7 @@ export default function ShopGenZPost() {
             <SectionHeading>V1: just get it running</SectionHeading>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              The first goal was simple: get something into the simulator. Not polished, not complete — just functional. I described what I wanted screen by screen to Claude Code, it generated the SwiftUI, I ran the build in Xcode and checked the result in the simulator. Getting all four screens navigating correctly with a working cart took a few rounds of back and forth, but it got there. Seeing it actually run for the first time was genuinely exciting.
+              The first goal was simple: get something into the simulator. Not polished, not complete. Just functional. I described what I wanted screen by screen to Claude Code, it generated the SwiftUI, I ran the build in Xcode and checked the result in the simulator. Getting all four screens navigating correctly with a working cart took a few rounds of back and forth, but it got there. Seeing it actually run for the first time was genuinely exciting.
             </p>
 
             <BeforeAfter
@@ -186,7 +186,7 @@ export default function ShopGenZPost() {
               after="/blog/shopgenz/home_v2.png"
               beforeLabel="V1"
               afterLabel="V2"
-              caption="Home screen — v1 (left) vs. v2 (right)"
+              caption="Home screen: v1 (left) vs. v2 (right)"
             />
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
@@ -202,7 +202,7 @@ export default function ShopGenZPost() {
               after="/blog/shopgenz/shop_v2.png"
               beforeLabel="V1"
               afterLabel="V2"
-              caption="Shop view — v1 with gradient backgrounds (left) vs. v2 with real photography (right)"
+              caption="Shop view: v1 with gradient backgrounds (left) vs. v2 with real photography (right)"
             />
           </FadeInSection>
 
@@ -211,12 +211,12 @@ export default function ShopGenZPost() {
             <SectionHeading>What the simulator showed me</SectionHeading>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              This is where the experiment got interesting. Using the simulator to verify the design surfaced things I never would have caught in Figma. The default back-arrow navigation felt generic the moment I was tapping through it on a phone-sized screen. The cart opening as a full page push felt wrong. I&apos;ve given feedback on both of those things in design reviews before — but there&apos;s a real difference between noting it on a frame and feeling it in an actual build.
+              This is where the experiment got interesting. Using the simulator to verify the design surfaced things I never would have caught in Figma. The default back-arrow navigation felt generic the moment I was tapping through it on a phone-sized screen. The cart opening as a full page push felt wrong. I&apos;ve given feedback on both of those things in design reviews before. There&apos;s a real difference between noting it on a frame and feeling it in an actual build.
             </p>
 
             {/* [PERSONAL EXPERIENCE] */}
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              The emoji thumbnails were the clearest example. I knew going in that I&apos;d swap them for real images eventually, but I didn&apos;t realize how much they were dragging down the whole aesthetic until I saw the build running. A dark, high-energy color palette with a sneaker emoji on a gradient square reads like a placeholder no matter how polished the rest of the layout is. Real photography wasn&apos;t optional — it was structural.
+              The emoji thumbnails were the clearest example. I knew going in that I&apos;d swap them for real images eventually, but I didn&apos;t realize how much they were dragging down the whole aesthetic until I saw the build running. A dark, high-energy color palette with a sneaker emoji on a gradient square reads like a placeholder no matter how polished the rest of the layout is. Real photography wasn&apos;t optional. It was structural.
             </p>
 
             <PullQuote>
@@ -224,7 +224,7 @@ export default function ShopGenZPost() {
             </PullQuote>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              That&apos;s the part of this workflow I didn&apos;t anticipate. The simulator isn&apos;t just a place to confirm things look right — it&apos;s where you find out what actually needs to change.
+              That&apos;s the part of this workflow I didn&apos;t anticipate. The simulator isn&apos;t just a place to confirm things look right. It&apos;s where you find out what actually needs to change.
             </p>
           </FadeInSection>
 
@@ -245,7 +245,7 @@ export default function ShopGenZPost() {
               after="/blog/shopgenz/cart_v2.png"
               beforeLabel="V1"
               afterLabel="V2"
-              caption="Cart — v1 push navigation (left) vs. v2 bottom sheet with real photo thumbnails (right)"
+              caption="Cart: v1 push navigation (left) vs. v2 bottom sheet with real photo thumbnails (right)"
             />
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
@@ -265,7 +265,7 @@ export default function ShopGenZPost() {
               after="/blog/shopgenz/account_v2.png"
               beforeLabel="V1"
               afterLabel="V2"
-              caption="Account — v1 push header (left) vs. v2 custom sticky header with subtitle (right)"
+              caption="Account: v1 push header (left) vs. v2 custom sticky header with subtitle (right)"
             />
           </FadeInSection>
 
@@ -279,7 +279,7 @@ export default function ShopGenZPost() {
             </p>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              SwiftUI was readable enough that I could follow along with what Claude Code was producing even without knowing Swift. The declarative structure — <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">VStack</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">HStack</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">ZStack</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">.padding()</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">.background()</code> — maps closely to how I already think about layout. A <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">VStack</code> is a vertical stack. A <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">ZStack</code> is layering. It clicked faster than React did.
+              SwiftUI was readable enough that I could follow along with what Claude Code was producing even without knowing Swift. The declarative structure maps closely to how I already think about layout: <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">VStack</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">HStack</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">ZStack</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">.padding()</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">.background()</code>. A <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">VStack</code> is a vertical stack. A <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">ZStack</code> is layering. It clicked faster than React did.
             </p>
 
             <Callout>
@@ -287,11 +287,11 @@ export default function ShopGenZPost() {
             </Callout>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              The trickier parts were decisions I&apos;d normally have put in a spec and left for an engineer. Getting <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">CartStore</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">FavoritesStore</code>, and <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">ToastStore</code> set up as environment objects that persist across screens — I would&apos;ve written &ldquo;cart state should persist globally&rdquo; in a spec and moved on. Having to actually specify the behavior precisely enough for Claude Code to implement it correctly was a useful forcing function.
+              The trickier parts were decisions I&apos;d normally have put in a spec and left for an engineer. Getting <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">CartStore</code>, <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">FavoritesStore</code>, and <code className="bg-surface border border-border rounded px-1.5 py-0.5 text-sm font-mono text-purple">ToastStore</code> set up as environment objects that persist across screens: I would&apos;ve written &ldquo;cart state should persist globally&rdquo; in a spec and moved on. Having to actually specify the behavior precisely enough for Claude Code to implement it correctly was a useful forcing function.
             </p>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              The speed was the most surprising thing. Describe a change, run the build, see it in the simulator — that whole loop took minutes, not days. Coming from a world where design changes go through sprint planning and engineering queues, that felt genuinely different.
+              The speed was the most surprising thing. Describe a change, run the build, see it in the simulator. That whole loop took minutes, not days. Coming from a world where design changes go through sprint planning and engineering queues, that felt genuinely different.
             </p>
           </FadeInSection>
 
@@ -316,7 +316,7 @@ export default function ShopGenZPost() {
                     Your browser does not support the video tag.
                   </video>
                 </div>
-                <p className="font-sans text-xs text-muted text-center italic">v1 — initial build</p>
+                <p className="font-sans text-xs text-muted text-center italic">v1: initial build</p>
               </div>
               <div className="flex flex-col gap-2">
                 <div className="rounded-2xl overflow-hidden border border-border shadow-sm bg-surface flex items-center justify-center">
@@ -330,7 +330,7 @@ export default function ShopGenZPost() {
                     Your browser does not support the video tag.
                   </video>
                 </div>
-                <p className="font-sans text-xs text-muted text-center italic">v2 — redesigned</p>
+                <p className="font-sans text-xs text-muted text-center italic">v2: redesigned</p>
               </div>
             </div>
           </FadeInSection>
@@ -344,7 +344,7 @@ export default function ShopGenZPost() {
             </p>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              <span className="font-bold text-ink">The stories row.</span>{" "}Brand stories with an Instagram-style gradient ring border felt right for this audience. Unseen brands get the gradient ring (hot pink to purple to electric blue). Seen brands get a dim ring. That single visual pattern does a lot of work: social platform familiarity, urgency about new content, and a clear sense of what you&apos;ve already seen — all without any text.
+              <span className="font-bold text-ink">The stories row.</span>{" "}Brand stories with an Instagram-style gradient ring border felt right for this audience. Unseen brands get the gradient ring (hot pink to purple to electric blue). Seen brands get a dim ring. That single visual pattern does a lot of work: social platform familiarity, urgency about new content, and a clear sense of what you&apos;ve already seen. All without any text.
             </p>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
@@ -366,7 +366,7 @@ export default function ShopGenZPost() {
             <SectionHeading>What I actually got out of this</SectionHeading>
 
             <p className="font-sans text-base text-muted leading-relaxed mb-6">
-              The experiment worked. Claude Code handled all the SwiftUI — I never had to write Swift myself. Running builds in Xcode and verifying in the simulator gave me a feedback loop I&apos;d never had before as a designer. And it was fast. The gap between &ldquo;I want this to feel different&rdquo; and &ldquo;it actually does feel different&rdquo; was minutes, not weeks.
+              The experiment worked. Claude Code handled all the SwiftUI. I never had to write Swift myself. Running builds in Xcode and verifying in the simulator gave me a feedback loop I&apos;d never had before as a designer. And it was fast. The gap between &ldquo;I want this to feel different&rdquo; and &ldquo;it actually does feel different&rdquo; was minutes, not weeks.
             </p>
 
             {/* [UNIQUE INSIGHT] */}
@@ -393,11 +393,11 @@ export default function ShopGenZPost() {
             <div className="space-y-6 mt-6">
               <FAQItem
                 q="Do you need to know Swift or Xcode to do this?"
-                a="No. I had zero Swift experience before starting this. Claude Code wrote all the SwiftUI. My role was to describe what I wanted, run the builds in Xcode, and use the simulator to verify the design. You don't need to write code — you need to be able to describe what you want clearly enough for Claude Code to implement it."
+                a="No. I had zero Swift experience before starting this. Claude Code wrote all the SwiftUI. My role was to describe what I wanted, run the builds in Xcode, and use the simulator to verify the design. You don't need to write code. You need to be able to describe what you want clearly enough for Claude Code to implement it."
               />
               <FAQItem
                 q="How long did v1 to v2 actually take?"
-                a="V1 took a few sessions to get all four screens working with functional state. The v2 iteration — photography, navigation rebuild, sheet-based cart — was another couple of sessions. Short focused rounds with the simulator open the whole time were the right approach."
+                a="V1 took a few sessions to get all four screens working with functional state. The v2 iteration (photography, navigation rebuild, sheet-based cart) was another couple of sessions. Short focused rounds with the simulator open the whole time were the right approach."
               />
               <FAQItem
                 q="Is the simulator actually useful for verifying design?"
@@ -405,11 +405,11 @@ export default function ShopGenZPost() {
               />
               <FAQItem
                 q="What was the hardest part of the process?"
-                a={<>Getting the sticky header to respond to scroll. SwiftUI doesn&apos;t expose scroll position directly — Claude Code used a <code className="bg-surface border border-border rounded px-0.5 py-0.5 text-xs font-mono text-purple">PreferenceKey</code> with a <code className="bg-surface border border-border rounded px-0.5 py-0.5 text-xs font-mono text-purple">GeometryReader</code> to measure and pass the position up the view hierarchy. I had to verify the behavior in the simulator a few times before it felt right.</>}
+                a={<>Getting the sticky header to respond to scroll. SwiftUI doesn&apos;t expose scroll position directly. Claude Code used a <code className="bg-surface border border-border rounded px-0.5 py-0.5 text-xs font-mono text-purple">PreferenceKey</code> with a <code className="bg-surface border border-border rounded px-0.5 py-0.5 text-xs font-mono text-purple">GeometryReader</code> to measure and pass the position up the view hierarchy. I had to verify the behavior in the simulator a few times before it felt right.</>}
               />
               <FAQItem
                 q="Would you recommend this workflow to other designers?"
-                a="Yes. You don't need to know how to code — Claude Code handles that. Pick something real enough to be worth building, describe it clearly, run the builds in Xcode, and use the simulator to verify. The loop is fast, the feedback is immediate, and you'll learn more about how your designs actually work than any amount of Figma prototyping."
+                a="Yes. You don't need to know how to code. Claude Code handles that. Pick something real enough to be worth building, describe it clearly, run the builds in Xcode, and use the simulator to verify. The loop is fast, the feedback is immediate, and you'll learn more about how your designs actually work than any amount of Figma prototyping."
               />
             </div>
           </FadeInSection>
