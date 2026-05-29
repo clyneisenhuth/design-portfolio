@@ -87,7 +87,7 @@ export default function BuildingMyPortfolio() {
                 {["Process", "AI", "Code"].map((t) => (
                   <span key={t} className="font-sans text-xs font-semibold px-2.5 py-1 rounded-full bg-purple text-white">{t}</span>
                 ))}
-                <span className="font-sans text-xs font-semibold px-2.5 py-1 rounded-full bg-bg border border-border text-muted">May 2025 · Updated May 2026 · 10 min read</span>
+                <span className="font-sans text-xs font-semibold px-2.5 py-1 rounded-full bg-bg border border-border text-muted">May 2026 · 10 min read</span>
               </div>
               <h1 className="font-heading text-5xl md:text-6xl font-bold text-ink leading-tight mb-6">
                 Building my portfolio<br />with{" "}

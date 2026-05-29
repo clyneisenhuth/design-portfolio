@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courtney Eisenhuth — Resume 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --purple:      #8059C4;
+      --purple-pale: #EDE7FF;
+      --purple-deep: #5B3A8A;
+      --blue:        #4B7BE5;
+      --blue-pale:   #E3EEFF;
+      --lavender:    #B8A0E0;
+      --bg:          #F8F6FF;
+      --surface:     #FFFFFF;
+      --ink:         #261A4A;
+      --muted:       #7566A0;
+      --border:      #E2D8F5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      box-shadow: 0 4px 40px rgba(128, 89, 196, 0.1);
+    }
+
+    /* ── Dark sidebar ── */
+    .sidebar {
+      background: var(--ink);
+      padding: 40px 24px;
+      color: white;
+    }
+
+    .sidebar-name {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-name span { color: var(--lavender); }
+
+    .sidebar-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--lavender);
+      margin-bottom: 28px;
+    }
+
+    .sidebar-section { margin-bottom: 26px; }
+
+    .sidebar-heading {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--lavender);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(184, 160, 224, 0.25);
+    }
+
+    .contact-item {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 7px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .edu-block { margin-bottom: 12px; }
+
+    .edu-degree {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: white;
+      line-height: 1.3;
+    }
+
+    .edu-sub {
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .edu-sub strong { color: var(--lavender); font-weight: 700; }
+
+    .skill-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      background: rgba(184, 160, 224, 0.15);
+      border: 1px solid rgba(184, 160, 224, 0.3);
+      color: rgba(255,255,255,0.85);
+      border-radius: 5px;
+      padding: 3px 8px;
+      margin: 2px 2px 2px 0;
+    }
+
+    /* ── Main ── */
+    .main {
+      padding: 36px 40px;
+    }
+
+    .section { margin-bottom: 26px; }
+
+    .section-heading {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .exp-block { margin-bottom: 18px; }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .exp-role {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .exp-dates {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+
+    .exp-company {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
+    }
+
+    .exp-location {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .exp-bullets { list-style: none; }
+
+    .exp-bullets li {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.65;
+      padding-left: 13px;
+      position: relative;
+      margin-bottom: 2px;
+    }
+
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--purple);
+      font-size: 9px;
+      top: 2px;
+    }
+
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; margin: 0; width: 100%; }
+    }
+
+    @media screen {
+      body { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ── Dark Sidebar ── -->
+    <aside class="sidebar">
+      <p class="sidebar-name">Courtney<br><span>Eisenhuth</span></p>
+      <p class="sidebar-title">Senior Product Designer</p>
+
+      <div class="sidebar-section">
+        <h2 class="sidebar-heading">Contact</h2>
+        <p class="contact-item">📍 Bradfordwoods, PA 15015</p>
+        <p class="contact-item">✉️ courtneyeisenhuth@gmail.com</p>
+        <p class="contact-item">📱 (412) 915-0278</p>
+        <p class="contact-item">🌐 courtneyeisenhuth.com</p>
+      </div>
+
+      <div class="sidebar-section">
+        <h2 class="sidebar-heading">Education</h2>
+        <div class="edu-block">
+          <p class="edu-degree">M.S., Media Arts &amp; Technology</p>
+          <p class="edu-sub"><strong>Web &amp; Experience Design</strong><br>Duquesne University, Pittsburgh, PA</p>
+        </div>
+        <div class="edu-block">
+          <p class="edu-degree">B.A., Digital Media Arts</p>
+          <p class="edu-sub">Duquesne University, Pittsburgh, PA</p>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h2 class="sidebar-heading">Skills</h2>
+        <span class="skill-pill">Mobile UX</span>
+        <span class="skill-pill">UX Strategy</span>
+        <span class="skill-pill">User Research</span>
+        <span class="skill-pill">A/B Testing</span>
+        <span class="skill-pill">Wireframing</span>
+        <span class="skill-pill">Prototyping</span>
+        <span class="skill-pill">Figma</span>
+        <span class="skill-pill">Axure</span>
+        <span class="skill-pill">Adobe XD</span>
+        <span class="skill-pill">Design Systems</span>
+        <span class="skill-pill">Analytics</span>
+        <span class="skill-pill">Usability Testing</span>
+        <span class="skill-pill">WCAG 2.X</span>
+        <span class="skill-pill">Agile / SCRUM</span>
+        <span class="skill-pill">JIRA</span>
+        <span class="skill-pill">AI Tools</span>
+        <span class="skill-pill">E-commerce UX</span>
+        <span class="skill-pill">iOS &amp; Android</span>
+      </div>
+    </aside>
+
+    <!-- ── Main ── -->
+    <main class="main">
+      <div class="section">
+        <h2 class="section-heading">Experience</h2>
+
+        <div class="exp-block">
+          <div class="exp-top">
+            <p class="exp-role">UX Strategist</p>
+            <span class="exp-dates">Oct 2023 – Jan 2026</span>
+          </div>
+          <p class="exp-company">American Eagle Outfitters Inc. <span class="exp-location">Pittsburgh, PA</span></p>
+          <ul class="exp-bullets">
+            <li>Lead strategist for mobile teams - working with Path to Checkout, Search &amp; Browse, Product Discoverability, Loyalty, Personalization, GIS/Logistics, and Payments.</li>
+            <li>Helped define the mobile commerce UX strategy for an app driving 40% of digital revenue for a $5B+ retailer, aligning customer experience initiatives with revenue growth, retention, and long-term digital roadmap objectives.</li>
+            <li>Identified high-impact opportunities across browse, PDP, cart, and checkout through behavioral data, market analysis, and user research, prioritizing initiatives based on business value and customer impact.</li>
+            <li>Contributed to A/B test design and experimentation strategies that drove an estimated $20.35 million in annual revenue lift in 2025.</li>
+            <li>Lead workshops with product managers and stakeholders to help gather requirements and MVP direction for new feature development.</li>
+            <li>Inform product managers and developers of accessibility guidelines and usage in mobile app development.</li>
+          </ul>
+        </div>
+
+        <div class="exp-block">
+          <div class="exp-top">
+            <p class="exp-role">UX Designer</p>
+            <span class="exp-dates">Aug 2020 – Oct 2023</span>
+          </div>
+          <p class="exp-company">American Eagle Outfitters Inc. <span class="exp-location">Pittsburgh, PA</span></p>
+          <ul class="exp-bullets">
+            <li>One of two designers for mobile teams for projects in checkout, cart, product pages, homepage, navigation, and account.</li>
+            <li>Drove end-to-end design for multiple features, collaborating cross-functionally to ensure seamless handoff from concept to launch.</li>
+            <li>Designed user flows, wireframes, and high-fidelity prototypes optimized for native patterns, gestures, and platform guidelines.</li>
+            <li>Partnered with the web team to build omni-channel mobile experiences for iOS and Android.</li>
+            <li>Navigated Agile sprint cycles alongside cross-functional teams to deliver solutions balancing business objectives, technical feasibility, and user needs.</li>
+          </ul>
+        </div>
+
+        <div class="exp-block">
+          <div class="exp-top">
+            <p class="exp-role">UX/UI Consultant</p>
+            <span class="exp-dates">Aug 2018 – Apr 2020</span>
+          </div>
+          <p class="exp-company">SDLC Partners LLC <span class="exp-location">Pittsburgh, PA</span></p>
+          <ul class="exp-bullets">
+            <li>Led UX/UI design end-to-end for multiple web applications serving a healthcare client, functioning as the sole designer within cross-functional agile teams, owning the full design process from initial discovery through final delivery.</li>
+            <li>Conducted comprehensive user research, synthesized findings into actionable insights, and translated those insights into wireframes that evolved through iterative rounds of feedback into polished high-fidelity mockups and interactive prototypes.</li>
+            <li>Validated designs through moderated usability testing sessions with real users, analyzing findings to identify pain points and opportunities, then incorporating feedback to refine and strengthen final deliverables.</li>
+            <li>Collaborated closely with developers, project managers, and business systems analysts throughout the development lifecycle to ensure designs were implemented accurately, advocating for design integrity while remaining flexible to technical constraints.</li>
+          </ul>
+        </div>
+
+        <div class="exp-block">
+          <div class="exp-top">
+            <p class="exp-role">UX/UI Designer</p>
+            <span class="exp-dates">May 2016 – Jan 2018</span>
+          </div>
+          <p class="exp-company">Learning Sciences International <span class="exp-location">Blairsville, PA</span></p>
+          <ul class="exp-bullets">
+            <li>Served as one of two designers on a small, focused team building an education SaaS web application, collaborating directly with developers and a product owner to deliver a cohesive and user-centered product.</li>
+            <li>Designed and refined high-fidelity wireframes and mockups through multiple iteration cycles, incorporating qualitative feedback gathered from remote user research sessions to continuously improve usability and overall experience.</li>
+            <li>Partnered closely with developers throughout the implementation process, providing design clarification, reviewing builds against original mockups, and troubleshooting discrepancies to ensure final deliverables aligned with the intended design vision.</li>
+          </ul>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
