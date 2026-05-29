@@ -6,69 +6,69 @@ import { useInView } from "../hooks/useInView";
 
 const posts = [
   {
+    title: "Designing an iOS app: from idea to functional",
+    date: "May 2026",
+    tags: ["iOS", "SwiftUI", "AI", "Case Study"],
+    excerpt: "An experiment in what a designer can build using Claude Code and SwiftUI. Claude Code wrote the code, Xcode ran the builds, and the simulator verified the design.",
+    emoji: "📱",
+    slug: "shopgenz-app",
+    href: "/blog/shopgenz-app",
+    isNew: true,
+  },
+  {
     title: "Building this portfolio with Claude Code",
-    date: "May 2025",
+    date: "May 2026",
     tags: ["Process", "AI"],
     excerpt: "From zero to deployed: what it was actually like to build a design portfolio using an AI coding assistant when I'd never written production React before.",
-    tagColor: "bg-purple text-white",
     emoji: "🤖",
     slug: "building-my-portfolio",
     href: "/blog/building-my-portfolio",
+    isNew: false,
   },
 ];
 
 type Post = typeof posts[0];
 
-function PostCard({ post, index }: { post: Post; index: number }) {
+function PostCard({ post }: { post: Post }) {
   const inner = (
-    <div
-      className={`group bg-surface rounded-3xl border-2 border-border p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-purple/25 ${"href" in post && post.href ? "cursor-pointer" : "cursor-default"}`}
-      style={{ transitionDelay: `${index * 80}ms` }}
-    >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-wrap gap-2">
-          {post.tags.map((t) => (
-            <span key={t} className={`font-sans text-xs font-semibold px-2.5 py-1 rounded-full ${post.tagColor}`}>
-              {t}
-            </span>
-          ))}
-        </div>
-        <span className="font-sans text-xs text-muted whitespace-nowrap flex-shrink-0 bg-bg border border-border px-2.5 py-1 rounded-full">
-          {post.date}
-        </span>
-      </div>
+    <div className={`group relative pl-7 border-l-[3px] border-purple/40 group-hover:border-purple py-1 overflow-hidden transition-colors duration-300 ${post.href ? "cursor-pointer" : "cursor-default"}`}>
+      <span className="absolute -right-2 top-1/2 -translate-y-1/2 text-[110px] leading-none opacity-[0.06] pointer-events-none select-none">{post.emoji}</span>
 
-      {/* Title */}
-      <div className="flex items-start gap-3">
-        <span className="text-2xl flex-shrink-0 mt-0.5">{post.emoji}</span>
-        <h3 className="font-heading font-bold text-lg text-ink leading-snug group-hover:text-purple transition-colors duration-200">
-          {post.title}
-        </h3>
-      </div>
-
-      {/* Excerpt */}
-      <p className="font-sans text-sm text-muted leading-relaxed">
-        {post.excerpt}
-      </p>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between pt-1 border-t border-border">
-        {"href" in post && post.href ? (
-          <span className="font-sans text-xs text-purple font-semibold">New post</span>
-        ) : (
-          <span className="font-sans text-xs text-muted italic">Coming soon</span>
+      <div className="flex items-center gap-2.5 mb-3">
+        <span className="font-sans text-xs text-muted">{post.date}</span>
+        <span className="w-0.5 h-0.5 rounded-full bg-muted/50" />
+        {post.isNew && (
+          <>
+            <span className="font-sans text-xs font-bold text-purple tracking-wide">New</span>
+            <span className="w-0.5 h-0.5 rounded-full bg-muted/50" />
+          </>
         )}
-        <span className={`font-sans text-sm font-bold text-purple flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200 ${"href" in post && post.href ? "" : "opacity-50"}`}>
+        {!post.href && <span className="font-sans text-xs text-muted italic">Coming soon</span>}
+      </div>
+
+      <h3 className="font-heading font-bold text-2xl text-ink leading-tight mb-3 group-hover:text-purple transition-colors duration-200 pr-12">
+        {post.title}
+      </h3>
+
+      <div className="flex flex-wrap gap-1.5 mb-3">
+        {post.tags.map((t) => (
+          <span key={t} className="font-sans text-xs text-muted/70 border border-border px-2 py-0.5 rounded-full">{t}</span>
+        ))}
+      </div>
+
+      <p className="font-sans text-sm text-muted leading-relaxed mb-4 pr-12">{post.excerpt}</p>
+
+      {post.href && (
+        <span className="font-sans text-sm font-bold text-purple flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200">
           Read more <span className="transition-transform group-hover:translate-x-1">→</span>
         </span>
-      </div>
+      )}
     </div>
   );
 
   return (
     <FadeInSection>
-      {"href" in post && post.href ? (
+      {post.href ? (
         <Link href={post.href} className="block">
           {inner}
         </Link>
@@ -99,9 +99,9 @@ export default function Blog() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-5">
-          {posts.map((post, i) => (
-            <PostCard key={post.slug} post={post} index={i} />
+        <div className="flex flex-col gap-10">
+          {posts.map((post) => (
+            <PostCard key={post.slug} post={post} />
           ))}
         </div>
 
