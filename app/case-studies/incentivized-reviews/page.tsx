@@ -20,6 +20,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { useInView } from "../../hooks/useInView";
+import LightboxImage from "../../components/LightboxImage";
 
 function StatItem({ raw, label }: { raw: string; label: string }) {
   const { ref, inView } = useInView(0.4);
@@ -324,7 +325,7 @@ export default function IncentivizedReviewsCaseStudy() {
           </p>
 
           <div className="bg-surface border border-border rounded-lg overflow-hidden mb-6">
-            <img
+            <LightboxImage
               src="/case-studies/incentivized-reviews/moscow-image1.avif"
               alt="MoSCoW prioritization board sorting review incentive requirements into Must Have, Should Have, Could Have, and Won't Have"
               className="w-full object-cover"
@@ -387,7 +388,7 @@ export default function IncentivizedReviewsCaseStudy() {
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-surface border border-border rounded-lg overflow-hidden transition-[opacity,transform] duration-300">
-              <img
+              <LightboxImage
                 src="/case-studies/incentivized-reviews/points-image2.jpeg"
                 alt="Write a Review screen showing Real Rewards loyalty prompt — earn 50 points per review"
                 className="w-full object-cover"
@@ -398,7 +399,7 @@ export default function IncentivizedReviewsCaseStudy() {
               </div>
             </div>
             <div className="bg-surface border border-border rounded-lg overflow-hidden transition-[opacity,transform] duration-300">
-              <img
+              <LightboxImage
                 src="/case-studies/incentivized-reviews/points-image1.jpeg"
                 alt="All Reviews list screen showing Reward Points Awarded label on incentivized reviews"
                 className="w-full object-cover"

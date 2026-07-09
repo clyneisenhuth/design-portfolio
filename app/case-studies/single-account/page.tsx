@@ -16,6 +16,7 @@ import {
   TrendingDown,
   Layers,
 } from "lucide-react";
+import LightboxImage from "../../components/LightboxImage";
 import { useInView } from "../../hooks/useInView";
 
 function StatItem({ raw, label }: { raw: string; label: string }) {
@@ -328,7 +329,7 @@ export default function SingleAccountCaseStudy() {
               { src: "/case-studies/single-account/image2.jpeg", label: "Single Account Screen 2", caption: "Final screen from the loyalty enrollment experience, surfacing AEO Real Rewards benefits at the point of account creation." },
             ].map((s) => (
               <div key={s.label} className="bg-surface border border-border rounded-lg overflow-hidden">
-                <img src={s.src} alt={s.label} className="w-full object-cover" />
+                <LightboxImage src={s.src} alt={s.label} className="w-full object-cover" />
                 <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{s.caption}</p>
               </div>
             ))}
