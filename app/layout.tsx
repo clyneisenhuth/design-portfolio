@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Space_Mono } from "next/font/google";
+import { LightboxProvider } from "./components/Lightbox";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -74,7 +75,7 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable}`}>
       <body className="bg-bg text-ink font-sans antialiased min-h-screen">
         <a href="#main-content" className="skip-link">Skip to main content</a>
-        {children}
+        <LightboxProvider>{children}</LightboxProvider>
       </body>
     </html>
   );

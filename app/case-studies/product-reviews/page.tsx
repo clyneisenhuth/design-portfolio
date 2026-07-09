@@ -19,6 +19,7 @@ import {
   Layers,
 } from "lucide-react";
 import CompAnalysisTable from "../../components/CompAnalysisTable";
+import LightboxImage from "../../components/LightboxImage";
 import { useInView } from "../../hooks/useInView";
 
 function StatItem({ raw, label }: { raw: string; label: string }) {
@@ -126,7 +127,7 @@ const solutions = [
   {
     Icon: PenLine,
     title: "Native Write a Review Flow",
-    desc: "Rebuilt from scratch as a fully native iOS and Android flow with single-screen layouts, native input components, and gesture patterns that match device conventions. Replaced the multi-step web-form experience that was causing abandonment.",
+    desc: "Rebuilt from scratch as a fully native iOS and Android flow with single-screen layouts, native input components, and gesture patterns that match device conventions. Replaced the five-step web form (Your Review, Add Images, Personal/Product Information, Product Rating, Brand Details) that was causing abandonment.",
     tags: ["iOS", "Android", "Native Patterns"],
     stat: null,
     statLabel: null,
@@ -231,7 +232,7 @@ export default function ProductReviewsCaseStudy() {
               {[
                 { Icon: Layers, label: "Fragmented interactions", desc: "Inconsistent UX patterns across PDP, review detail, and submission" },
                 { Icon: Camera, label: "Hidden customer photos", desc: "UGC imagery buried below the fold with no surfacing strategy" },
-                { Icon: FileText, label: "High submission friction", desc: "Multi-step web forms causing abandonment on mobile" },
+                { Icon: FileText, label: "High submission friction", desc: "Five-step web form causing abandonment on mobile" },
               ].map((p) => (
                 <div key={p.label} className="bg-bg rounded-md p-4 border border-border">
                   <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0 mb-3">
@@ -242,6 +243,19 @@ export default function ProductReviewsCaseStudy() {
                 </div>
               ))}
             </div>
+
+            <div className="border border-border rounded-md bg-bg p-5 mb-8">
+              <p className="font-heading font-bold text-ink text-sm mb-3">The old form: five steps before you could submit</p>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {["Your Review", "Add Images", "Personal/Product Information", "Product Rating", "Brand Details"].map((step, i) => (
+                  <div key={step} className="text-center">
+                    <p className="font-heading font-bold text-purple text-xs mb-1">{i + 1}</p>
+                    <p className="font-sans text-xs text-muted leading-snug">{step}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="border border-border rounded-lg bg-surface p-6">
               <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-2">Problem Statement</p>
               <p className="font-sans text-sm text-ink leading-relaxed italic">
@@ -458,10 +472,10 @@ export default function ProductReviewsCaseStudy() {
               { src: "/case-studies/product-reviews/image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
               { src: "/case-studies/product-reviews/image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
               { src: "/case-studies/product-reviews/image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
-              { src: "/case-studies/product-reviews/image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
+              { src: "/case-studies/product-reviews/image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the old five-step web form that was causing abandonment." },
             ].map((screen) => (
               <div key={screen.title} className="bg-surface border border-border rounded-lg overflow-hidden transition-[opacity,transform] duration-300">
-                <img src={screen.src} alt={screen.title} className="w-full object-cover" />
+                <LightboxImage src={screen.src} alt={screen.title} className="w-full object-cover" />
                 <div className="p-5">
                   <p className="font-heading font-bold text-ink text-sm mb-1">{screen.title}</p>
                   <p className="font-sans text-xs text-muted leading-relaxed">{screen.desc}</p>

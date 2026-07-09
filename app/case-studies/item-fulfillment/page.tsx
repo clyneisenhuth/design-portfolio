@@ -20,6 +20,7 @@ import {
   RefreshCw,
   FlaskConical,
 } from "lucide-react";
+import LightboxImage from "../../components/LightboxImage";
 
 const testingResonated = [
   {
@@ -261,7 +262,7 @@ export default function ItemFulfillmentCaseStudy() {
               { src: "/case-studies/item-fulfillment/image3.jpeg", label: "Split checkout confirmation", caption: "Checkout groups items by fulfillment method, showing pickup details and delivery timing as two distinct, clearly labeled groups." },
             ].map((s) => (
               <div key={s.label} className="bg-surface border border-border rounded-lg overflow-hidden">
-                <img src={s.src} alt={s.label} className="w-full object-cover" />
+                <LightboxImage src={s.src} alt={s.label} className="w-full object-cover" />
                 <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{s.caption}</p>
               </div>
             ))}
