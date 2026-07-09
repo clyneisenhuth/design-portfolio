@@ -1,11 +1,54 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import CustomCursor from "../../components/CustomCursor";
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  User,
+  Camera,
+  FileText,
+  SlidersHorizontal,
+  Search,
+  Image,
+  PenLine,
+  TrendingUp,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  Zap,
+  Layers,
+} from "lucide-react";
 import CompAnalysisTable from "../../components/CompAnalysisTable";
-import CountUpStat from "../../components/CountUpStat";
-import FadeInSection from "../../components/FadeInSection";
-import Logo from "../../components/Logo";
+import { useInView } from "../../hooks/useInView";
+
+function StatItem({ raw, label }: { raw: string; label: string }) {
+  const { ref, inView } = useInView(0.4);
+  const [count, setCount] = useState(0);
+  const match = raw.match(/^([^0-9]*)(\d+(?:\.\d+)?)(.*)$/);
+  const prefix = match?.[1] ?? "";
+  const target = parseFloat(match?.[2] ?? "0");
+  const suffix = match?.[3] ?? "";
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 1400;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setCount(Math.round(eased * target));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, target]);
+  return (
+    <div ref={ref}>
+      <p className="font-heading font-bold text-ink" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1 }}>
+        {prefix}{count}{suffix}
+      </p>
+      <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-muted mt-1">{label}</p>
+    </div>
+  );
+}
 
 const purchaseFactors = [
   { rank: "1", factor: "Price", pct: "83%", note: "Reviews validate worth relative to cost" },
@@ -18,22 +61,22 @@ const purchaseFactors = [
 
 const userTestingFindings = [
   {
-    icon: "👤",
+    Icon: User,
     title: "Size & body type discovery gap",
     desc: "No easy mechanism to locate reviews from similar body types or sizes, despite it being essential information for apparel purchase decisions.",
   },
   {
-    icon: "📷",
+    Icon: Camera,
     title: "Photo underutilization",
     desc: "Customer photos were underused because they were difficult to discover and browse. Shoppers didn't realize they existed.",
   },
   {
-    icon: "📝",
+    Icon: FileText,
     title: "Submission flow mismatch",
     desc: "The flow felt like a web form inside a native app. It didn't match expected swipe gestures or familiar device patterns.",
   },
   {
-    icon: "🔀",
+    Icon: SlidersHorizontal,
     title: "Filtering limitations",
     desc: "Sorting and filtering options were too limited to help users eliminate irrelevant reviews and surface what actually mattered to them.",
   },
@@ -47,17 +90,17 @@ const competitiveFindings = [
 
 const principles = [
   {
-    icon: "🔍",
+    Icon: Search,
     title: "Discoverability",
     desc: "Relevant reviews should rise to the top. Filtering, sorting, and hierarchy should do the heavy lifting so shoppers don't have to.",
   },
   {
-    icon: "🖼️",
+    Icon: Image,
     title: "Visual Richness",
     desc: "Customer photos are first-class content and should be treated that way: easy to find, easy to browse, and easy to submit.",
   },
   {
-    icon: "✍️",
+    Icon: PenLine,
     title: "Submission Ease",
     desc: "Writing a review should feel native and fast. Every step of friction removed is a potential review gained.",
   },
@@ -65,7 +108,7 @@ const principles = [
 
 const solutions = [
   {
-    icon: "📸",
+    Icon: Camera,
     title: "Enriched Photo Carousels",
     desc: "Customer photos elevated into a prominent, swipeable carousel on the PDP. No competitor had built a truly photo-forward experience, making this a clear differentiation opportunity. Submission flow updated to explicitly prompt photo uploads at the right moment.",
     tags: ["PDP", "UGC", "Mobile-first"],
@@ -74,7 +117,7 @@ const solutions = [
     color: "purple",
   },
   {
-    icon: "📋",
+    Icon: FileText,
     title: "Expanded Review Sheet",
     desc: "Individual reviews restructured with better typography, breathing room, and fit context metadata: size purchased, fit rating, and verified purchase status surfaced alongside the review body. Helps shoppers self-select without guesswork.",
     tags: ["Typography", "Fit Context", "Trust Signals"],
@@ -83,7 +126,7 @@ const solutions = [
     color: "blue",
   },
   {
-    icon: "📝",
+    Icon: PenLine,
     title: "Native Write a Review Flow",
     desc: "Rebuilt from scratch as a fully native iOS and Android flow with single-screen layouts, native input components, and gesture patterns that match device conventions. Replaced the multi-step web-form experience that was causing abandonment.",
     tags: ["iOS", "Android", "Native Patterns"],
@@ -92,7 +135,7 @@ const solutions = [
     color: "purple",
   },
   {
-    icon: "🔀",
+    Icon: SlidersHorizontal,
     title: "Enhanced Filtering & Sorting",
     desc: "New controls for rating, recency, photo availability, and fit attributes. Directly addressing the Baymard finding that 78% of mobile e-commerce sites offer poor filtering. Well-implemented filters increase conversion by 26%, yet only 16% of major sites provide genuinely good filtering.",
     tags: ["Filtering", "Sorting", "Apparel-specific"],
@@ -103,12 +146,12 @@ const solutions = [
 ];
 
 const outcomes = [
-  { icon: "📈", label: "Improved content discoverability", desc: "Restructured hierarchy surfaced relevant reviews and photos without deep navigation" },
-  { icon: "✅", label: "Higher submission rates", desc: "Native flow replaced web-form patterns, directly reducing abandonment" },
-  { icon: "📷", label: "Increased photo UGC volume", desc: "First-class photo prompts in submission drove more visual content" },
-  { icon: "⏱️", label: "Greater session engagement", desc: "Richer content gave shoppers more reason to explore before purchase" },
-  { icon: "♿", label: "WCAG 2.X AA compliance", desc: "Accessibility baked in from the start, not bolted on at QA" },
-  { icon: "💪", label: "Stronger purchase confidence", desc: "Closed the gap between what shoppers needed and what the experience delivered" },
+  { Icon: TrendingUp, label: "Improved content discoverability", desc: "Restructured hierarchy surfaced relevant reviews and photos without deep navigation" },
+  { Icon: CheckCircle2, label: "Higher submission rates", desc: "Native flow replaced web-form patterns, directly reducing abandonment" },
+  { Icon: Camera, label: "Increased photo UGC volume", desc: "First-class photo prompts in submission drove more visual content" },
+  { Icon: Clock, label: "Greater session engagement", desc: "Richer content gave shoppers more reason to explore before purchase" },
+  { Icon: ShieldCheck, label: "WCAG 2.X AA compliance", desc: "Accessibility baked in from the start, not bolted on at QA" },
+  { Icon: Zap, label: "Stronger purchase confidence", desc: "Closed the gap between what shoppers needed and what the experience delivered" },
 ];
 
 const reflections = [
@@ -126,378 +169,402 @@ const reflections = [
   },
 ];
 
-const Section = FadeInSection;
-
 export default function ProductReviewsCaseStudy() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => { setVisible(true); }, []);
-
   return (
-    <>
-      <CustomCursor />
-      <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-bg">
 
-        {/* Hero */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-blue-pale via-bg to-purple-pale">
-          <div className="absolute -top-20 -right-20 w-80 h-80 opacity-20 pointer-events-none" style={{ background: "radial-gradient(circle, #4B7BE5, #8BB8F8)", filter: "blur(72px)" }} />
-          <div className="absolute -bottom-10 -left-10 w-60 h-60 opacity-15 pointer-events-none" style={{ background: "radial-gradient(circle, #8059C4, #D4A8F0)", filter: "blur(60px)" }} />
-
-          <div className="max-w-4xl mx-auto px-6 pt-10 pb-20">
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-muted hover:text-purple transition-colors duration-200 mb-12 group"
-            >
-              <span className="transition-transform group-hover:-translate-x-1">←</span>
-              Back to portfolio
+      {/* Hero */}
+      <section className="border-t border-border px-6 pt-24 pb-16 bg-bg">
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+            <a href="/" className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.15em] uppercase text-muted hover:text-ink transition-colors mb-12 group">
+              <ArrowLeft size={12} /><span>Back</span>
             </a>
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-6">Case Study · Mobile Design · 2024</p>
+            <h1 className="font-heading font-bold text-ink mb-6" style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>App Product Reviews Redesign</h1>
+            <p className="font-sans text-base text-muted leading-relaxed max-w-2xl mb-10">
+              End-to-end redesign of the product reviews experience in the AE + Aerie mobile app, rebuilding photo carousels, submission flows, and review UI to turn a fragmented section into a high-trust content engine.
+            </p>
+            <div className="flex flex-wrap gap-6 pt-6 border-t border-border">
+              {[
+                { label: "Role", value: "Product Designer" },
+                { label: "Company", value: "American Eagle Outfitters" },
+                { label: "Platform", value: "iOS & Android" },
+                { label: "Tools", value: "Figma · Axure · Miro" },
+              ].map((m) => (
+                <div key={m.label}>
+                  <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-muted mb-1">{m.label}</p>
+                  <p className="font-sans text-sm font-semibold text-ink">{m.value}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-            <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-              <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-4">
-                Case Study · 2024
-              </p>
-              <h1 className="font-heading text-5xl md:text-6xl font-bold text-ink leading-tight mb-6">
-                App Product Reviews{" "}
-                <span className="gradient-text-static">Redesign</span> 🖼️
-              </h1>
-              <p className="font-sans text-lg text-muted max-w-2xl leading-relaxed mb-10">
-                End-to-end redesign of the product reviews experience in the AE + Aerie mobile app, rebuilding photo carousels, submission flows, and review UI to turn a fragmented section into a high-trust content engine.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { label: "Role", value: "Product Designer" },
-                  { label: "Company", value: "American Eagle Outfitters" },
-                  { label: "Platform", value: "iOS & Android" },
-                  { label: "Tools", value: "Figma · Axure · Miro" },
-                ].map((m) => (
-                  <div key={m.label} className="bg-surface border-2 border-border rounded-2xl px-4 py-2.5">
-                    <p className="font-sans text-xs text-muted">{m.label}</p>
-                    <p className="font-sans text-sm font-bold text-ink">{m.value}</p>
+      <div className="max-w-4xl mx-auto px-6 py-20 flex flex-col gap-20">
+
+        {/* Context */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Context</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-6">The opportunity</h2>
+          <p className="font-sans text-base text-muted leading-relaxed max-w-2xl">
+            A vendor API migration created a rare blank-slate opportunity: rebuild the entire AE + Aerie mobile app reviews experience from scratch rather than patch an aging system. I led design end-to-end, collaborating with product management on scoping, research execution, and handoff.
+          </p>
+        </motion.div>
+
+        {/* Problem */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="border border-border rounded-lg bg-surface p-8 md:p-10">
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">The Problem</p>
+            <h2 className="font-heading text-3xl font-bold text-ink mb-5">Fragmented, friction-heavy, and visually flat</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8">
+              The existing reviews experience failed shoppers in three connected ways, each mapping to documented industry failure modes.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4 mb-8">
+              {[
+                { Icon: Layers, label: "Fragmented interactions", desc: "Inconsistent UX patterns across PDP, review detail, and submission" },
+                { Icon: Camera, label: "Hidden customer photos", desc: "UGC imagery buried below the fold with no surfacing strategy" },
+                { Icon: FileText, label: "High submission friction", desc: "Multi-step web forms causing abandonment on mobile" },
+              ].map((p) => (
+                <div key={p.label} className="bg-bg rounded-md p-4 border border-border">
+                  <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0 mb-3">
+                    <p.Icon size={16} strokeWidth={1.5} className="text-purple" />
                   </div>
-                ))}
-              </div>
+                  <p className="font-heading font-bold text-ink text-sm mb-1">{p.label}</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">{p.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div className="border border-border rounded-lg bg-surface p-6">
+              <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-2">Problem Statement</p>
+              <p className="font-sans text-sm text-ink leading-relaxed italic">
+                &ldquo;How might we redesign the AE + Aerie reviews experience so that shoppers can quickly find relevant content, engage with real customer photos, and write reviews with as little friction as possible, building the kind of purchase confidence that drives conversion?&rdquo;
+              </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto px-6 py-20 flex flex-col gap-20">
+        {/* Why reviews matter */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Research</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Reviews are a primary purchase driver</h2>
+          <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+            User behavior data and industry benchmarking confirmed the stakes and revealed clear gaps worth closing.
+          </p>
 
-          {/* Context */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Context</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-6">The opportunity</h2>
-            <p className="font-sans text-base text-muted leading-relaxed max-w-2xl">
-              A vendor API migration created a rare blank-slate opportunity: rebuild the entire AE + Aerie mobile app reviews experience from scratch rather than patch an aging system. I led design end-to-end, collaborating with product management on scoping, research execution, and handoff.
-            </p>
-          </Section>
-
-          {/* Problem */}
-          <Section>
-            <div className="bg-surface border-2 border-border rounded-3xl p-8 md:p-10">
-              <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">The Problem</p>
-              <h2 className="font-heading text-3xl font-bold text-ink mb-5">Fragmented, friction-heavy, and visually flat</h2>
-              <p className="font-sans text-base text-muted leading-relaxed mb-8">
-                The existing reviews experience failed shoppers in three connected ways, each mapping to documented industry failure modes.
-              </p>
-              <div className="grid md:grid-cols-3 gap-4 mb-8">
-                {[
-                  { icon: "🧩", label: "Fragmented interactions", desc: "Inconsistent UX patterns across PDP, review detail, and submission" },
-                  { icon: "🙈", label: "Hidden customer photos", desc: "UGC imagery buried below the fold with no surfacing strategy" },
-                  { icon: "😤", label: "High submission friction", desc: "Multi-step web forms causing abandonment on mobile" },
-                ].map((p) => (
-                  <div key={p.label} className="bg-bg rounded-2xl p-4 border border-border">
-                    <span className="text-2xl mb-2 block">{p.icon}</span>
-                    <p className="font-heading font-bold text-ink text-sm mb-1">{p.label}</p>
-                    <p className="font-sans text-xs text-muted leading-relaxed">{p.desc}</p>
-                  </div>
-                ))}
+          {/* Key stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { value: "99%", label: "of clothing shoppers read reviews before buying" },
+              { value: "77%", label: "consider reviews a key purchase factor" },
+              { value: "59%", label: "specifically seek customer photos before buying" },
+              { value: "270%", label: "higher conversion for products with reviews" },
+            ].map((s) => (
+              <div key={s.value} className="bg-surface border border-border rounded-lg p-5 text-center">
+                <StatItem raw={s.value} label={s.label} />
               </div>
-              {/* Problem statement */}
-              <div className="bg-purple-pale border-2 border-purple/20 rounded-2xl p-6">
-                <p className="font-heading text-sm font-semibold text-purple mb-2">Problem Statement</p>
-                <p className="font-sans text-sm text-ink leading-relaxed italic">
-                  &ldquo;How might we redesign the AE + Aerie reviews experience so that shoppers can quickly find relevant content, engage with real customer photos, and write reviews with as little friction as possible, building the kind of purchase confidence that drives conversion?&rdquo;
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          {/* Why reviews matter */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Research</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Reviews aren&apos;t a nice-to-have</h2>
-            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              User behavior data and industry benchmarking confirmed the stakes and revealed clear gaps worth closing.
-            </p>
-
-            {/* Key stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              {[
-                { value: "99%", label: "of clothing shoppers read reviews before buying" },
-                { value: "77%", label: "consider reviews a key purchase factor" },
-                { value: "59%", label: "specifically seek customer photos before buying" },
-                { value: "270%", label: "higher conversion for products with reviews" },
-              ].map((s) => (
-                <CountUpStat
-                  key={s.value}
-                  value={s.value}
-                  label={s.label}
-                  className="bg-surface border-2 border-border rounded-2xl p-5 text-center hover:border-blue/40 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                />
-              ))}
-            </div>
-
-            {/* Purchase factors table */}
-            <div className="bg-surface border-2 border-border rounded-3xl overflow-hidden mb-6">
-              <div className="px-6 py-4 border-b border-border">
-                <p className="font-heading font-bold text-ink text-sm">Top considerations when purchasing clothing</p>
-                <p className="font-sans text-xs text-muted">Sources: PowerReviews 2023, SHEIN Global Survey, FitSmallBusiness 2025</p>
-              </div>
-              {purchaseFactors.map((f, i) => (
-                <div key={f.factor} className={`flex items-start gap-4 px-6 py-4 ${i < purchaseFactors.length - 1 ? "border-b border-border" : ""}`}>
-                  <span className="font-heading font-bold text-muted text-sm w-4 flex-shrink-0">{f.rank}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-0.5">
-                      <p className="font-sans font-bold text-ink text-sm">{f.factor}</p>
-                      <span className="font-heading font-bold text-sm gradient-text-static">{f.pct}</span>
-                    </div>
-                    <p className="font-sans text-xs text-muted">{f.note}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-blue-pale border-2 border-blue/20 rounded-2xl p-6">
-              <p className="font-heading font-bold text-blue text-sm mb-2">Industry gap: Baymard Institute</p>
-              <p className="font-sans text-sm text-muted leading-relaxed">
-                <span className="font-bold text-ink">78% of mobile e-commerce sites</span> offer poor to mediocre review filtering. Fit context (height, size purchased, fit rating) was almost universally absent, despite being the top return driver in apparel.
-              </p>
-            </div>
-          </Section>
-
-          {/* Unmoderated User Testing */}
-          <Section>
-            <div className="bg-surface border-2 border-border rounded-3xl p-8 md:p-10">
-              <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">User Research</p>
-              <h2 className="font-heading text-3xl font-bold text-ink mb-3">Unmoderated remote user interviews</h2>
-              <p className="font-sans text-base text-muted leading-relaxed mb-8">
-                To study natural behavior rather than task completion, I ran unmoderated remote interviews with existing AE and Aerie app users, observing how they actually navigated the reviews surface, what they were looking for, and where they dropped off.
-              </p>
-
-
-              <p className="font-heading font-bold text-ink text-sm mb-4">What we observed</p>
-              <div className="grid md:grid-cols-2 gap-4">
-                {userTestingFindings.map((f) => (
-                  <div key={f.title} className="bg-bg rounded-2xl p-5 border border-border">
-                    <span className="text-2xl mb-3 block">{f.icon}</span>
-                    <p className="font-heading font-bold text-ink text-sm mb-1.5">{f.title}</p>
-                    <p className="font-sans text-xs text-muted leading-relaxed">{f.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 bg-blue-pale border border-blue/20 rounded-xl p-4">
-                <p className="font-sans text-xs text-muted leading-relaxed">
-                  <span className="font-bold text-ink">Aligned with industry research:</span> Findings matched closely with Baymard Institute&apos;s large-scale usability testing, which consistently identifies limited filtering, buried visual content, and non-native submission flows as the most common review UX failure modes in mobile e-commerce.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          {/* Competitive Analysis */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Competitive Analysis</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Benchmarking 11 retail apps</h2>
-            <p className="font-sans text-base text-muted leading-relaxed mb-6 max-w-2xl">
-              I analyzed reviews experiences across leading retail apps including Abercrombie & Fitch, Nordstrom, Urban Outfitters, Gap, Lululemon, Nike, Victoria&apos;s Secret, Macy&apos;s, Sephora, Target, and Walmart, benchmarking PDP display, filtering, photo UGC treatment, and submission flows.
-            </p>
-
-            <div className="flex flex-col gap-4 mb-6">
-              {competitiveFindings.map((c) => (
-                <div key={c.brand} className="bg-surface border-2 border-border rounded-2xl p-5 flex gap-4 items-start">
-                  <div className="bg-purple-pale rounded-xl px-3 py-1.5 flex-shrink-0">
-                    <p className="font-heading font-bold text-purple text-xs">{c.brand}</p>
-                  </div>
-                  <p className="font-sans text-sm text-muted leading-relaxed">{c.finding}</p>
-                </div>
-              ))}
-            </div>
-
-            <CompAnalysisTable />
-
-            <div className="bg-purple-pale border-2 border-purple/20 rounded-2xl p-6 mt-6">
-              <p className="font-heading font-bold text-purple text-sm mb-2">Clear opportunity identified</p>
-              <p className="font-sans text-sm text-muted leading-relaxed">
-                Only <span className="font-bold text-ink">2 of 11 competitors</span> offered review search. And no competitor had built a truly photo-forward carousel experience, making it a clear differentiation opportunity for AE + Aerie.
-              </p>
-            </div>
-          </Section>
-
-          {/* Principles */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Design Principles</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-8">Three north stars</h2>
-            <div className="grid md:grid-cols-3 gap-5">
-              {principles.map((p, i) => (
-                <div
-                  key={p.title}
-                  className="bg-surface border-2 border-border rounded-3xl p-6 hover:border-purple/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <span className="text-3xl mb-4 block">{p.icon}</span>
-                  <h3 className="font-heading text-lg font-bold text-ink mb-2">{p.title}</h3>
-                  <p className="font-sans text-sm text-muted leading-relaxed">{p.desc}</p>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* Solutions */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Solutions</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What we built</h2>
-            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              Four connected improvements, each grounded in user research findings and documented industry best practices.
-            </p>
-            <div className="flex flex-col gap-5">
-              {solutions.map((s, i) => (
-                <div
-                  key={s.title}
-                  className={`bg-surface border-2 rounded-3xl p-6 md:p-8 flex gap-5 items-start hover:shadow-lg transition-all duration-300 ${
-                    s.color === "purple" ? "border-purple/20 hover:border-purple/40" : "border-blue/20 hover:border-blue/40"
-                  }`}
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 ${
-                    s.color === "purple" ? "bg-purple-pale" : "bg-blue-pale"
-                  }`}>
-                    {s.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-heading text-xl font-bold text-ink mb-2">{s.title}</h3>
-                    <p className="font-sans text-sm text-muted leading-relaxed mb-4">{s.desc}</p>
-                    {s.stat && (
-                      <div className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 mb-4 border border-border ${s.color === "purple" ? "bg-purple-pale" : "bg-blue-pale"}`}>
-                        <span className="font-heading font-bold text-lg gradient-text-static">{s.stat}</span>
-                        <span className="font-sans text-xs text-muted">{s.statLabel}</span>
-                      </div>
-                    )}
-                    <div className="flex flex-wrap gap-2">
-                      {s.tags.map((t) => (
-                        <span
-                          key={t}
-                          className={`font-sans text-xs font-semibold px-2.5 py-1 rounded-full ${
-                            s.color === "purple" ? "bg-purple text-white" : "bg-blue text-white"
-                          }`}
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* Final Screens */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Final Screens</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
-            <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
-              Four connected surfaces, each addressing a distinct gap identified in research.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                { src: "/case-studies/product-reviews/image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
-                { src: "/case-studies/product-reviews/image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
-                { src: "/case-studies/product-reviews/image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
-                { src: "/case-studies/product-reviews/image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
-              ].map((screen) => (
-                <div key={screen.title} className="bg-surface border-2 border-border rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <img src={screen.src} alt={screen.title} className="w-full object-cover" />
-                  <div className="p-5">
-                    <p className="font-heading font-bold text-ink text-sm mb-1">{screen.title}</p>
-                    <p className="font-sans text-xs text-muted leading-relaxed">{screen.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* Accessibility */}
-          <Section>
-            <div className="bg-gradient-to-br from-purple-pale to-blue-pale border-2 border-purple/20 rounded-3xl p-8 md:p-10">
-              <span className="text-3xl mb-3 block">♿</span>
-              <h3 className="font-heading text-2xl font-bold text-ink mb-3">Accessibility — built in, not bolted on</h3>
-              <p className="font-sans text-base text-muted leading-relaxed mb-4">
-                WCAG 2.X AA compliance was a first-class requirement from the first wireframe, not a final QA checklist item. Every touch target, color contrast pairing, and screen reader interaction was considered throughout the process.
-              </p>
-              <div className="grid md:grid-cols-2 gap-3">
-                {[
-                  "Touch target sizing requirements met throughout",
-                  "Color contrast specifications followed across all states",
-                  "Screen reader-compatible component patterns",
-                  "Focus management within review sheet and submission flow",
-                  "Star rating displays readable by screen readers, not purely visual",
-                  "Interactive elements meet minimum touch target sizing",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <span className="text-purple font-bold text-sm flex-shrink-0 mt-0.5">✓</span>
-                    <p className="font-sans text-sm text-muted leading-snug">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Section>
-
-          {/* Outcomes */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-purple uppercase tracking-widest mb-3">Outcomes</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-8">Results</h2>
-            <div className="flex flex-col gap-4">
-              {outcomes.map((o) => (
-                <div
-                  key={o.label}
-                  className="bg-surface border-2 border-border rounded-2xl p-5 flex items-start gap-4 hover:border-purple/30 hover:shadow-md transition-all duration-300"
-                >
-                  <span className="text-2xl flex-shrink-0">{o.icon}</span>
-                  <div>
-                    <p className="font-heading font-bold text-ink text-base mb-0.5">{o.label}</p>
-                    <p className="font-sans text-sm text-muted leading-snug">{o.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* Reflection */}
-          <Section>
-            <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-3">Reflection</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-8">Key learnings</h2>
-            <div className="flex flex-col gap-5">
-              {reflections.map((r) => (
-                <div key={r.label} className="bg-surface border-2 border-border rounded-3xl p-6 md:p-8">
-                  <p className="font-heading font-bold text-purple text-sm mb-3">{r.label}</p>
-                  <p className="font-sans text-base text-muted leading-relaxed italic">&ldquo;{r.quote}&rdquo;</p>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* Footer nav */}
-          <div className="flex items-center justify-between pt-4 border-t-2 border-border">
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 font-sans text-sm font-bold text-purple hover:text-purple-deep transition-colors duration-200 group"
-            >
-              <span className="transition-transform group-hover:-translate-x-1">←</span>
-              Back to portfolio
-            </a>
-            <Logo className="h-8 w-auto" />
+            ))}
           </div>
 
+          {/* Purchase factors table */}
+          <div className="bg-surface border border-border rounded-lg overflow-hidden mb-6">
+            <div className="px-6 py-4 border-b border-border">
+              <p className="font-heading font-bold text-ink text-sm">Top considerations when purchasing clothing</p>
+              <p className="font-sans text-xs text-muted">Sources: PowerReviews 2023, SHEIN Global Survey, FitSmallBusiness 2025</p>
+            </div>
+            {purchaseFactors.map((f, i) => (
+              <div key={f.factor} className={`flex items-start gap-4 px-6 py-4 ${i < purchaseFactors.length - 1 ? "border-b border-border" : ""}`}>
+                <span className="font-heading font-bold text-muted text-sm w-4 flex-shrink-0">{f.rank}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-0.5">
+                    <p className="font-sans font-bold text-ink text-sm">{f.factor}</p>
+                    <span className="font-heading font-bold text-sm text-purple">{f.pct}</span>
+                  </div>
+                  <p className="font-sans text-xs text-muted">{f.note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="border border-border rounded-lg bg-surface p-6">
+            <p className="font-heading font-bold text-ink text-sm mb-2">Industry gap: Baymard Institute</p>
+            <p className="font-sans text-sm text-muted leading-relaxed">
+              <span className="font-bold text-ink">78% of mobile e-commerce sites</span> offer poor to mediocre review filtering. Fit context (height, size purchased, fit rating) was almost universally absent, despite being the top return driver in apparel.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Unmoderated User Testing */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="border border-border rounded-lg bg-surface p-8 md:p-10">
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">User Research</p>
+            <h2 className="font-heading text-3xl font-bold text-ink mb-3">Unmoderated remote user interviews</h2>
+            <p className="font-sans text-base text-muted leading-relaxed mb-8">
+              To study natural behavior rather than task completion, I ran unmoderated remote interviews with existing AE and Aerie app users, observing how they actually navigated the reviews surface, what they were looking for, and where they dropped off.
+            </p>
+
+            <p className="font-heading font-bold text-ink text-sm mb-4">What we observed</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              {userTestingFindings.map((f) => (
+                <div key={f.title} className="bg-bg rounded-md p-5 border border-border">
+                  <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0 mb-3">
+                    <f.Icon size={16} strokeWidth={1.5} className="text-purple" />
+                  </div>
+                  <p className="font-heading font-bold text-ink text-sm mb-1.5">{f.title}</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 border border-border rounded-md bg-bg p-4">
+              <p className="font-sans text-xs text-muted leading-relaxed">
+                <span className="font-bold text-ink">Aligned with industry research:</span> Findings matched closely with Baymard Institute&apos;s large-scale usability testing, which consistently identifies limited filtering, buried visual content, and non-native submission flows as the most common review UX failure modes in mobile e-commerce.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Competitive Analysis */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Competitive Analysis</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">Benchmarking 11 retail apps</h2>
+          <p className="font-sans text-base text-muted leading-relaxed mb-6 max-w-2xl">
+            I analyzed reviews experiences across leading retail apps including Abercrombie & Fitch, Nordstrom, Urban Outfitters, Gap, Lululemon, Nike, Victoria&apos;s Secret, Macy&apos;s, Sephora, Target, and Walmart, benchmarking PDP display, filtering, photo UGC treatment, and submission flows.
+          </p>
+
+          <div className="flex flex-col gap-4 mb-6">
+            {competitiveFindings.map((c) => (
+              <div key={c.brand} className="bg-surface border border-border rounded-lg p-5 flex gap-4 items-start">
+                <div className="bg-purple-pale rounded-md px-3 py-1.5 flex-shrink-0">
+                  <p className="font-heading font-bold text-purple text-xs">{c.brand}</p>
+                </div>
+                <p className="font-sans text-sm text-muted leading-relaxed">{c.finding}</p>
+              </div>
+            ))}
+          </div>
+
+          <CompAnalysisTable />
+
+          <div className="border border-border rounded-lg bg-surface p-6 mt-6">
+            <p className="font-heading font-bold text-purple text-sm mb-2">Clear opportunity identified</p>
+            <p className="font-sans text-sm text-muted leading-relaxed">
+              Only <span className="font-bold text-ink">2 of 11 competitors</span> offered review search. And no competitor had built a truly photo-forward carousel experience, making it a clear differentiation opportunity for AE + Aerie.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Principles */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Design Principles</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-8">Three north stars</h2>
+          <div className="grid md:grid-cols-3 gap-5">
+            {principles.map((p) => (
+              <div
+                key={p.title}
+                className="bg-surface border border-border rounded-lg p-6 transition-[opacity,transform] duration-300"
+              >
+                <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0 mb-4">
+                  <p.Icon size={16} strokeWidth={1.5} className="text-purple" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-ink mb-2">{p.title}</h3>
+                <p className="font-sans text-sm text-muted leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Solutions */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Solutions</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What we built</h2>
+          <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+            Four connected improvements, each grounded in user research findings and documented industry best practices.
+          </p>
+          <div className="flex flex-col gap-5">
+            {solutions.map((s) => (
+              <div
+                key={s.title}
+                className="bg-surface border border-border rounded-lg p-6 md:p-8 flex gap-5 items-start transition-[opacity,transform] duration-300"
+              >
+                <div className={`w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0 ${
+                  s.color === "purple" ? "bg-purple-pale" : "bg-blue-pale"
+                }`}>
+                  <s.Icon size={16} strokeWidth={1.5} className="text-purple" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-heading text-xl font-bold text-ink mb-2">{s.title}</h3>
+                  <p className="font-sans text-sm text-muted leading-relaxed mb-4">{s.desc}</p>
+                  {s.stat && (
+                    <div className="inline-flex items-center gap-2 rounded-md px-3 py-2 mb-4 border border-border bg-surface">
+                      <span className="font-heading font-bold text-lg text-purple">{s.stat}</span>
+                      <span className="font-sans text-xs text-muted">{s.statLabel}</span>
+                    </div>
+                  )}
+                  <div className="flex flex-wrap gap-3">
+                    {s.tags.map((t) => (
+                      <span key={t} className="font-mono text-[10px] tracking-[0.1em] uppercase text-muted">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Final Screens */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Final Screens</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What shipped</h2>
+          <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+            Four connected surfaces, each addressing a distinct gap identified in research.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { src: "/case-studies/product-reviews/image1.jpeg", title: "Enriched photo carousels on PDP", desc: "Customer photos elevated into a prominent carousel with star distribution, review count, and inline review cards, all within the product detail page." },
+              { src: "/case-studies/product-reviews/image2.jpeg", title: "Full-screen review sheet", desc: "Tapping a review card on the PDP opens a full-screen sheet with the complete review: star rating, fit context, body, and photos, giving shoppers all the detail they need without leaving the product page." },
+              { src: "/case-studies/product-reviews/image3.jpeg", title: "All Reviews list with sort & fit context", desc: "Dedicated reviews screen with sort controls, star breakdown, and individual review cards surfacing fit attributes and reward points disclosure." },
+              { src: "/case-studies/product-reviews/image4.jpeg", title: "Native Write a Review flow", desc: "Rebuilt as a fully native form with star rating, photo upload, title, body, and recommendation toggle, replacing the multi-step web form that was causing abandonment." },
+            ].map((screen) => (
+              <div key={screen.title} className="bg-surface border border-border rounded-lg overflow-hidden transition-[opacity,transform] duration-300">
+                <img src={screen.src} alt={screen.title} className="w-full object-cover" />
+                <div className="p-5">
+                  <p className="font-heading font-bold text-ink text-sm mb-1">{screen.title}</p>
+                  <p className="font-sans text-xs text-muted leading-relaxed">{screen.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Accessibility */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="border border-border rounded-lg bg-surface p-8 md:p-10">
+            <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0 mb-4">
+              <ShieldCheck size={16} strokeWidth={1.5} className="text-purple" />
+            </div>
+            <h3 className="font-heading text-2xl font-bold text-ink mb-3">Accessibility — built in, not bolted on</h3>
+            <p className="font-sans text-base text-muted leading-relaxed mb-4">
+              WCAG 2.X AA compliance was a first-class requirement from the first wireframe, not a final QA checklist item. Every touch target, color contrast pairing, and screen reader interaction was considered throughout the process.
+            </p>
+            <div className="grid md:grid-cols-2 gap-3">
+              {[
+                "Touch target sizing requirements met throughout",
+                "Color contrast specifications followed across all states",
+                "Screen reader-compatible component patterns",
+                "Focus management within review sheet and submission flow",
+                "Star rating displays readable by screen readers, not purely visual",
+                "Interactive elements meet minimum touch target sizing",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2">
+                  <CheckCircle2 size={14} strokeWidth={1.5} className="text-purple flex-shrink-0 mt-0.5" />
+                  <p className="font-sans text-sm text-muted leading-snug">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Outcomes */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Outcomes</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-8">Results</h2>
+          <div className="flex flex-col gap-4">
+            {outcomes.map((o) => (
+              <div
+                key={o.label}
+                className="bg-surface border border-border rounded-lg p-5 flex items-start gap-4 transition-[opacity,transform] duration-300"
+              >
+                <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0">
+                  <o.Icon size={16} strokeWidth={1.5} className="text-purple" />
+                </div>
+                <div>
+                  <p className="font-heading font-bold text-ink text-base mb-0.5">{o.label}</p>
+                  <p className="font-sans text-sm text-muted leading-snug">{o.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Reflection */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">Reflection</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-8">Key learnings</h2>
+          <div className="flex flex-col gap-5">
+            {reflections.map((r) => (
+              <div key={r.label} className="bg-surface border border-border rounded-lg p-6 md:p-8">
+                <p className="font-heading font-bold text-purple text-sm mb-3">{r.label}</p>
+                <p className="font-sans text-base text-muted leading-relaxed italic">&ldquo;{r.quote}&rdquo;</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Footer nav */}
+        <div className="flex items-center justify-between pt-8 border-t border-border">
+          <a href="/" className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.15em] uppercase text-muted hover:text-ink transition-colors group">
+            <ArrowLeft size={12} /><span>Back to portfolio</span>
+          </a>
+          <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-muted">courtneyeisenhuth.com</span>
         </div>
+
       </div>
-    </>
+    </div>
   );
 }

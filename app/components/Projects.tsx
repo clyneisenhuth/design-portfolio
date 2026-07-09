@@ -1,228 +1,189 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { ArrowUp, Plus, Lightbulb, Users } from "lucide-react";
 import { useInView } from "../hooks/useInView";
+import type { LucideIcon } from "lucide-react";
 
-const projects = [
+const projects: {
+  title: string; year: string; category: string; description: string;
+  stat: string; statLabel: string; image: string; link: string; icon: LucideIcon;
+}[] = [
   {
-    title:      "Incentivized Reviews Strategy",
-    year:       "2025",
-    description: "Driving review participation through loyalty without compromising authenticity. A cross-functional initiative that grew daily review volume by 300% across the AE + Aerie catalog.",
-    tags:       ["Strategy", "Loyalty", "Research"],
-    emoji:      "⭐",
-    image:      "/case-studies/incentivized-reviews/cover.jpeg",
-    gradient:   "linear-gradient(135deg, #8059C4, #A07DD4)",
-    cardBg:     "bg-purple-pale",
-    stat:       "300%",
-    statLabel:  "increase in daily review volume",
-    link:       "/case-studies/incentivized-reviews",
-    tagColor:   "bg-purple text-white",
-    shipped:    true,
+    title: "Incentivized Reviews Strategy",
+    year: "2025",
+    category: "Strategy · Loyalty · Research",
+    description:
+      "Driving review participation through loyalty without compromising authenticity. A cross-functional initiative that grew daily review volume by 300% across the AE + Aerie catalog.",
+    stat: "300%",
+    statLabel: "increase in daily review volume",
+    image: "/case-studies/incentivized-reviews/cover.jpeg",
+    link: "/case-studies/incentivized-reviews",
+    icon: ArrowUp,
   },
   {
-    title:      "App Product Reviews Redesign",
-    year:       "2024",
-    description: "End-to-end redesign of the AE + Aerie mobile app reviews experience, rebuilding photo carousels, submission flows, and review UI to turn a fragmented section into a high-trust content engine.",
-    tags:       ["Mobile", "UI Design", "UGC"],
-    emoji:      "🖼️",
-    image:      "/case-studies/product-reviews/cover.jpeg",
-    gradient:   "linear-gradient(135deg, #4B7BE5, #6B9DF5)",
-    cardBg:     "bg-blue-pale",
-    stat:       "Increased",
-    statLabel:  "form submission rates",
-    link:       "/case-studies/product-reviews",
-    tagColor:   "bg-blue text-white",
-    shipped:    true,
+    title: "App Product Reviews Redesign",
+    year: "2024",
+    category: "Mobile · UI Design · UGC",
+    description:
+      "End-to-end redesign of the AE + Aerie mobile app reviews experience, rebuilding photo carousels, submission flows, and review UI to turn a fragmented section into a high-trust content engine.",
+    stat: "2x",
+    statLabel: "increase in form submission rates",
+    image: "/case-studies/product-reviews/cover.jpeg",
+    link: "/case-studies/product-reviews",
+    icon: Plus,
   },
   {
-    title:      "Item Level Fulfillment",
-    year:       "2022",
-    description: "Designing flexible fulfillment for a feature that never shipped. Concept design, competitive analysis, and usability research that validated the idea and moved organizational understanding forward.",
-    tags:       ["Mobile", "BOPIS", "Research"],
-    emoji:      "📦",
-    image:      "/case-studies/item-fulfillment/cover.jpeg",
-    gradient:   "linear-gradient(135deg, #A07DD4, #B8A0E0)",
-    cardBg:     "bg-purple-pale",
-    stat:       "Concept",
-    statLabel:  "validated through usability research",
-    link:       "/case-studies/item-fulfillment",
-    tagColor:   "bg-purple text-white",
-    shipped:    true,
+    title: "Item Level Fulfillment",
+    year: "2022",
+    category: "Mobile · BOPIS · Research",
+    description:
+      "Designing flexible fulfillment for a feature that never shipped. Concept design, competitive analysis, and usability research that validated the idea and moved organizational understanding forward.",
+    stat: "Concept",
+    statLabel: "validated through usability research",
+    image: "/case-studies/item-fulfillment/cover.jpeg",
+    link: "/case-studies/item-fulfillment",
+    icon: Lightbulb,
   },
   {
-    title:      "Single Account Initiative",
-    year:       "2022",
-    description: "Rebuilt account creation and loyalty enrollment during a full platform migration, designing dedicated migration paths for 10M+ existing customers across iOS and Android.",
-    tags:       ["Mobile", "Account", "Loyalty"],
-    emoji:      "💳",
-    image:      "/case-studies/single-account/cover.jpeg",
-    gradient:   "linear-gradient(135deg, #2D5BC5, #4B7BE5)",
-    cardBg:     "bg-blue-pale",
-    stat:       "10M+",
-    statLabel:  "customers reached through migration flows",
-    link:       "/case-studies/single-account",
-    tagColor:   "bg-blue text-white",
-    shipped:    true,
+    title: "Single Account Initiative",
+    year: "2022",
+    category: "Mobile · Account · Loyalty",
+    description:
+      "Rebuilt account creation and loyalty enrollment during a full platform migration, designing dedicated migration paths for 10M+ existing customers across iOS and Android.",
+    stat: "10M+",
+    statLabel: "customers reached through migration flows",
+    image: "/case-studies/single-account/cover.jpeg",
+    link: "/case-studies/single-account",
+    icon: Users,
   },
 ];
 
-
 type Project = typeof projects[0];
 
-function WorkCard({ project, index }: { project: Project; index: number }) {
-  const cardRef              = useRef<HTMLDivElement>(null);
-  const { ref, inView }      = useInView();
-  const [tilt, setTilt]      = useState({ x: 0, y: 0 });
-  const [hover, setHover]    = useState(false);
-  const [popped, setPopped]  = useState(false);
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { ref, inView } = useInView();
+  const [hover, setHover] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState(false);
+  const [isHoverDevice, setIsHoverDevice] = useState(false);
+  const prefersReduced = useReducedMotion();
+  useEffect(() => {
+    setMounted(true);
+    setIsHoverDevice(window.matchMedia("(hover: hover)").matches);
+  }, []);
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    setTilt({ x: y * -10, y: x * 10 });
-  };
-
-  const onEnter = () => setHover(true);
-  const onLeave = () => { setHover(false); setTilt({ x: 0, y: 0 }); };
-
-  const onCardClick = () => {
-    setPopped(true);
-    setTimeout(() => {
-      setPopped(false);
-      if (project.link) window.location.href = project.link;
-    }, 150);
+  const onMouseMove = (e: React.MouseEvent) => {
+    setPos({ x: e.clientX, y: e.clientY });
   };
 
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
-      style={{ transitionDelay: `${index * 120}ms` }}
+      className={`transition-[opacity,transform] duration-600 ease-out ${
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
+      style={{ transitionDelay: prefersReduced ? "0ms" : `${index * 100}ms` }}
     >
-      <div
-        ref={cardRef}
+      <a
+        href={project.link}
+        className="block"
+        style={{ cursor: hover && isHoverDevice ? "none" : "auto" }}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
         onMouseMove={onMouseMove}
-        onMouseEnter={onEnter}
-        onMouseLeave={onLeave}
-        onClick={onCardClick}
-        role="link"
-        tabIndex={0}
-        aria-label={`View case study: ${project.title}`}
-        onKeyDown={(e) => { if (e.key === "Enter") onCardClick(); }}
-        className={`relative bg-surface rounded-3xl overflow-hidden border-2 border-border transition-shadow duration-300 group ${
-          hover ? "shadow-2xl border-purple/25" : "shadow-sm"
-        } ${popped ? "scale-95" : ""}`}
-        style={{
-          transform:  `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${hover ? 1.025 : 1}) ${popped ? "scale(0.97)" : ""}`,
-          transition: hover
-            ? "transform 0.1s ease-out, box-shadow 0.3s, border-color 0.3s"
-            : "transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s, border-color 0.3s",
-        }}
       >
-        {/* Gradient header */}
         <div
-          className="relative h-44 flex items-center justify-center overflow-hidden"
-          style={{ background: project.gradient }}
+          className="relative w-full overflow-hidden rounded-md bg-surface mb-5"
+          style={{ aspectRatio: "16/10" }}
         >
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover object-center"
-              style={undefined}
-            />
-          ) : (
-            <span className="text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">
-              {project.emoji}
-            </span>
-          )}
-          <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs font-sans font-bold px-2.5 py-1 rounded-full">
-            {project.year}
-          </div>
-          {/* Decorative circles */}
-          <div className="absolute -bottom-8 -right-8 w-28 h-28 bg-white/10 rounded-full" />
-          <div className="absolute -top-6 -left-6 w-20 h-20 bg-white/10 rounded-full" />
-          {/* Hover sparkle */}
-          {hover && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="text-xl animate-bounce-pop opacity-80">✨</span>
-            </div>
-          )}
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover object-center"
+          />
         </div>
 
-        {/* Body */}
-        <div className="p-6">
-          <h3 className="font-heading text-xl font-bold text-ink mb-2 group-hover:text-purple transition-colors duration-200">
-            {project.title}
-          </h3>
-          <p className="font-sans text-sm text-muted leading-relaxed mb-4">
-            {project.description}
-          </p>
+        <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-muted mb-2">
+          {project.category} · {project.year}
+        </p>
 
-          {/* Stat chip */}
-          <div className={`${project.cardBg} rounded-xl p-3 mb-4 flex items-center gap-3 border border-border`}>
-            <span className="font-heading text-lg font-bold gradient-text-static">{project.stat}</span>
-            <span className="font-sans text-xs text-muted">{project.statLabel}</span>
-          </div>
+        <h3
+          className={`font-heading text-xl font-semibold mb-2 transition-colors duration-200 ${
+            hover ? "text-purple" : "text-ink"
+          }`}
+        >
+          {project.title}
+        </h3>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-5">
-            {project.tags.map((t) => (
-              <span key={t} className={`font-sans text-xs font-semibold px-2.5 py-1 rounded-full ${project.tagColor}`}>
-                {t}
-              </span>
-            ))}
-          </div>
+        <p className="font-sans text-sm text-muted leading-relaxed mb-3">
+          {project.description}
+        </p>
 
-          {/* CTA */}
-          <div className="flex items-center justify-between">
-            <span className="font-sans text-sm font-bold text-purple flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200">
-              View case study <span className="transition-transform group-hover:translate-x-1">→</span>
-            </span>
-            {!project.shipped && (
-              <span className="font-sans text-xs text-muted italic bg-bg px-2.5 py-1 rounded-full">
-                Coming soon ✦
-              </span>
-            )}
+        {/* Outcome — style 4: icon + metric */}
+        <div className="flex items-center gap-4 mb-5 py-3 border-t border-b border-border">
+          <div className="flex items-center gap-1.5 text-purple flex-shrink-0">
+            <project.icon size={15} strokeWidth={1.8} />
+            <span className="font-heading font-bold text-2xl text-ink">{project.stat}</span>
           </div>
+          <div className="w-px h-8 bg-border flex-shrink-0" />
+          <p className="font-sans text-xs text-muted leading-snug">{project.statLabel}</p>
         </div>
-      </div>
+      </a>
+
+      {/* Custom cursor chip — hover devices only */}
+      {mounted && isHoverDevice && createPortal(
+        <div
+          className="fixed pointer-events-none z-[9999] flex items-center gap-1.5 px-4 py-2 bg-ink text-white text-xs font-semibold rounded-full whitespace-nowrap select-none"
+          style={{
+            left: pos.x,
+            top: pos.y,
+            transform: `translate(-50%, -50%) scale(${hover ? 1 : 0.8})`,
+            opacity: hover ? 1 : 0,
+            transition: "opacity 0.2s ease, transform 0.2s ease",
+          }}
+        >
+          View Case Study
+          <span className="text-[10px]">›</span>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
 
 export default function Projects() {
   const { ref, inView } = useInView(0.2);
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedSection = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const contentY = useTransform(scrollYProgress, [0, 1], prefersReducedSection ? [0, 0] : [70, -70]);
 
   return (
-    <section id="projects" className="py-28 px-6 bg-white/60">
-      <div className="max-w-5xl mx-auto">
-
+    <section id="work" ref={sectionRef} className="pt-12 pb-28 px-8 border-t border-border">
+      <motion.div className="max-w-5xl mx-auto" style={{ y: contentY }}>
         <div
           ref={ref}
-          className={`text-center mb-16 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`mb-16 transition-[opacity,transform] duration-600 ${
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
         >
-          <p className="font-heading text-sm font-semibold text-blue uppercase tracking-widest mb-2">
-            Projects
+          <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-purple mb-3">
+            Selected work
           </p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-ink">
-            From brief to build 💻
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink">
+            Case Studies
           </h2>
-          <p className="font-sans text-muted mt-4 max-w-md mx-auto text-sm">
-            Take a look at some of my most recent work.
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-x-10 gap-y-16">
           {projects.map((p, i) => (
-            <WorkCard key={p.title} project={p} index={i} />
+            <ProjectCard key={p.title} project={p} index={i} />
           ))}
         </div>
-
-      </div>
+      </motion.div>
     </section>
   );
 }
