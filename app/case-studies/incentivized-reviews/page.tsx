@@ -94,21 +94,18 @@ const executionBehaviors = [
     title: "Loyalty prompt at point of submission",
     desc: "Customers were asked to confirm or join the loyalty program while submitting a review, reducing friction at the highest-intent moment.",
     tags: ["Submission Flow", "Loyalty", "Zero Friction"],
-    color: "purple",
   },
   {
     Icon: Mail,
     title: "Email-matched points release",
     desc: "Loyalty accounts were matched by submitted email, triggering automated reward delivery after moderation approval. No forced sign-in. Reward was tied to approval, not sentiment.",
     tags: ["CrowdTwist", "BazaarVoice", "Automation"],
-    color: "blue",
   },
   {
     Icon: Tag,
     title: "Visible incentive labeling",
     desc: "Published reviews that earned points carried a visible tag. Transparent by design, not buried in footnotes. Baked in from day one rather than treated as a legal checkbox.",
     tags: ["Disclosure", "Trust", "Compliance"],
-    color: "purple",
   },
 ];
 
@@ -151,7 +148,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 { label: "Role", value: "Product Strategist" },
                 { label: "Company", value: "American Eagle Outfitters" },
                 { label: "Scope", value: "15M+ Loyalty Members" },
-                { label: "Tools", value: "Miro · Figma · Google Gemini" },
+                { label: "Tools", value: "Miro · Figma" },
               ].map((m) => (
                 <div key={m.label}>
                   <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-muted mb-1">{m.label}</p>
@@ -179,7 +176,7 @@ export default function IncentivizedReviewsCaseStudy() {
               Product pages across the AE and Aerie catalog were under-reviewed. Sparse coverage meant customers had limited peer input when making purchase decisions, and merchandising teams were flying blind on qualitative product feedback.
             </p>
             <p className="font-sans text-base text-muted leading-relaxed">
-              Both problems pointed to the same root cause: customers had no clear reason to come back and write a review after purchase. I partnered with a fellow Product Strategist on a cross-functional initiative to introduce <span className="font-extrabold text-purple">loyalty-based review incentives</span>, growing participation at scale without sacrificing the authenticity that makes review content worth reading.
+              Both problems pointed to the same root cause: customers had no clear reason to come back and write a review after purchase. I partnered with a fellow Product Strategist on a cross-functional initiative to introduce <span className="font-extrabold text-purple">loyalty-based review incentives</span>, using the AE + Aerie Real Rewards program's 15M+ members as the addressable audience, growing participation at scale without sacrificing the authenticity that makes review content worth reading.
             </p>
           </div>
         </motion.div>
@@ -329,12 +326,12 @@ export default function IncentivizedReviewsCaseStudy() {
           <div className="bg-surface border border-border rounded-lg overflow-hidden mb-6">
             <img
               src="/case-studies/incentivized-reviews/moscow-image1.avif"
-              alt="MoSCoW prioritization workshop with cross-functional team"
+              alt="MoSCoW prioritization board sorting review incentive requirements into Must Have, Should Have, Could Have, and Won't Have"
               className="w-full object-cover"
             />
             <div className="p-6 md:p-8">
-              <p className="font-heading font-bold text-ink text-base mb-1">Cross-functional workshop</p>
-              <p className="font-sans text-xs text-muted mb-4">MoSCoW prioritization · Product, Engineering, Marketing, Legal, UX</p>
+              <p className="font-heading font-bold text-ink text-base mb-1">The MoSCoW board</p>
+              <p className="font-sans text-xs text-muted mb-4">Requirements sorted live in the workshop · Product, Engineering, Marketing, Legal, UX</p>
               <div className="flex flex-wrap gap-3">
                 {["Product", "Engineering", "Marketing", "Legal", "UX", "MoSCoW Framework", "Phase 1 Scoping"].map((tag) => (
                   <span key={tag} className="font-mono text-[10px] tracking-[0.1em] uppercase text-muted">
@@ -352,9 +349,7 @@ export default function IncentivizedReviewsCaseStudy() {
                 key={b.title}
                 className="bg-surface border border-border rounded-lg p-6 md:p-8 flex gap-5 items-start transition-[opacity,transform] duration-300"
               >
-                <div className={`w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0 ${
-                  b.color === "purple" ? "bg-purple-pale" : "bg-blue-pale"
-                }`}>
+                <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0">
                   <b.Icon size={16} strokeWidth={1.5} className="text-purple" />
                 </div>
                 <div className="flex-1 min-w-0">

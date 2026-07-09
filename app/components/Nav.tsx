@@ -77,15 +77,6 @@ export default function Nav() {
           >
             About
           </a>
-
-          <a
-            href="/resume.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 font-sans text-sm text-muted hover:text-ink transition-colors duration-200 whitespace-nowrap"
-          >
-            Resume
-          </a>
         </div>
 
         {/* Mobile hamburger */}
@@ -139,14 +130,6 @@ export default function Nav() {
             className="px-3 py-2 font-sans text-sm text-muted rounded-xl hover:bg-surface transition-colors"
           >
             About
-          </a>
-          <a
-            href="/resume.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-2 font-sans text-sm text-muted text-left rounded-xl hover:bg-surface transition-colors"
-          >
-            Resume
           </a>
         </div>
       </div>

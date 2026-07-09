@@ -52,19 +52,16 @@ const strategicDecisions = [
     Icon: CheckCircle2,
     title: "Default loyalty opt-in",
     desc: "Made loyalty enrollment the default rather than an optional checkbox in the Create Account flow, maximizing enrollment without adding a single step of friction.",
-    color: "blue",
   },
   {
     Icon: RefreshCw,
     title: "Dedicated migration flows",
     desc: "Designed specialized experiences for existing ATG customers, honoring their established relationship with the brand through clear, low-friction transitions rather than forcing them through new account creation.",
-    color: "purple",
   },
   {
     Icon: Store,
     title: "In-store sign-up support",
     desc: "Extended account creation to support sign-ups initiated by store associates through the mobile app, closing an acquisition gap that had existed since the original app launch.",
-    color: "blue",
   },
 ];
 
@@ -74,21 +71,18 @@ const designFlows = [
     title: "Create Account redesign",
     desc: "Rebuilt the account creation flow for iOS and Android from the ground up, with default loyalty opt-in baked in, streamlined field structure, and consistent brand expression across AE and Aerie without flattening their distinct identities.",
     tags: ["iOS", "Android", "Default Opt-In"],
-    color: "blue",
   },
   {
     Icon: RefreshCw,
     title: "ATG migration enrollment",
     desc: "Purpose-built flows for the 10M+ existing ATG customers who needed a path into the new system. This was the most edge-case-dense work of the project. Migration states, error handling, and duplicate account logic all had to be accounted for before a single customer hit the flow.",
     tags: ["Migration", "Error States", "Edge Cases"],
-    color: "purple",
   },
   {
     Icon: Store,
     title: "In-store account creation",
     desc: "Designed the handoff experience for store associate-led account creation, starting on the associate's device, transferring to the customer's phone, and completing enrollment without losing context or requiring the customer to start over.",
     tags: ["In-Store", "Device Handoff", "Associate-Led"],
-    color: "blue",
   },
 ];
 
@@ -281,9 +275,7 @@ export default function SingleAccountCaseStudy() {
                 key={f.title}
                 className="bg-surface border border-border rounded-lg p-6 md:p-8 flex gap-5 items-start transition-[opacity,transform] duration-300"
               >
-                <div className={`w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0 ${
-                  f.color === "blue" ? "bg-blue-pale" : "bg-purple-pale"
-                }`}>
+                <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0">
                   <f.Icon size={16} strokeWidth={1.5} className="text-purple" />
                 </div>
                 <div className="flex-1 min-w-0">

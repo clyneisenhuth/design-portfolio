@@ -9,7 +9,7 @@ const intro =
 
 const stats: { raw: string; label: string }[] = [
   { raw: "10",    label: "yrs experience" },
-  { raw: "15M+",  label: "customers"      },
+  { raw: "15M+",  label: "customers reached" },
   { raw: "$20M+", label: "revenue lift"   },
 ];
 

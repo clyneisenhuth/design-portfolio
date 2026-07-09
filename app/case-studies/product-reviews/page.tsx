@@ -114,7 +114,6 @@ const solutions = [
     tags: ["PDP", "UGC", "Mobile-first"],
     stat: "161%",
     statLabel: "higher conversion for shoppers who see UGC",
-    color: "purple",
   },
   {
     Icon: FileText,
@@ -123,7 +122,6 @@ const solutions = [
     tags: ["Typography", "Fit Context", "Trust Signals"],
     stat: null,
     statLabel: null,
-    color: "blue",
   },
   {
     Icon: PenLine,
@@ -132,7 +130,6 @@ const solutions = [
     tags: ["iOS", "Android", "Native Patterns"],
     stat: null,
     statLabel: null,
-    color: "purple",
   },
   {
     Icon: SlidersHorizontal,
@@ -141,13 +138,12 @@ const solutions = [
     tags: ["Filtering", "Sorting", "Apparel-specific"],
     stat: "26%",
     statLabel: "conversion lift from well-implemented filters (Baymard)",
-    color: "blue",
   },
 ];
 
 const outcomes = [
   { Icon: TrendingUp, label: "Improved content discoverability", desc: "Restructured hierarchy surfaced relevant reviews and photos without deep navigation" },
-  { Icon: CheckCircle2, label: "Higher submission rates", desc: "Native flow replaced web-form patterns, directly reducing abandonment" },
+  { Icon: CheckCircle2, label: "2x review form submission rate", desc: "Native flow replaced web-form patterns, directly reducing abandonment" },
   { Icon: Camera, label: "Increased photo UGC volume", desc: "First-class photo prompts in submission drove more visual content" },
   { Icon: Clock, label: "Greater session engagement", desc: "Richer content gave shoppers more reason to explore before purchase" },
   { Icon: ShieldCheck, label: "WCAG 2.X AA compliance", desc: "Accessibility baked in from the start, not bolted on at QA" },
@@ -422,9 +418,7 @@ export default function ProductReviewsCaseStudy() {
                 key={s.title}
                 className="bg-surface border border-border rounded-lg p-6 md:p-8 flex gap-5 items-start transition-[opacity,transform] duration-300"
               >
-                <div className={`w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0 ${
-                  s.color === "purple" ? "bg-purple-pale" : "bg-blue-pale"
-                }`}>
+                <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0">
                   <s.Icon size={16} strokeWidth={1.5} className="text-purple" />
                 </div>
                 <div className="flex-1 min-w-0">

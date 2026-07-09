@@ -47,8 +47,8 @@ const testingChallenges = [
   },
   {
     Icon: Search,
-    label: "Toggle discoverability",
-    desc: "The per-item fulfillment toggle was easy to miss. Some participants did not realize they could change it at all.",
+    label: "Fulfillment control discoverability",
+    desc: "The per-item fulfillment control was easy to miss. Some participants did not realize they could change it at all.",
   },
   {
     Icon: Smartphone,
@@ -66,7 +66,7 @@ const researchProduced = [
   {
     Icon: Map,
     label: "Specific design direction for a future attempt",
-    desc: "The research surfaced exactly where the UI fell short: the per-item toggle needed more visibility, and the split checkout screen needed a lighter cognitive load. That is a ready brief for Phase 2 if the backend work ever becomes feasible.",
+    desc: "The research surfaced exactly where the UI fell short: the per-item fulfillment control needed more visibility, and the split checkout screen needed a lighter cognitive load. That is a ready brief for Phase 2 if the backend work ever becomes feasible.",
   },
   {
     Icon: Building2,
@@ -237,8 +237,34 @@ export default function ItemFulfillmentCaseStudy() {
           <div className="border border-border rounded-lg bg-surface p-6">
             <p className="font-heading font-bold text-purple text-sm mb-2">A known cost tradeoff, understood going in</p>
             <p className="font-sans text-sm text-muted leading-relaxed">
-              Mixed cart fulfillment is a known cost pressure for retailers: splitting an order into multiple fulfillment streams can <span className="font-bold text-ink">double the cost of fulfillment per transaction</span>. That tradeoff was understood from the start. The intention was to validate customer value before the business committed to absorbing it at scale. Keeping fidelity at concept level was a deliberate choice, letting us communicate the mechanic clearly enough to get real reactions without committing to a full UI build before we knew if the idea held up.
+              Mixed cart fulfillment is a known cost pressure for retailers: splitting an order into multiple fulfillment streams can <span className="font-bold text-ink">double the cost of fulfillment per transaction</span>. That tradeoff was understood from the start. The intention was to validate customer value before the business committed to absorbing it at scale. Building a high-fidelity prototype, rather than the real backend, was the deliberate choice: polished enough to produce authentic reactions in unmoderated testing, without committing engineering to the OMS work before we knew if the idea held up.
             </p>
+          </div>
+        </motion.div>
+
+        {/* Concept Prototype */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-purple mb-3">The Concept</p>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-ink mb-4">What customers actually saw in testing.</h2>
+          <p className="font-sans text-base text-muted leading-relaxed mb-8 max-w-2xl">
+            Two different interaction patterns were prototyped for choosing fulfillment per item in the bag, then tested against each other. Checkout confirmed the split clearly either way, with pickup and delivery groups shown separately with their own timelines.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { src: "/case-studies/item-fulfillment/image1.jpeg", label: "Option A: inline selection", caption: "Fulfillment choices shown inline in the bag: delivery and same-day store pickup as radio options directly under each item." },
+              { src: "/case-studies/item-fulfillment/image2.jpeg", label: "Option B: bottom sheet selection", caption: "Fulfillment choices moved into a bottom sheet, tapped open per item, keeping the main bag list uncluttered." },
+              { src: "/case-studies/item-fulfillment/image3.jpeg", label: "Split checkout confirmation", caption: "Checkout groups items by fulfillment method, showing pickup details and delivery timing as two distinct, clearly labeled groups." },
+            ].map((s) => (
+              <div key={s.label} className="bg-surface border border-border rounded-lg overflow-hidden">
+                <img src={s.src} alt={s.label} className="w-full object-cover" />
+                <p className="font-sans text-xs text-muted px-5 py-3 border-t border-border">{s.caption}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
 
@@ -272,44 +298,37 @@ export default function ItemFulfillmentCaseStudy() {
                 title: "Competitive analysis",
                 desc: "Analyzed best-in-class fulfillment experiences and how competitors handled per-item selection, split orders, and checkout communication.",
                 tags: ["Benchmarking", "BOPIS", "Mobile"],
-                color: "purple",
               },
               {
                 Icon: BarChart2,
                 title: "BOPIS usage pattern review",
                 desc: "Reviewed existing Buy Online, Pick Up In Store data to understand how AE customers were already using partial fulfillment and where expectations were being set.",
                 tags: ["Data Review", "Omnichannel", "Behavioral"],
-                color: "blue",
               },
               {
                 Icon: RefreshCw,
                 title: "Iterative design reviews with product and engineering",
                 desc: "Regular cycles with product managers and engineers as backend constraints shifted. Designs adapted continuously, never locked in before constraints were fully understood.",
                 tags: ["Collaboration", "Engineering", "Iteration"],
-                color: "purple",
               },
               {
                 Icon: Smartphone,
                 title: "iOS & Android prototype development",
                 desc: "Built testable prototypes for both platforms in Axure and Sketch, updated after each review cycle to reflect the latest state of what was actually buildable.",
                 tags: ["Axure", "Sketch", "Prototyping"],
-                color: "blue",
               },
               {
                 Icon: FlaskConical,
                 title: "Unmoderated remote usability testing",
                 desc: "Wrote a test script and ran unmoderated remote sessions. Participants were given tasks mirroring a real mixed-fulfillment scenario: some items available to ship, others only available for pickup nearby.",
                 tags: ["Usability Research", "Remote", "Unmoderated"],
-                color: "purple",
               },
             ].map((a) => (
               <div
                 key={a.title}
                 className="bg-surface border border-border rounded-lg p-6 md:p-8 flex gap-5 items-start transition-[opacity,transform] duration-300"
               >
-                <div className={`w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0 ${
-                  a.color === "purple" ? "bg-purple-pale" : "bg-blue-pale"
-                }`}>
+                <div className="w-9 h-9 rounded-md bg-purple-pale flex items-center justify-center flex-shrink-0">
                   <a.Icon size={16} strokeWidth={1.5} className="text-purple" />
                 </div>
                 <div className="flex-1 min-w-0">
