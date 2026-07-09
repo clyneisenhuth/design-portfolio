@@ -20,6 +20,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { useInView } from "../../hooks/useInView";
+import CompetitiveMatrix from "../../components/artifacts/CompetitiveMatrix";
+import ResultsBarChart from "../../components/artifacts/ResultsBarChart";
 
 function StatItem({ raw, label }: { raw: string; label: string }) {
   const { ref, inView } = useInView(0.4);
@@ -263,6 +265,10 @@ export default function IncentivizedReviewsCaseStudy() {
             We looked at how other retailers tackled incentivized review programs, focusing on three questions: how was the incentive framed, what eligibility and verification logic was in place, and what guardrails were protecting review quality?
           </p>
 
+          <div className="mb-6">
+            <CompetitiveMatrix />
+          </div>
+
           <div className="flex flex-col gap-4 mb-6">
             {competitiveInsights.map((c) => (
               <div key={c.brand} className="bg-surface border border-border rounded-lg p-5 flex gap-4 items-start">
@@ -425,6 +431,10 @@ export default function IncentivizedReviewsCaseStudy() {
           <div className="border border-border rounded-lg bg-surface p-8 md:p-10 mb-8 text-center">
             <StatItem raw="300%" label="increase in daily review volume" />
             <p className="font-sans text-base text-muted max-w-sm mx-auto mt-4">Reaching approximately <span className="font-bold text-ink">1,500 reviews per day</span></p>
+          </div>
+
+          <div className="mb-8">
+            <ResultsBarChart />
           </div>
 
           <div className="flex flex-col gap-4 mb-6">
