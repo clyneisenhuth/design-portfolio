@@ -68,6 +68,7 @@ export default function About() {
               {[
                 "I’m a Senior Product Designer with 10 years of experience building intuitive digital products people love. My most recent experience covers e-commerce, crafting conversion-driving features at the intersection of user behavior and business outcomes.",
                 "I’ve spent the last 5 years embedded in the native mobile app team at American Eagle Outfitters, working with iOS and Android — one of two designers supporting platforms responsible for 40% of AEO’s digital revenue. I’ve designed across navigation and search, product, cart and checkout, account, loyalty and rewards, personalization and recommendations, fulfillment, and notifications.",
+                "Earlier on in my career, I designed web applications from end to end, often operating as a lone designer on cross-functional teams. This experience gave me a strong, hands-on foundation across research, wireframing, prototyping, and usability testing that has continued to influence how I work today.",
                 "I’m currently working with the Design Systems team at PNC Bank, restarting an initiative to build out a Mobile Design System for PNC iOS and Android apps.",
               ].map((text, i) => (
                 <motion.p
@@ -127,8 +128,8 @@ export default function About() {
               simplicity and intention. My hobbies tend to be quiet ones — I spend a lot of my free
               time embroidering and knitting, slow crafts that reward patience over speed. I&apos;m also
               drawn to macro photography and photo editing, finding detail and structure in small,
-              overlooked things. When I&apos;m not making something with my hands, I&apos;m usually reading
-              nonfiction, always looking to learn something new.
+              overlooked things. When I&apos;m not making something with my hands, I&apos;m usually reading,
+              always looking to learn something new.
             </p>
           </div>
 

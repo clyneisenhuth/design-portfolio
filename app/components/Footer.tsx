@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
 import Logo from "./Logo";
 
 export default function Footer() {
@@ -32,8 +33,7 @@ export default function Footer() {
             Let&apos;s work together.
           </h2>
           <p className="font-sans text-sm text-muted max-w-md mb-8 leading-relaxed">
-            Open to senior product design and strategy roles. If you have something interesting,
-            I&apos;d like to hear about it.
+            Open to senior product design and strategy roles.
           </p>
 
           {/* Spring-physics email button */}
@@ -62,17 +62,11 @@ export default function Footer() {
             <Logo className="text-sm" />
           </a>
 
-          <p className="font-sans text-xs text-muted">
-            Created with Claude Code · 2026
+          <p className="font-sans text-xs text-muted flex items-center gap-1.5">
+            Created with Claude Code and <Heart size={12} strokeWidth={1.5} className="fill-purple text-purple" /> · 2026
           </p>
 
           <div className="flex items-center gap-6">
-            <a
-              href="mailto:courtneyeisenhuth@gmail.com"
-              className="font-sans text-sm text-muted hover:text-ink transition-colors duration-200"
-            >
-              Email
-            </a>
             <a
               href="https://www.linkedin.com/in/courtney-eisenhuth-8750815b/"
               target="_blank"
