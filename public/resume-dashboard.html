@@ -28,119 +28,117 @@
       color: var(--ink);
     }
 
-    .page {
-      width: 8.5in;
-      min-height: 11in;
+    .wrap {
+      max-width: 1000px;
       margin: 0 auto;
-      background: var(--bg);
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      border: 1px solid var(--border);
+      padding: 48px 24px 64px;
     }
 
-    /* ── Sidebar ── */
-    .sidebar {
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 40px 24px;
-    }
-
-    .sidebar-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-
-    .sidebar-title {
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-family: 'Space Mono', monospace;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--purple);
-      margin-bottom: 28px;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 32px;
     }
 
-    .sidebar-section { margin-bottom: 26px; }
-
-    .sidebar-heading {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--purple);
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .contact-item {
+    /* ── Header banner ── */
+    .banner {
       display: flex;
-      align-items: flex-start;
-      gap: 7px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 8px;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-
-    .contact-icon {
-      flex-shrink: 0;
-      width: 13px;
-      height: 13px;
-      margin-top: 1px;
-      color: var(--purple);
-    }
-
-    .edu-block { margin-bottom: 14px; }
-
-    .edu-degree {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-      line-height: 1.3;
-    }
-
-    .edu-sub {
-      font-size: 10.5px;
-      color: var(--muted);
-      font-weight: 500;
-      margin-top: 3px;
-      line-height: 1.4;
-    }
-
-    .edu-sub strong { color: var(--purple-deep); font-weight: 700; }
-
-    .skill-pill {
-      display: inline-block;
-      font-family: 'Space Mono', monospace;
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
       background: var(--purple-pale);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px 36px;
+      margin-bottom: 20px;
+    }
+
+    .banner-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .banner-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
       color: var(--purple-deep);
-      border-radius: 5px;
-      padding: 3px 7px;
-      margin: 2px 3px 2px 0;
     }
 
-    /* ── Main ── */
-    .main {
-      padding: 40px 40px;
+    .banner-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: right;
     }
 
-    .section { margin-bottom: 28px; }
+    .banner-contact span {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--purple-deep);
+    }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--purple);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Two column layout ── */
+    .columns {
+      display: grid;
+      grid-template-columns: 1.85fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
 
     .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: 'Space Mono', monospace;
       font-size: 10px;
       font-weight: 700;
@@ -148,9 +146,6 @@
       text-transform: uppercase;
       color: var(--purple);
       margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .section-heading::after {
@@ -160,10 +155,17 @@
       background: var(--border);
     }
 
-    .exp-block { margin-bottom: 20px; }
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+    }
 
     .exp-top {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: baseline;
       gap: 8px;
@@ -172,7 +174,7 @@
 
     .exp-role {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: var(--ink);
@@ -184,7 +186,7 @@
       font-weight: 700;
       color: var(--muted);
       white-space: nowrap;
-      background: var(--surface);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 3px 8px;
@@ -197,7 +199,7 @@
       color: var(--purple);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .exp-location {
@@ -213,13 +215,13 @@
     .exp-bullets { list-style: none; }
 
     .exp-bullets li {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 400;
       color: var(--muted);
-      line-height: 1.65;
+      line-height: 1.6;
       padding-left: 14px;
       position: relative;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .exp-bullets li::before {
@@ -233,85 +235,127 @@
       background: var(--purple);
     }
 
-    @media print {
-      body { background: white; }
-      .page { border: none; margin: 0; width: 100%; }
+    /* ── Right rail ── */
+    .rail-section { margin-bottom: 28px; }
+
+    .edu-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
     }
 
-    @media screen {
-      body { padding: 40px 20px; }
+    .edu-degree {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .edu-sub {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .edu-sub strong { color: var(--purple-deep); font-weight: 700; }
+
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      background: var(--purple-pale);
+      color: var(--purple-deep);
+      border-radius: 6px;
+      padding: 5px 9px;
+    }
+
+    .footer-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    @media (max-width: 720px) {
+      .columns { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .banner { flex-direction: column; align-items: flex-start; }
+      .banner-contact { text-align: left; }
+    }
+
+    @media print {
+      body { background: white; }
+      .back { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
+  <div class="wrap">
 
-    <!-- ── Sidebar ── -->
-    <aside class="sidebar">
-      <p class="sidebar-name">Courtney<br>Eisenhuth</p>
-      <p class="sidebar-title">Senior Product Designer</p>
+    <a href="/" class="back">&larr; Back to portfolio</a>
 
-      <div class="sidebar-section">
-        <h2 class="sidebar-heading">Contact</h2>
-        <p class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>
-          <span>Pittsburgh, PA</span>
-        </p>
-        <p class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg>
-          <span>courtneyeisenhuth@gmail.com</span>
-        </p>
-        <p class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg>
-          <span>(412) 915-0278</span>
-        </p>
-        <p class="contact-item">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
-          <span>courtneyeisenhuth.com</span>
-        </p>
+    <div class="banner">
+      <div>
+        <p class="banner-name">Courtney Eisenhuth</p>
+        <p class="banner-title">Senior Product Designer</p>
       </div>
-
-      <div class="sidebar-section">
-        <h2 class="sidebar-heading">Education</h2>
-        <div class="edu-block">
-          <p class="edu-degree">M.S., Media Arts &amp; Technology</p>
-          <p class="edu-sub"><strong>Web &amp; Experience Design</strong><br>Duquesne University, Pittsburgh, PA</p>
-        </div>
-        <div class="edu-block">
-          <p class="edu-degree">B.A., Digital Media Arts</p>
-          <p class="edu-sub">Duquesne University, Pittsburgh, PA</p>
-        </div>
+      <div class="banner-contact">
+        <span>Pittsburgh, PA</span>
+        <span>courtneyeisenhuth@gmail.com</span>
+        <span>(412) 915-0278</span>
+        <span>courtneyeisenhuth.com</span>
       </div>
+    </div>
 
-      <div class="sidebar-section">
-        <h2 class="sidebar-heading">Skills</h2>
-        <span class="skill-pill">UX/UI Design</span>
-        <span class="skill-pill">Mobile UX</span>
-        <span class="skill-pill">UX Strategy</span>
-        <span class="skill-pill">User Research</span>
-        <span class="skill-pill">A/B Testing</span>
-        <span class="skill-pill">Wireframing</span>
-        <span class="skill-pill">Prototyping</span>
-        <span class="skill-pill">Figma</span>
-        <span class="skill-pill">Axure</span>
-        <span class="skill-pill">Adobe Creative Suite</span>
-        <span class="skill-pill">Design Systems</span>
-        <span class="skill-pill">Analytics</span>
-        <span class="skill-pill">Usability Testing</span>
-        <span class="skill-pill">WCAG 2.X</span>
-        <span class="skill-pill">Agile / SCRUM</span>
-        <span class="skill-pill">JIRA</span>
-        <span class="skill-pill">AI Tools</span>
-        <span class="skill-pill">iOS &amp; Android</span>
+    <div class="stats-row">
+      <div class="stat-card">
+        <p class="stat-value">10+</p>
+        <p class="stat-label">Yrs Experience</p>
       </div>
-    </aside>
+      <div class="stat-card">
+        <p class="stat-value">$20.35M</p>
+        <p class="stat-label">2025 Revenue Lift</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-value">40%</p>
+        <p class="stat-label">Of Digital Revenue</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-value">4</p>
+        <p class="stat-label">Roles Held</p>
+      </div>
+    </div>
 
-    <!-- ── Main ── -->
-    <main class="main">
-      <div class="section">
-        <h2 class="section-heading">Experience</h2>
+    <div class="columns">
+      <div>
+        <p class="section-heading">Experience</p>
 
-        <div class="exp-block">
+        <div class="exp-card">
           <div class="exp-top">
             <p class="exp-role">Product Strategist</p>
             <span class="exp-dates">Oct 2023 – Jan 2026</span>
@@ -327,7 +371,7 @@
           </ul>
         </div>
 
-        <div class="exp-block">
+        <div class="exp-card">
           <div class="exp-top">
             <p class="exp-role">Product Designer</p>
             <span class="exp-dates">Aug 2020 – Oct 2023</span>
@@ -342,7 +386,7 @@
           </ul>
         </div>
 
-        <div class="exp-block">
+        <div class="exp-card">
           <div class="exp-top">
             <p class="exp-role">UX/UI Design Consultant</p>
             <span class="exp-dates">Aug 2018 – Apr 2020</span>
@@ -356,7 +400,7 @@
           </ul>
         </div>
 
-        <div class="exp-block">
+        <div class="exp-card">
           <div class="exp-top">
             <p class="exp-role">UX/UI Designer</p>
             <span class="exp-dates">May 2016 – Jan 2018</span>
@@ -368,9 +412,52 @@
             <li>Partnered closely with developers throughout the implementation process, providing design clarification, reviewing builds against original mockups, and troubleshooting discrepancies to ensure final deliverables aligned with the intended design vision.</li>
           </ul>
         </div>
-
       </div>
-    </main>
+
+      <div>
+        <div class="rail-section">
+          <p class="section-heading">Education</p>
+          <div class="edu-block">
+            <p class="edu-degree">M.S., Media Arts &amp; Technology</p>
+            <p class="edu-sub"><strong>Web &amp; Experience Design</strong><br>Duquesne University, Pittsburgh, PA</p>
+          </div>
+          <div class="edu-block">
+            <p class="edu-degree">B.A., Digital Media Arts</p>
+            <p class="edu-sub">Duquesne University, Pittsburgh, PA</p>
+          </div>
+        </div>
+
+        <div class="rail-section">
+          <p class="section-heading">Skills</p>
+          <div class="skills-wrap">
+            <span class="skill-pill">UX/UI Design</span>
+            <span class="skill-pill">Mobile UX</span>
+            <span class="skill-pill">UX Strategy</span>
+            <span class="skill-pill">User Research</span>
+            <span class="skill-pill">A/B Testing</span>
+            <span class="skill-pill">Wireframing</span>
+            <span class="skill-pill">Prototyping</span>
+            <span class="skill-pill">Figma</span>
+            <span class="skill-pill">Axure</span>
+            <span class="skill-pill">Adobe XD</span>
+            <span class="skill-pill">Design Systems</span>
+            <span class="skill-pill">Analytics</span>
+            <span class="skill-pill">Usability Testing</span>
+            <span class="skill-pill">WCAG 2.X</span>
+            <span class="skill-pill">Agile / SCRUM</span>
+            <span class="skill-pill">JIRA</span>
+            <span class="skill-pill">E-commerce UX</span>
+            <span class="skill-pill">AI Tools</span>
+            <span class="skill-pill">iOS &amp; Android</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-nav">
+      <a href="/" class="footer-link">&larr; Back to portfolio</a>
+      <span class="footer-link">courtneyeisenhuth.com</span>
+    </div>
 
   </div>
 </body>
